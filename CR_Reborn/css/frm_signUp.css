@@ -1,0 +1,419 @@
+.mediaViewInfo {
+	--web-view-name: SignUp;
+	--web-view-id: SignUp;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: SignUp;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#SignUp {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(255,255,255,1);
+	overflow: hidden;
+	--web-view-name: SignUp;
+	--web-view-id: SignUp;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+#bg_img {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#bg_shadow_l {
+	opacity: 0.84;
+	fill: url(#bg_shadow_l);
+}
+.bg_shadow_l {
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+}
+#div_form {
+	fill: rgba(255,255,255,1);
+}
+.div_form {
+	filter: drop-shadow(0px 3px 80px rgba(0, 0, 0, 1));
+	position: absolute;
+	overflow: visible;
+	width: 1680px;
+	height: 1100px;
+	left: 240px;
+	top: 110px;
+}
+#div_regData {
+	fill: rgba(255,255,255,1);
+}
+.div_regData {
+	position: absolute;
+	overflow: visible;
+	width: 860px;
+	height: 860px;
+	left: 820px;
+	top: 110px;
+}
+#txt_detail {
+	left: 1530px;
+	top: 173px;
+	position: absolute;
+	overflow: visible;
+	width: 71px;
+	white-space: nowrap;
+	text-align: right;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(112,112,112,1);
+}
+#txt_note {
+	left: 855px;
+	top: 903px;
+	position: absolute;
+	overflow: visible;
+	width: 359px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+	color: rgba(112,112,112,1);
+}
+#txt_titleForm {
+	left: 1148px;
+	top: 171px;
+	position: absolute;
+	overflow: visible;
+	width: 203px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 43px;
+	color: rgba(112,112,112,1);
+}
+#txt_info {
+	left: 1026px;
+	top: 243px;
+	position: absolute;
+	overflow: visible;
+	width: 448px;
+	height: 89px;
+	text-align: center;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(112,112,112,1);
+}
+#inp_pass {
+	position: absolute;
+	width: 446.452px;
+	height: 80px;
+	left: 1026.391px;
+	top: 619.539px;
+	display: none;
+	overflow: visible;
+}
+#Path_9 {
+	fill: rgba(255,255,255,1);
+}
+.Path_9 {
+	filter: drop-shadow(0px 12px 40px rgba(0, 0, 0, 0.078));
+	overflow: visible;
+	position: absolute;
+	width: 566.452px;
+	height: 200px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#CONTRASEA {
+	left: 31.609px;
+	top: 29.461px;
+	position: absolute;
+	overflow: visible;
+	width: 95px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#inp_apellido {
+	position: absolute;
+	width: 446.452px;
+	height: 80px;
+	left: 1026.391px;
+	top: 535.539px;
+	display: none;
+	overflow: visible;
+}
+#Path_9_w {
+	fill: rgba(255,255,255,1);
+}
+.Path_9_w {
+	filter: drop-shadow(0px 12px 40px rgba(0, 0, 0, 0.078));
+	overflow: visible;
+	position: absolute;
+	width: 566.452px;
+	height: 200px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#APELLIDO {
+	left: 31.609px;
+	top: 29.461px;
+	position: absolute;
+	overflow: visible;
+	width: 67px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#inp_nombre {
+	position: absolute;
+	width: 446.452px;
+	height: 80px;
+	left: 1026.391px;
+	top: 451.539px;
+	display: none;
+	overflow: visible;
+}
+#Path_9_z {
+	fill: rgba(255,255,255,1);
+}
+.Path_9_z {
+	filter: drop-shadow(0px 12px 40px rgba(0, 0, 0, 0.078));
+	overflow: visible;
+	position: absolute;
+	width: 566.452px;
+	height: 200px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#NOMBRE {
+	left: 31.609px;
+	top: 29.461px;
+	position: absolute;
+	overflow: visible;
+	width: 62px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#inp_conPass {
+	position: absolute;
+	width: 446.452px;
+	height: 80px;
+	left: 1026.391px;
+	top: 703.539px;
+	display: none;
+	overflow: visible;
+}
+#Path_9_ {
+	fill: rgba(255,255,255,1);
+}
+.Path_9_ {
+	filter: drop-shadow(0px 12px 40px rgba(0, 0, 0, 0.078));
+	overflow: visible;
+	position: absolute;
+	width: 566.452px;
+	height: 200px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#CONFIRMAR_CONTRASEA {
+	left: 31.609px;
+	top: 29.461px;
+	position: absolute;
+	overflow: visible;
+	width: 184px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#inp_email {
+	position: absolute;
+	width: 446.452px;
+	height: 80px;
+	left: 1026.391px;
+	top: 367.757px;
+	display: none;
+	overflow: visible;
+}
+#Path_8 {
+	fill: rgba(255,255,255,1);
+}
+.Path_8 {
+	filter: drop-shadow(0px 12px 40px rgba(0, 0, 0, 0.078));
+	overflow: visible;
+	position: absolute;
+	width: 566.452px;
+	height: 200px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#EMAIL {
+	opacity: 0.5;
+	left: 31.609px;
+	top: 7.243px;
+	position: absolute;
+	overflow: visible;
+	width: 43px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#crreborngmailcom {
+	left: 31.609px;
+	top: 28.243px;
+	position: absolute;
+	overflow: visible;
+	width: 184px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Avenir;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#btn_signUp {
+	position: absolute;
+	width: 113.385px;
+	height: 29.016px;
+	left: 1359px;
+	top: 826px;
+	overflow: visible;
+}
+#txt_signUp {
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 82px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	color: rgba(112,112,112,1);
+	letter-spacing: 0.5px;
+}
+#loginIcon {
+	position: absolute;
+	width: 29.016px;
+	height: 29.016px;
+	left: 84.369px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_5 {
+	position: absolute;
+	width: 29.016px;
+	height: 29.016px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_4 {
+	position: absolute;
+	width: 29.016px;
+	height: 29.016px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_10 {
+	fill: rgba(20,58,97,1);
+}
+.Path_10 {
+	overflow: visible;
+	position: absolute;
+	width: 19.344px;
+	height: 29.016px;
+	left: 9.672px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_11 {
+	fill: rgba(20,58,97,1);
+}
+.Path_11 {
+	overflow: visible;
+	position: absolute;
+	width: 21.762px;
+	height: 14.508px;
+	left: 0px;
+	top: 7.254px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#sideForm_img {
+	position: absolute;
+	width: 580px;
+	height: 860px;
+	left: 240px;
+	top: 110px;
+	overflow: visible;
+}
+#Logo {
+	position: absolute;
+	width: 88px;
+	height: 94px;
+	left: 263px;
+	top: 854px;
+	overflow: visible;
+}
+
+.form{
+	margin-top: 410px;
+	margin-left: 1050px;
+}
+

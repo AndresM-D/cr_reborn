@@ -47,27 +47,7 @@
     <div id="txt_info">
         <span>Ingresa tu datos para poder registrarte en nuestro sitio web y empezar a explorar los diferentes lugares que podrías visitar</span>
     </div>
-    <div id="btn_signUp">
-        <div id="txt_signUp">
-            <a href=""><span>SIGNUP</span></a>
-        </div>
-        <div id="loginIcon">
-            <div id="Group_5">
-                <div id="Group_4">
-                    <svg class="Path_10" viewBox="170.666 0 19.344 29.016">
-                        <path id="Path_10"
-                              d="M 187.5918121337891 0 L 173.0839996337891 0 C 171.7504577636719 0 170.666015625 1.084402322769165 170.666015625 2.417987823486328 L 170.666015625 6.649452209472656 C 170.666015625 6.983584880828857 170.9363861083984 7.253963470458984 171.2705230712891 7.253963470458984 C 171.6046600341797 7.253963470458984 171.8750305175781 6.983585834503174 171.8750305175781 6.649452686309814 L 171.8750305175781 2.417987823486328 C 171.8750305175781 1.751535058021545 172.4175415039063 1.209022164344788 173.0839996337891 1.209022164344788 L 187.5918121337891 1.209022164344788 C 188.2582702636719 1.209022164344788 188.80078125 1.751535058021545 188.80078125 2.417987823486328 L 188.80078125 26.59769248962402 C 188.80078125 27.26414680480957 188.2582702636719 27.80665969848633 187.5918121337891 27.80665969848633 L 173.0839996337891 27.80665969848633 C 172.4175415039063 27.80665969848633 171.8750305175781 27.26414680480957 171.8750305175781 26.59769248962402 L 171.8750305175781 22.36623001098633 C 171.8750305175781 22.03209686279297 171.6046600341797 21.76171875 171.2705230712891 21.76171875 C 170.9363861083984 21.76171875 170.666015625 22.03209686279297 170.666015625 22.36623001098633 L 170.666015625 26.59769248962402 C 170.666015625 27.93122100830078 171.7504272460938 29.01568031311035 173.0839996337891 29.01568031311035 L 187.5918121337891 29.01568031311035 C 188.9253845214844 29.015625 190.0097961425781 27.93122100830078 190.0097961425781 26.59763717651367 L 190.0097961425781 2.417987823486328 C 190.0097961425781 1.084402322769165 188.9253845214844 0 187.5918121337891 0 Z">
-                        </path>
-                    </svg>
-                    <svg class="Path_11" viewBox="0 128.003 21.762 14.508">
-                        <path id="Path_11"
-                              d="M 13.49481678009033 141.4601440429688 C 13.24863719940186 141.6856384277344 13.23214626312256 142.0681610107422 13.45763874053955 142.3143463134766 C 13.57687568664551 142.4442443847656 13.73980522155762 142.5103149414063 13.90335750579834 142.5103149414063 C 14.04917335510254 142.5103149414063 14.19555473327637 142.4577789306641 14.31184387207031 142.3515167236328 L 21.56575012207031 135.7021331787109 C 21.69087982177734 135.5876007080078 21.76171875 135.4258575439453 21.76171875 135.2564086914063 C 21.76171875 135.0869750976563 21.69087982177734 134.9252319335938 21.56575012207031 134.8106994628906 L 14.31184387207031 128.1613006591797 C 14.06447315216064 127.9358062744141 13.68375682830811 127.9529113769531 13.45763874053955 128.1984710693359 C 13.23214435577393 128.4446563720703 13.24863624572754 128.8271789550781 13.49481678009033 129.0526733398438 L 19.60339736938477 134.6519012451172 L 0.6045110821723938 134.6519012451172 C 0.2703780233860016 134.6519012451172 0 134.9222869873047 0 135.2564086914063 C 0 135.5905456542969 0.2703780233860016 135.8609161376953 0.6045110821723938 135.8609161376953 L 19.60345458984375 135.8609161376953 L 13.49481678009033 141.4601440429688 Z">
-                        </path>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <img id="sideForm_img" src="../img/signUp/sideForm_img.png" srcset="../img/signUp/sideForm_img.png 1x">
 
     <img id="Logo" src="../img/signUp/Logo.png" srcset="../img/signUp/Logo.png 1x">
@@ -77,32 +57,42 @@
             <div class="col-md-6">
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" id="formGroupCORREOInput"
-                               placeholder="CORREO ELECTRÓNICO">
-                    </div>
-                    <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
-                               placeholder="NOMBRE">
+                               placeholder="NOMBRE" required>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupAPELLIDOInput"
-                               placeholder="APELLIDO">
+                               placeholder="APELLIDO" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="email form-control form-control-lg" id="email"
+                               placeholder="CORREO ELECTRÓNICO" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                               required>
+                        <div class="valid-feedback feedback-pos">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback feedback-pos">
+                            Please input valid email ID
+                        </div>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupPASSInput"
                                placeholder="CONTRASEÑA"
-                               aria-describedby="passwordHelpBlock">
+                               aria-describedby="passwordHelpBlock" required>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupREPASSInput"
                                placeholder="CONFIRMAR CONTRASEÑA"
-                               aria-describedby="passwordHelpBlock">
+                               aria-describedby="passwordHelpBlock" required>
                         <small id="passwordHelpBlock" class="form-text text-muted">
                             Your password must be 8-20 characters long, contain letters and numbers, and must not
                             contain spaces,
                             special characters, or emoji.
                         </small>
                     </div>
+                    <button type="submit" class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1"
+                            value="validate">Submit
+                    </button>
                 </form>
             </div>
         </div>

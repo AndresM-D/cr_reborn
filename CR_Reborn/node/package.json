@@ -1,0 +1,9 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mssql": "^6.2.3",
+    "tedious": "^9.2.1"
+  }
+}

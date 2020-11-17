@@ -127,6 +127,7 @@ async function addUsuario(usuario) {
             .input('password_login', sql.NVarChar, usuario._password_login)
             .input('fec_registro', sql.Date, usuario._fec_registro)
             .input('estado', sql.NVarChar, usuario._estado)
+            //stored procedure
             .execute('InsertUsuario');
         return insertUsuario.recordset;
     } catch (error) {

@@ -5,22 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="../css/frm_signUp.css"/>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/frm_signUp.css"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- JS -->
-    <script id="applicationScript" type="text/javascript" src="../js/frm_signUp.js"></script>
+    <script id="applicationScript" type="text/javascript" src="/js/frm_signUp.js"></script>
 </head>
 <body>
-
-
 <div id="SignUp">
-
-    <img id="bg_img" src="../img/signUp/bg_img.png" srcset="../img/signUp/bg_img.png 1x">
-
+    <img id="bg_img" src="/img/signUp/bg_img.png" srcset="/img/signUp/bg_img.png 1x">
     </svg>
     <svg class="bg_shadow_l">
         <linearGradient id="bg_shadow_l" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
@@ -47,27 +43,27 @@
     <div id="txt_info">
         <span>Ingresa tu datos para poder registrarte en nuestro sitio web y empezar a explorar los diferentes lugares que podrías visitar</span>
     </div>
-
-    <img id="sideForm_img" src="../img/signUp/sideForm_img.png" srcset="../img/signUp/sideForm_img.png 1x">
-
-    <img id="Logo" src="../img/signUp/Logo.png" srcset="../img/signUp/Logo.png 1x">
-
+    <img id="sideForm_img" src="/img/signUp/sideForm_img.png" srcset="/img/signUp/sideForm_img.png 1x">
+    <img id="Logo" src="/img/signUp/Logo.png" srcset="/img/signUp/Logo.png 1x">
     <div class="form">
         <div class="row">
             <div class="col-md-6">
-                <form role="form">
+                <form role="form"
+                      action="/addUser"
+                      method="POST"
+                      oninput='password_login2.setCustomValidity(password_login2.value != password_login.value ? "Passwords do not match." : "")'>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
-                               placeholder="NOMBRE" required>
+                               placeholder="NOMBRE" required name="usuario_nombre">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupAPELLIDOInput"
-                               placeholder="APELLIDO" required>
+                               placeholder="APELLIDO" required name="usuario_apellido">
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" class="email form-control form-control-lg" id="email"
+                        <input type="email" class="email form-control form-control-lg" id="email"
                                placeholder="CORREO ELECTRÓNICO" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                               required>
+                               required name="usuario_login">
                         <div class="valid-feedback feedback-pos">
                             Looks good!
                         </div>
@@ -78,12 +74,12 @@
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupPASSInput"
                                placeholder="CONTRASEÑA"
-                               aria-describedby="passwordHelpBlock" required>
+                               aria-describedby="passwordHelpBlock" required name="password_login">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupREPASSInput"
                                placeholder="CONFIRMAR CONTRASEÑA"
-                               aria-describedby="passwordHelpBlock" required>
+                               aria-describedby="passwordHelpBlock" required name="password_login2">
                         <small id="passwordHelpBlock" class="form-text text-muted">
                             Your password must be 8-20 characters long, contain letters and numbers, and must not
                             contain spaces,
@@ -97,9 +93,6 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
 </body>
 </html>

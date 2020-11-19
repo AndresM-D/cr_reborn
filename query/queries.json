@@ -1,6 +1,6 @@
 {
-  "getAllData": "SELECT * FROM [dbo].[Usuario]",
-  "addNewUser": "INSERT INTO [dbo].[Usuario] (id_usuario,id_tipoUsuario,usuario_login,password_login,estado) VALUES (@id_usuario,@id_tipoUsuario,@usuario_login,@password_login,@estado) ",
-  "deleteUser": "DELETE FROM [dbo].[Usuario] WHERE id_usuario = @id_usuario",
-  "updateUser": "UPDATE [dbo].[Usuario] SET password_login = @password_login WHERE id_usuario = @id_usuario"
+  "getUser": "SELECT * FROM [dbo].[Usuario]",
+  "addUser": "INSERT INTO [dbo].[Usuario] (id_usuario,id_tipoUsuario,usuario_login,password_login,estado) VALUES (@id_usuario,@id_tipoUsuario,@usuario_login,@password_login,@estado) ",
+  "updateUser": "UPDATE [dbo].[Usuario] SET password_login = @password_login WHERE id_usuario = @id_usuario",
+  "deleteUser": "DELETE FROM [dbo].[Usuario] WHERE id_usuario = @id_usuario"
 }

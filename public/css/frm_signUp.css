@@ -1,3 +1,7 @@
+* {
+	font-family: Verdana;
+}
+
 .mediaViewInfo {
 	--web-view-name: SignUp;
 	--web-view-id: SignUp;

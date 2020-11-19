@@ -20,19 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
-      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/db.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/query/queries.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/dbconfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/dbconfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/dboperations.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/dboperations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/usuario.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/usuario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_Reborn/css/frm_signUp.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/frm_signUp.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_Reborn/html/frm_signUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/frm_signUp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_Reborn/img/signUp/Logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/signUp/Logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_Reborn/img/signUp/bg_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/signUp/bg_img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_Reborn/img/signUp/sideForm_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/signUp/sideForm_img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CR_Reborn/js/frm_signUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/frm_signUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/query/queries.json" beforeDir="false" afterPath="$PROJECT_DIR$/query/queries.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +67,7 @@
     <property name="javascript.nodejs.core.library.typings.version" value="12.19.0" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/dboperations.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
     <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
     <property name="nodejs.jest.jest_package" value="" />
     <property name="nodejs.protractor.protractor_package" value="" />
@@ -76,6 +76,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public" />
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public\html" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -148,7 +150,7 @@
       <workItem from="1605535584588" duration="1219000" />
       <workItem from="1605567882702" duration="16563000" />
       <workItem from="1605593573350" duration="1189000" />
-      <workItem from="1605714785138" duration="27851000" />
+      <workItem from="1605714785138" duration="36963000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -178,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605594357211</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="New API architecture implemented">
+      <created>1605749994500</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1605749994500</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +211,8 @@
     <MESSAGE value="Fields validation... ready!" />
     <MESSAGE value="Backend dev, REST API interface deployed..." />
     <MESSAGE value="Last update related to re-install of node libraries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Last update related to re-install of node libraries" />
+    <MESSAGE value="New API architecture implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="New API architecture implemented" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -273,13 +283,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1605594364695">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1605750009600">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605594364695" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605750009600" />
+    <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605750088322">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605750088322" />
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605568172935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605568172935" />
+    <state x="1096" y="244" key="run.anything.popup" timestamp="1605756549452">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1096" y="244" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605756549452" />
+    <state x="1103" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1605762922731">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1103" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605762922731" />
   </component>
 </project>

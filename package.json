@@ -17,13 +17,17 @@
   },
   "homepage": "https://github.com/AndresM-D/cr_reborn#readme",
   "dependencies": {
-    "morgan": "^1.10.0",
-    "mssql": "^6.2.3",
-    "express": "~4.17.1",
+    "body-parser": "^1.19.0",
     "cors": "2.8.5",
-    "mongoose": "^5.7.11"
+    "express": "~4.17.1",
+    "mongoose": "^5.7.11",
+    "morgan": "^1.10.0",
+    "mssql": "^6.2.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "serve": "nodemon app.js"
   }
 }

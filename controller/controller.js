@@ -5,11 +5,11 @@ var queries = JSON.parse(rawdata);
 
 class MainController {
 
-    async getAllData(req, res) {
+    async getUser(req, res) {
         try {
             const pool = await poolPromise
             const result = await pool.request()
-                .query(queries.getAllData)
+                .query(queries.getUser)
             res.json(result.recordset)
         } catch (error) {
             res.status(500)
@@ -17,7 +17,7 @@ class MainController {
         }
     }
 
-    async addNewData(req, res) {
+    async addUser(req, res) {
         try {
             if (req.body.id_usuario != null &&
                 req.body.id_tipoUsuario != null &&
@@ -32,7 +32,7 @@ class MainController {
                     .input('usuario_login', sql.NVarChar, req.body.usuario_login)
                     .input('password_login', sql.NVarChar, req.body.password_login)
                     .input('estado', sql.NVarChar, req.body.estado)
-                    .query(queries.addNewUser)
+                    .query(queries.addUser)
                 res.json(result)
 
             } else {
@@ -44,7 +44,7 @@ class MainController {
         }
     }
 
-    async updateData(req, res) {
+    async updateUser(req, res) {
         try {
             if (req.body.password_login != null &&
                 req.body.id_usuario != null)
@@ -64,7 +64,7 @@ class MainController {
         }
     }
 
-    async deleteData(req, res) {
+    async deleteUser(req, res) {
         try {
             if (req.body.id_usuario != null){
                 const pool = await poolPromise
@@ -80,6 +80,8 @@ class MainController {
             res.send(error.message)
         }
     }
+
+
 }
 
 const controller = new MainController()

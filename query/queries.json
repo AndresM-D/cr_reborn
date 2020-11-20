@@ -1,6 +1,13 @@
 {
-  "getUser": "SELECT * FROM [dbo].[Usuario]",
-  "addUser": "INSERT INTO [dbo].[Usuario] (id_usuario,id_tipoUsuario,usuario_login,password_login,estado) VALUES (@id_usuario,@id_tipoUsuario,@usuario_login,@password_login,@estado) ",
-  "updateUser": "UPDATE [dbo].[Usuario] SET password_login = @password_login WHERE id_usuario = @id_usuario",
-  "deleteUser": "DELETE FROM [dbo].[Usuario] WHERE id_usuario = @id_usuario"
+  "_comment": "Usuario queries",
+  "getUsuario": "SELECT * FROM Usuario",
+  "addUsuario": "INSERT INTO Usuario (id_tipoUsuario,usuario_login,password_login,estado) VALUES (@id_tipoUsuario,@usuario_login,@password_login,@estado)",
+  "updateUsuario": "UPDATE Usuario SET password_login = @password_login WHERE id_usuario = @id_usuario",
+  "deleteUsuario": "DELETE FROM Usuario WHERE id_usuario = @id_usuario",
+
+  "_comment": "Visitante queries",
+  "getVisitante": "SELECT * FROM Visitante",
+  "addVisitante": "INSERT INTO Visitante (id_usuario,nombre,apellido,correo) VALUES (@id_usuario,@nombre,@apellido,@correo) ",
+  "updateVisitante": "UPDATE Visitante SET nombre = @nombre, apellido = @apellido WHERE id_visitante = @id_visitante",
+  "deleteVisitante": "DELETE FROM Visitante WHERE id_visitante = @id_visitante"
 }

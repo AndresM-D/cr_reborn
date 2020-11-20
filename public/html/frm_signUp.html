@@ -13,6 +13,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- JS -->
     <script id="applicationScript" type="text/javascript" src="/js/frm_signUp.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="SignUp">
@@ -48,17 +50,17 @@
     <div class="form">
         <div class="row">
             <div class="col-md-6">
-                <form role="form"
-                      action="/addUser"
+                <form id="register"
+                      action="/register"
                       method="POST"
-                      oninput='password_login2.setCustomValidity(password_login2.value != password_login.value ? "Passwords do not match." : "")'>
+                      oninput='password_login2.setCustomValidity(password_login2.value !== password_login.value ? "Passwords do not match." : "")'>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
-                               placeholder="NOMBRE" required name="usuario_nombre">
+                               placeholder="NOMBRE" required name="nombre">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupAPELLIDOInput"
-                               placeholder="APELLIDO" required name="usuario_apellido">
+                               placeholder="APELLIDO" required name="apellido">
                     </div>
                     <div class="form-group">
                         <input type="email" class="email form-control form-control-lg" id="email"

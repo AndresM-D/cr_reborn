@@ -6,8 +6,7 @@ const path = require('path')
 const morgan = require('morgan')
 const router = require('./routes/route')
 const app = express()
-const controller = require('./controller/controller')
-const {sql, poolPromise} = require('./database/db')
+const {sql, poolPromise, config} = require('./database/db')
 var rawdata = fs.readFileSync('./query/queries.json');
 var queries = JSON.parse(rawdata);
 
@@ -24,28 +23,78 @@ app.use(bodyParser.json())
 
 app.use(morgan('dev'))
 
-app.post('/addUser', (req, res) => {
-    console.log("Trying to create a new user...")
+//TODO: frm_signUp validitation from backend to frontend
+//Receives and stores a new Usuario from frm_signUp.html
+app.post('/register', (req, res) => {
 
-    console.log("Name: " + req.body.usuario_nombre)
-    const id_usuario = 8
+    //data from input's form
+    let id_usuario = ''
+
+    //const id_visitante = 2
+
+    //when a Usuario is stored from frm_signUp.html, id_tipoUsuario remains as 2 always!
     const id_tipoUsuario = 2
-    const usuario_nombre = req.body.usuario_nombre
-    const usuario_apellido = req.body.usuario_apellido
+
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
+
+    //same as id_tipoUsuario, estado remains as 1
     const estado = "1"
 
-    const queryString = "INSERT INTO [dbo].[Usuario] (id_usuario,id_tipoUsuario,usuario_login,password_login,estado) VALUES (@id_usuario,@id_tipoUsuario,@usuario_login,@password_login,@estado)"
-    sql.config.query(queryString, [id_usuario, id_tipoUsuario, usuario_login, password_login, estado], (error, results, fields) => {
-        if (error) {
-            console.log("Failed to insert new Usuario: " + error)
-            res.sendStatus(500)
+    //Usuario insertion into db
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_tipoUsuario', sql.Int, id_tipoUsuario)
+            .input('usuario_login', sql.NVarChar, usuario_login)
+            .input('password_login', sql.NVarChar, password_login)
+            .input('estado', sql.NVarChar, estado)
+            .query(queries.addUsuario)
+    }).then(result => {
+        console.log("Usuario have been created: ", result.rowsAffected)
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('usuario_login', sql.NVarChar, usuario_login)
+                .query('SELECT id_usuario FROM Usuario WHERE usuario_login = @usuario_login')
+        }).then(result => {
+            let output = result.recordset
+
+            for (let i = 0; i < output.length; i++) {
+                let id = output[i]
+                for (let idKey in id) {
+                    id_usuario = id[idKey]
+                }
+            }
+
+            //Visitante insertion into db
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('id_usuario', sql.Int, parseInt(id_usuario))
+                    .input('nombre', sql.NVarChar, nombre)
+                    .input('apellido', sql.NVarChar, apellido)
+                    .input('correo', sql.NVarChar, usuario_login)
+                    .query(queries.addVisitante)
+            }).then(result => {
+                console.log("Visitante have been created: ", result.rowsAffected);
+            }).catch(error => {
+                console.log("Failed to create new Visitante: " + error)
+                res.sendStatus(500)
+                return
+            })
+
+        }).catch(error => {
+            console.error(error)
             return
-        }
-        console.log("Inserted a new Usuario with id: ", results.id);
-        res.end()
+        })
+    }).catch(error => {
+        console.log("Failed to create new Usuario: " + error)
+        res.sendStatus(500)
+        return
     })
+
+//important... otherwise page falls into a endless loop trying to response something
+    res.end()
 })
 
 //create a write stream (in append mode)

@@ -5,12 +5,12 @@ const config = {
     password: 'reborn123',
     server: 'localhost',
     database: 'dbCRReborn',
-    options:{
+    options: {
         trustedConnection: true,
         enableArithAbort: true,
         instanceName: 'SQLEXPRESS'
     },
-    port : 55892
+    port: 55892
 }
 
 const poolPromise = new sql.ConnectionPool(config)
@@ -21,5 +21,5 @@ const poolPromise = new sql.ConnectionPool(config)
     }).catch(error => console.log('Database Connection Failed! Bad Config: ', error))
 
 module.exports = {
-    sql, poolPromise
+    sql, poolPromise, config
 }

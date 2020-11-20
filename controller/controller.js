@@ -5,11 +5,12 @@ var queries = JSON.parse(rawdata);
 
 class MainController {
 
-    async getUser(req, res) {
+    //Usuario
+    async getUsuario(req, res) {
         try {
             const pool = await poolPromise
             const result = await pool.request()
-                .query(queries.getUser)
+                .query(queries.getUsuario)
             res.json(result.recordset)
         } catch (error) {
             res.status(500)
@@ -17,7 +18,7 @@ class MainController {
         }
     }
 
-    async addUser(req, res) {
+    async addUsuario(req, res) {
         try {
             if (req.body.id_usuario != null &&
                 req.body.id_tipoUsuario != null &&
@@ -32,9 +33,8 @@ class MainController {
                     .input('usuario_login', sql.NVarChar, req.body.usuario_login)
                     .input('password_login', sql.NVarChar, req.body.password_login)
                     .input('estado', sql.NVarChar, req.body.estado)
-                    .query(queries.addUser)
+                    .query(queries.addUsuario)
                 res.json(result)
-
             } else {
                 res.send('Please fill all the details!')
             }
@@ -44,7 +44,7 @@ class MainController {
         }
     }
 
-    async updateUser(req, res) {
+    async updateUsuario(req, res) {
         try {
             if (req.body.password_login != null &&
                 req.body.id_usuario != null)
@@ -53,7 +53,7 @@ class MainController {
                 const result = await pool.request()
                     .input('password_login', sql.NVarChar, req.body.password_login)
                     .input('id_usuario', sql.NVarChar, req.body.id_usuario)
-                    .query(queries.updateUser)
+                    .query(queries.updateUsuario)
                 res.json(result)
             } else {
                 res.send('All fields are required!')
@@ -64,13 +64,13 @@ class MainController {
         }
     }
 
-    async deleteUser(req, res) {
+    async deleteUsuario(req, res) {
         try {
             if (req.body.id_usuario != null){
                 const pool = await poolPromise
                 const result = await pool.request()
                     .input('id_usuario', sql.Int, req.body.id_usuario)
-                    .query(queries.deleteUser)
+                    .query(queries.deleteUsuario)
                 res.json(result)
             } else {
                 res.send('Please fill all the details!')
@@ -81,6 +81,83 @@ class MainController {
         }
     }
 
+    //Visitante
+    async getVisitante(req, res) {
+        try {
+            const pool = await poolPromise
+            const result = await pool.request()
+                .query(queries.getVisitante)
+            res.json(result.recordset)
+        } catch (error) {
+            res.status(500)
+            res.send(error.message)
+        }
+    }
+
+    async addVisitante(req, res) {
+        try {
+            if (req.body.id_visitante != null &&
+                req.body.id_usuario != null &&
+                req.body.nombre != null &&
+                req.body.apellido != null &&
+                req.body.correo != null)
+            {
+                const pool = await poolPromise
+                const result = await pool.request()
+                    .input('id_visitante', sql.Int, req.body.id_visitante)
+                    .input('id_usuario', sql.Int, req.body.id_usuario)
+                    .input('nombre', sql.NVarChar, req.body.nombre)
+                    .input('apellido', sql.NVarChar, req.body.apellido)
+                    .input('correo', sql.NVarChar, req.body.correo)
+                    .query(queries.addVisitante)
+                res.json(result)
+            } else {
+                res.send('Please fill all the details!')
+            }
+        } catch (error) {
+            res.status(500)
+            res.send(error.message)
+        }
+    }
+
+    async updateVisitante(req, res) {
+        try {
+            if (req.body.nombre != null &&
+                req.body.apellido != null &&
+                req.body.id_visitante != null)
+            {
+                const pool = await poolPromise
+                const result = await pool.request()
+                    .input('nombre', sql.NVarChar, req.body.nombre)
+                    .input('apellido', sql.NVarChar, req.body.apellido)
+                    .input('id_visitante', sql.Int, req.body.id_visitante)
+                    .query(queries.updateVisitante)
+                res.json(result)
+            } else {
+                res.send('All fields are required!')
+            }
+        } catch (error) {
+            res.status(500)
+            res.send(error.message)
+        }
+    }
+
+    async deleteVisitante(req, res) {
+        try {
+            if (req.body.id_visitante != null){
+                const pool = await poolPromise
+                const result = await pool.request()
+                    .input('id_visitante', sql.Int, req.body.id_visitante)
+                    .query(queries.deleteVisitante)
+                res.json(result)
+            } else {
+                res.send('Please fill all the details!')
+            }
+        } catch (error) {
+            res.status(500)
+            res.send(error.message)
+        }
+    }
 
 }
 

@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- JS -->
-    <script id="applicationScript" type="text/javascript" src="/js/frm_signUp.js"></script>
+    <script id="applicationScript" type="text/javascript" src="/js/register.js"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -47,9 +47,11 @@
     </div>
     <img id="sideForm_img" src="/img/signUp/sideForm_img.png" srcset="/img/signUp/sideForm_img.png 1x">
     <img id="Logo" src="/img/signUp/Logo.png" srcset="/img/signUp/Logo.png 1x">
+
     <div class="form">
         <div class="row">
             <div class="col-md-6">
+
                 <form id="register"
                       action="/register"
                       method="POST"
@@ -88,13 +90,21 @@
                             special characters, or emoji.
                         </small>
                     </div>
-                    <button type="submit" class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1"
-                            value="validate">Submit
+                    <button type="submit"
+                            value="validate"
+                            class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1"
+                            id="btn_submit">Submit
                     </button>
                 </form>
+                <div class="container">
+                    <div class="alert alert-danger" role="alert" id="error-group" style="display: none">
+                        <ul id="errors"></ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

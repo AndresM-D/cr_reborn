@@ -4,7 +4,7 @@
   "description": "La creación de un sitio web que contenga información centralizada con respecto a lugares de turismo en Costa Rica. El sitio está orientado a toda la población que desee realizar turismo en Costa Rica.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,14 +20,13 @@
     "body-parser": "^1.19.0",
     "cors": "2.8.5",
     "express": "~4.17.1",
+    "express-validator": "^6.6.1",
+    "jquery": "^3.5.1",
     "mongoose": "^5.7.11",
     "morgan": "^1.10.0",
     "mssql": "^6.2.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
-  },
-  "scripts": {
-    "serve": "nodemon app.js"
   }
 }

@@ -29,11 +29,6 @@
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/html/frm_signUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/frm_signUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/register.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +149,8 @@
       <workItem from="1605714785138" duration="37210000" />
       <workItem from="1605802057620" duration="31397000" />
       <workItem from="1605887504879" duration="12086000" />
-      <workItem from="1605915579940" duration="8241000" />
+      <workItem from="1605915579940" duration="9578000" />
+      <workItem from="1605979344552" duration="2425000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -205,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605851055344</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Last changes...">
+      <created>1605926081585</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1605926081585</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,7 +246,8 @@
     <MESSAGE value="Last update related to re-install of node libraries" />
     <MESSAGE value="New API architecture implemented" />
     <MESSAGE value="frm_signUp.html working as expected, Usuario is created within Visitante record into DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="frm_signUp.html working as expected, Usuario is created within Visitante record into DB" />
+    <MESSAGE value="Last changes..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Last changes..." />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -314,14 +318,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1605851244473">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1605926093116">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605851244473" />
-    <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605750088322">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605926093116" />
+    <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605750088322" />
+    <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605926074857" />
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605568172935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

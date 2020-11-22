@@ -7,8 +7,8 @@ const morgan = require('morgan')
 const router = require('./routes/route')
 const app = express()
 const {sql, poolPromise, config} = require('./database/db')
-var rawdata = fs.readFileSync('./query/queries.json')
-var queries = JSON.parse(rawdata)
+const rawdata = fs.readFileSync('./query/queries.json')
+const queries = JSON.parse(rawdata)
 const {check, validationResult} = require('express-validator')
 
 app.use(express.static(__dirname + '/public'))
@@ -90,7 +90,7 @@ app.post('/register', (req, res) => {
             })
 
         }).catch(error => {
-            console.error(error)
+            console.log(error)
             return
         })
     }).catch(error => {
@@ -131,7 +131,7 @@ function alreadyHaveEmail(email) {
 
 
 //create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), {flags: 'a'})
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), {flags: 'a'})
 
 //setup the logger
 app.use(morgan('combined', {stream: accessLogStream}))

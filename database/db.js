@@ -1,5 +1,6 @@
 const sql = require('mssql')
 
+//TODO: create a user in sql server within below user and password, DON'T CHANGE THIS CODE
 const config = {
     user: 'cr_reborn',
     password: 'reborn123',

@@ -27,7 +27,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
+      <change afterPath="$PROJECT_DIR$/public/css/landing.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/css/successReg.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/html/landing.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/html/successReg.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/landing/Logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/landing/Mask_Group_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/successReg/Logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/successReg/bg_img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/successReg/sideForm_img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/landing.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/successReg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/frm_signUp.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/html/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/signUp/Logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/register/Logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/signUp/bg_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/register/bg_img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/signUp/sideForm_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/register/sideForm_img.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +170,7 @@
       <workItem from="1605887504879" duration="12086000" />
       <workItem from="1605915579940" duration="9578000" />
       <workItem from="1605979344552" duration="3136000" />
-      <workItem from="1606140567558" duration="2084000" />
+      <workItem from="1606140567558" duration="14512000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -222,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606140602494</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="db connection procedure">
+      <created>1606143740279</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1606143740279</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,7 +289,8 @@
     <MESSAGE value="frm_signUp.html working as expected, Usuario is created within Visitante record into DB" />
     <MESSAGE value="Last changes..." />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="db connection procedure" />
+    <option name="LAST_COMMIT_MESSAGE" value="db connection procedure" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -333,10 +361,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606140608718">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606143747269">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606140608718" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606143747269" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

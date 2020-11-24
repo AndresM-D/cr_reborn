@@ -1,0 +1,539 @@
+* {
+	font-family: Verdana;
+}
+.mediaViewInfo {
+	--web-view-name: Landing Page;
+	--web-view-id: Landing_Page;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: Landing_Page;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#Landing_Page {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(255,255,255,1);
+	overflow: hidden;
+	--web-view-name: Landing Page;
+	--web-view-id: Landing_Page;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+@keyframes fadein {
+
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+
+}
+#Mask_Group_1 {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_5 {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_3_n {
+	opacity: 0.84;
+	fill: url(#Rectangle_3_n);
+}
+.Rectangle_3_n {
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+}
+#Line_1 {
+	opacity: 0.2;
+	fill: transparent;
+	stroke: rgba(255,255,255,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_1 {
+	overflow: visible;
+	position: absolute;
+	width: 1px;
+	height: 530px;
+	left: 104.5px;
+	top: 0.5px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Line_6 {
+	opacity: 0.35;
+	fill: transparent;
+	stroke: rgba(255,255,255,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_6 {
+	overflow: visible;
+	position: absolute;
+	width: 1px;
+	height: 337px;
+	left: 1280.667px;
+	top: 629.5px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Line_8 {
+	opacity: 0.35;
+	fill: transparent;
+	stroke: rgba(255,255,255,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_8 {
+	overflow: visible;
+	position: absolute;
+	width: 5.5px;
+	height: 337.013px;
+	left: 674px;
+	top: 629.5px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Line_5 {
+	opacity: 0.2;
+	fill: transparent;
+	stroke: rgba(255,255,255,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_5 {
+	overflow: visible;
+	position: absolute;
+	width: 1601.5px;
+	height: 1px;
+	left: 318.5px;
+	top: 129.5px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Line_7 {
+	opacity: 0.35;
+	fill: transparent;
+	stroke: rgba(255,255,255,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_7 {
+	overflow: visible;
+	position: absolute;
+	width: 987px;
+	height: 1px;
+	left: 46.5px;
+	top: 473.239px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Line_9 {
+	fill: transparent;
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Line_9 {
+	overflow: visible;
+	position: absolute;
+	width: 987px;
+	height: 1px;
+	left: 0.5px;
+	top: 784.004px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Options {
+	position: absolute;
+	width: 603px;
+	height: 27px;
+	left: 1100.536px;
+	top: 57px;
+	overflow: visible;
+}
+#Home {
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 60px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+#Regiones {
+	left: 107px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 86px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+#Explorar {
+	left: 244px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 79px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+#Testimonios {
+	left: 378px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 115px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+/*
+#LOGIN {
+	left: 542px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 62px;
+	white-space: nowrap;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: Login.html;
+	cursor: pointer;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+*/
+
+#Explora_Costa_Rica {
+	left: 361px;
+	top: 250.912px;
+	position: absolute;
+	overflow: visible;
+	width: 458px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 50px;
+	color: rgba(255,255,255,1);
+}
+#y_comparte_con_otros_tu_experi {
+	left: 747px;
+	top: 360.078px;
+	position: absolute;
+	overflow: visible;
+	width: 917px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 50px;
+	color: rgba(255,255,255,1);
+}
+#Te_enseamos_los_increbles_luga {
+	opacity: 0.7;
+	left: 626px;
+	top: 526px;
+	position: absolute;
+	overflow: visible;
+	width: 724px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	color: rgba(255,255,255,1);
+	letter-spacing: 0.5px;
+}
+#Escoge_dentro_de_las_regiones_ {
+	opacity: 0.7;
+	left: 105px;
+	top: 905px;
+	position: absolute;
+	overflow: visible;
+	width: 370px;
+	height: 126px;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+#Cada_lugar_tendr_informacin_im {
+	opacity: 0.7;
+	left: 695.135px;
+	top: 905px;
+	position: absolute;
+	overflow: visible;
+	width: 452px;
+	height: 98px;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+#Guarda_tu_informacin_sobre_tus {
+	opacity: 0.7;
+	left: 1297.595px;
+	top: 905px;
+	position: absolute;
+	overflow: visible;
+	width: 436px;
+	height: 90px;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	color: rgba(255,255,255,1);
+}
+#Selecciona_una_regin {
+	left: 105px;
+	top: 854.225px;
+	position: absolute;
+	overflow: visible;
+	width: 280px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Merriweather;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 25px;
+	color: rgba(255,255,255,1);
+}
+#ID01 {
+	opacity: 0.8;
+	left: 105px;
+	top: 791.764px;
+	position: absolute;
+	overflow: visible;
+	width: 39px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Merriweather;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 35px;
+	color: rgba(255,255,255,1);
+}
+#ID02 {
+	opacity: 0.8;
+	left: 678.623px;
+	top: 791.764px;
+	position: absolute;
+	overflow: visible;
+	width: 44px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Merriweather;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 35px;
+	color: rgba(255,255,255,1);
+}
+#ID03 {
+	opacity: 0.8;
+	left: 1288.846px;
+	top: 791.764px;
+	position: absolute;
+	overflow: visible;
+	width: 43px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Merriweather;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 35px;
+	color: rgba(255,255,255,1);
+}
+#Encuentra_un_lugar {
+	left: 699.994px;
+	top: 854.225px;
+	position: absolute;
+	overflow: visible;
+	width: 248px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Merriweather;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 25px;
+	color: rgba(255,255,255,1);
+}
+#Explora {
+	left: 1298.934px;
+	top: 854.225px;
+	position: absolute;
+	overflow: visible;
+	width: 99px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Merriweather;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 25px;
+	color: rgba(255,255,255,1);
+}
+#Logo {
+	position: absolute;
+	width: 179px;
+	height: 190px;
+	left: 122px;
+	top: 65px;
+	overflow: visible;
+}
+/*
+#Group_8 {
+	position: absolute;
+	width: 282.5px;
+	height: 68px;
+	left: 847px;
+	top: 646px;
+	overflow: visible;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: Login.html;
+	cursor: pointer;
+}
+ */
+#EMPEZAR {
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 247px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 50px;
+	color: rgba(255,255,255,1);
+	letter-spacing: 0.5px;
+}
+#login {
+	mix-blend-mode: lighten;
+	position: absolute;
+	width: 29.016px;
+	height: 29.016px;
+	left: 253.484px;
+	top: 19px;
+	overflow: visible;
+}
+#Group_5_bg {
+	position: absolute;
+	width: 29.016px;
+	height: 29.016px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_4 {
+	position: absolute;
+	width: 29.016px;
+	height: 29.016px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Path_10 {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(255,255,255,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_10 {
+	overflow: visible;
+	position: absolute;
+	width: 21.344px;
+	height: 31.016px;
+	left: 9.672px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_11 {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(255,255,255,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Path_11 {
+	overflow: visible;
+	position: absolute;
+	width: 23.762px;
+	height: 16.602px;
+	left: 0px;
+	top: 7.254px;
+	transform: matrix(1,0,0,1,0,0);
+}

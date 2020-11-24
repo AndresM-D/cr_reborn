@@ -1,0 +1,106 @@
+* {
+	font-family: Verdana;
+}
+.mediaViewInfo {
+	--web-view-name: Success Registration;
+	--web-view-id: Success_Registration;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: Success Registration;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#Success_Registration {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(255,255,255,1);
+	overflow: hidden;
+	--web-view-name: Success Registration;
+	--web-view-id: Success_Registration;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+#bg_img {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#bg_shadow_m {
+	opacity: 0.84;
+	fill: url(#bg_shadow_m);
+}
+.bg_shadow_m {
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+}
+#div_form {
+	opacity: 0.78;
+	fill: rgba(255,255,255,1);
+}
+.div_form {
+	filter: drop-shadow(0px 3px 80px rgba(0, 0, 0, 1));
+	position: absolute;
+	overflow: visible;
+	width: 1680px;
+	height: 1100px;
+	left: 240px;
+	top: 110px;
+}
+#Registro_competo {
+	left: 772px;
+	top: 187px;
+	position: absolute;
+	overflow: visible;
+	width: 378px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 43px;
+	color: rgba(0,0,0,1);
+}
+#sideForm_img {
+	position: absolute;
+	width: 1440px;
+	height: 520px;
+	left: 240px;
+	top: 450px;
+	overflow: visible;
+}
+#Volviendo_a_la_pgina_principal {
+	left: 773px;
+	top: 313px;
+	position: absolute;
+	overflow: visible;
+	width: 375px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 25px;
+	color: rgba(112,112,112,1);
+}
+#Logo {
+	position: absolute;
+	width: 88px;
+	height: 94px;
+	left: 263px;
+	top: 854px;
+	overflow: visible;
+}

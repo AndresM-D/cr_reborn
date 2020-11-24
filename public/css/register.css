@@ -1,15 +1,14 @@
 * {
 	font-family: Verdana;
 }
-
 .mediaViewInfo {
-	--web-view-name: SignUp;
-	--web-view-id: SignUp;
+	--web-view-name: Register;
+	--web-view-id: Register;
 	--web-scale-on-resize: true;
 	--web-enable-deep-linking: true;
 }
 :root {
-	--web-view-ids: SignUp;
+	--web-view-ids: Register;
 }
 * {
 	margin: 0;
@@ -23,8 +22,8 @@
 	height: 1080px;
 	background-color: rgba(255,255,255,1);
 	overflow: hidden;
-	--web-view-name: SignUp;
-	--web-view-id: SignUp;
+	--web-view-name: Register;
+	--web-view-id: Register;
 	--web-scale-on-resize: true;
 	--web-enable-deep-linking: true;
 }

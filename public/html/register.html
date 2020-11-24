@@ -4,8 +4,8 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/frm_signUp.css"/>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/register.css"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="SignUp">
-    <img id="bg_img" src="/img/signUp/bg_img.png" srcset="/img/signUp/bg_img.png 1x">
+    <img id="bg_img" src="/img/register/bg_img.png" srcset="/img/register/bg_img.png 1x">
     </svg>
     <svg class="bg_shadow_l">
         <linearGradient id="bg_shadow_l" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
@@ -45,8 +45,8 @@
     <div id="txt_info">
         <span>Ingresa tu datos para poder registrarte en nuestro sitio web y empezar a explorar los diferentes lugares que podrías visitar</span>
     </div>
-    <img id="sideForm_img" src="/img/signUp/sideForm_img.png" srcset="/img/signUp/sideForm_img.png 1x">
-    <img id="Logo" src="/img/signUp/Logo.png" srcset="/img/signUp/Logo.png 1x">
+    <img id="sideForm_img" src="/img/register/sideForm_img.png" srcset="/img/register/sideForm_img.png 1x">
+    <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x">
 
     <div class="form">
         <div class="row">
@@ -78,7 +78,7 @@
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupPASSInput"
                                placeholder="CONTRASEÑA"
-                               aria-describedby="passwordHelpBlock" required name="password_login">
+                               aria-describedby="passwordHelpBlock" required name="password_login" pattern=".{8,}" title="8 characters minimun">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupREPASSInput"
@@ -104,7 +104,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

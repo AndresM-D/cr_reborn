@@ -9,8 +9,12 @@ const app = express()
 const {sql, poolPromise, config} = require('./database/db')
 const rawdata = fs.readFileSync('./query/queries.json')
 const queries = JSON.parse(rawdata)
+//unused for now, DON'T DELETE LINE BELOW
 const {check, validationResult} = require('express-validator')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
+//paths where express can access all our html pages, images, etc
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/public/html'))
 
@@ -36,8 +40,6 @@ app.post('/register', (req, res) => {
     //data from input's form
     let id_usuario = ''
 
-    //const id_visitante = 2
-
     //when a Usuario is stored from register, id_tipoUsuario remains as 2 always!
     const id_tipoUsuario = 2
 
@@ -50,59 +52,69 @@ app.post('/register', (req, res) => {
     const estado = "1"
 
     //Usuario insertion into db
-    sql.connect(config).then(pool => {
-        return pool.request()
-            .input('id_tipoUsuario', sql.Int, id_tipoUsuario)
-            .input('usuario_login', sql.NVarChar, usuario_login)
-            .input('password_login', sql.NVarChar, password_login)
-            .input('estado', sql.NVarChar, estado)
-            .query(queries.addUsuario)
-    }).then(result => {
-        console.log("Usuario have been created: ", result.rowsAffected)
+    bcrypt.hash(password_login, saltRounds, function (err, hash) {
         sql.connect(config).then(pool => {
             return pool.request()
+                .input('id_tipoUsuario', sql.Int, id_tipoUsuario)
                 .input('usuario_login', sql.NVarChar, usuario_login)
-                .query('SELECT id_usuario FROM Usuario WHERE usuario_login = @usuario_login')
+                .input('password_login', sql.NVarChar, hash)
+                .input('estado', sql.NVarChar, estado)
+                .query(queries.addUsuario)
         }).then(result => {
-            let output = result.recordset
-
-            for (let i = 0; i < output.length; i++) {
-                let id = output[i]
-                for (let idKey in id) {
-                    id_usuario = id[idKey]
-                }
-            }
-
-            //Visitante insertion into db
+            console.log("Usuario have been created: ", result.rowsAffected)
+            //in order to create a Visitante...
             sql.connect(config).then(pool => {
                 return pool.request()
-                    .input('id_usuario', sql.Int, parseInt(id_usuario))
-                    .input('nombre', sql.NVarChar, nombre)
-                    .input('apellido', sql.NVarChar, apellido)
-                    .input('correo', sql.NVarChar, usuario_login)
-                    .query(queries.addVisitante)
+                    .input('usuario_login', sql.NVarChar, usuario_login)
+                    .query('SELECT id_usuario FROM Usuario WHERE usuario_login = @usuario_login')
             }).then(result => {
-                console.log("Visitante have been created: ", result.rowsAffected);
+                //the id from last insertion is assigned to result
+                let output = result.recordset
+
+                //now we need to get that id as an object that can be saved into the db
+                //that's what it does the for loop below
+                for (let i = 0; i < output.length; i++) {
+                    let id = output[i]
+                    for (let idKey in id) {
+                        id_usuario = id[idKey]
+                    }
+                }
+
+                //having the right id from Usuario we need to assign the same id to Visitante record as well
+                //Visitante insertion into db
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('id_usuario', sql.Int, parseInt(id_usuario))
+                        .input('nombre', sql.NVarChar, nombre)
+                        .input('apellido', sql.NVarChar, apellido)
+                        .input('correo', sql.NVarChar, usuario_login)
+                        .query(queries.addVisitante)
+                }).then(result => {
+                    console.log("Visitante have been created: ", result.rowsAffected);
+
+                }).catch(error => {
+                    //shit happens
+                    console.log("Failed to create new Visitante: " + error)
+                    res.sendStatus(500)
+                    return
+                })
+
             }).catch(error => {
-                console.log("Failed to create new Visitante: " + error)
+                console.log(error)
                 res.sendStatus(500)
                 return
             })
-
         }).catch(error => {
-            console.log(error)
+            console.log("Failed to create new Usuario: " + error)
+            res.sendStatus(500)
             return
         })
-    }).catch(error => {
-        console.log("Failed to create new Usuario: " + error)
-        res.sendStatus(500)
-        return
     })
 
-//important... otherwise page falls into a endless loop trying to response something
-    res.end()
-})
 
+    //success register page rendering
+    res.sendFile(path.join(__dirname + '/public/html/successReg.html'))
+})
 
 //TODO: right now this function is doing nothing
 function alreadyHaveEmail(email) {
@@ -128,7 +140,6 @@ function alreadyHaveEmail(email) {
         })
     })
 }
-
 
 //create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), {flags: 'a'})

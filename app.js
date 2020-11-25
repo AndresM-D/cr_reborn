@@ -14,6 +14,9 @@ const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+//ejs render engine
+app.set('view-engine', 'ejs')
+
 //paths where express can access all our html pages, images, etc
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/public/html'))
@@ -28,9 +31,19 @@ app.use(bodyParser.json())
 
 app.use(morgan('dev'))
 
+//GET index page
+app.get('/', function (req, res) {
+    res.render('index.ejs', { name: 'Andres'})
+})
+
+//GET login page
+app.get('/login', function (req, res) {
+    res.render('login.ejs')
+})
+
 //GET register page
-app.get('/register', function (req, res, next) {
-    res.sendFile(path.join(__dirname + '/public/html/register.html'))
+app.get('/register', function (req, res) {
+    res.render('register.ejs')
 })
 
 //TODO: register validitation from backend to frontend

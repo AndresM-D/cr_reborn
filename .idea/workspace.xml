@@ -27,29 +27,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/index/Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/index/Mask_Group_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/login/Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/login/Mask_Group_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/login/tucan_logIn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/login/bg_img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/login/sideForm_img.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/landing/Logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/landing/Mask_Group_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/landing.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/landing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/login/Mask_Group_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/login/tucan_logIn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/register.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +162,7 @@
       <workItem from="1605915579940" duration="9578000" />
       <workItem from="1605979344552" duration="3136000" />
       <workItem from="1606140567558" duration="14840000" />
-      <workItem from="1606261513204" duration="5839000" />
+      <workItem from="1606261513204" duration="12053000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -259,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606184487638</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="ejs implementation">
+      <created>1606270607096</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1606270607096</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,7 +297,8 @@
     <MESSAGE value="." />
     <MESSAGE value="db connection procedure" />
     <MESSAGE value="Now when a user is registered, a page of success is loaded.&#10;Also, hash password is done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Now when a user is registered, a page of success is loaded.&#10;Also, hash password is done" />
+    <MESSAGE value="ejs implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="ejs implementation" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -376,10 +373,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606184495050">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606270616591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606184495050" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606270616591" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -388,10 +385,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605568172935" />
-    <state x="953" y="0" width="974" height="1047" maximized="true" key="dock-window-1" timestamp="1605803742833">
+    <state x="953" y="0" width="974" height="1047" key="dock-window-1" timestamp="1606275058442">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="953" y="0" width="974" height="1047" maximized="true" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1605803742833" />
+    <state x="953" y="0" width="974" height="1047" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1606275058442" />
     <state x="1096" y="244" key="run.anything.popup" timestamp="1605756549452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

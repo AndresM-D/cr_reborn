@@ -1,6 +1,7 @@
 * {
 	font-family: Verdana;
 }
+
 .mediaViewInfo {
 	--web-view-name: Register;
 	--web-view-id: Register;
@@ -419,4 +420,3 @@
 	margin-top: 380px;
 	margin-left: 1050px;
 }
-

@@ -124,7 +124,6 @@ app.post('/register', (req, res) => {
         })
     })
 
-
     //success register page rendering
     res.sendFile(path.join(__dirname + '/public/html/successReg.html'))
 })

@@ -4,6 +4,7 @@
   "addUsuario": "INSERT INTO Usuario (id_tipoUsuario,usuario_login,password_login,estado) VALUES (@id_tipoUsuario,@usuario_login,@password_login,@estado)",
   "updateUsuario": "UPDATE Usuario SET password_login = @password_login WHERE id_usuario = @id_usuario",
   "deleteUsuario": "DELETE FROM Usuario WHERE id_usuario = @id_usuario",
+  "getUsuarioByEmail": "SELECT * FROM Usuario WHERE usuario_login = @usuario_login",
 
   "_comment": "Visitante queries",
   "getVisitante": "SELECT * FROM Visitante",

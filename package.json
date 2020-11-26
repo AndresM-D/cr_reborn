@@ -23,11 +23,17 @@
     "cors": "2.8.5",
     "ejs": "^3.1.5",
     "express": "~4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
     "jquery": "^3.5.1",
     "mongoose": "^5.7.11",
     "morgan": "^1.10.0",
-    "mssql": "^6.2.3"
+    "mssql": "^6.2.3",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

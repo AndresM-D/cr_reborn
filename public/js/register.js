@@ -43,3 +43,8 @@ $('#btn_submit').click(function () {
     })
 })
 
+function getLogin() {
+    let page = location.href = '/login'
+    document.getElementById('btn_login').onclick = page
+}
+

@@ -49,26 +49,33 @@
     </div>
     <img id="sideForm_img" src="/img/login/sideForm_img.png" srcset="/img/login/sideForm_img.png 1x">
     <img id="Logo" src="/img/login/Logo.png" srcset="/img/login/Logo.png 1x">
+    <% if (messages.error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= messages.error %>
+            </div>
+    <% } %>
     <div class="form">
         <div class="row">
             <div class="col-md-6">
                 <form id="login" action="/login" method="post">
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNombreInput"
-                               placeholder="USUARIO" required name="usuario">
+                               placeholder="USUARIO" required name="email">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupPasswordInput"
                                placeholder="CONTRASEÑA" required name="password">
                     </div>
-                    <button type="submit" value="validate" class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login">
+                    <button type="submit" value="validate"
+                            class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login">
                         Login
                     </button>
                     <hr>
                     <small class="form-text text-muted">
                         ¿Aún no tienes una cuenta?
                     </small>
-                    <button class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_register">
+                    <button class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1"
+                            id="btn_register" onclick="getRegister()">
                         Register
                     </button>
                 </form>

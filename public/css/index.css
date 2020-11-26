@@ -2,6 +2,25 @@
 	font-family: Verdana;
 }
 
+.cyan-lighter-hover {
+	color: #00bcd4;
+	-webkit-transition: .4s;
+	transition: .4s; }
+.cyan-lighter-hover:hover {
+	-webkit-transition: .4s;
+	transition: .4s;
+	color: #22e6ff; }
+
+.cyan-darker-hover {
+	color: #00bcd4;
+	-webkit-transition: .4s;
+	transition: .4s; }
+.cyan-darker-hover:hover {
+	-webkit-transition: .4s;
+	transition: .4s;
+	color: #007888; }
+
+
 .mediaViewInfo {
 	--web-view-name: Index;
 	--web-view-id: Index;

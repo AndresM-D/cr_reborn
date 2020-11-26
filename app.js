@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
+//dependencies
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -22,12 +23,16 @@ const LocalStrategy = require('passport-local').Strategy;
 const flash = require('express-flash')
 const session = require('express-session')
 
+//passport initialization login logic
 const initializePassport = require('./passport-config')
+//email and id are needed for passport to validate the user credentials typed from view login.ejs
 initializePassport(passport,
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id)
+    //email and id are set from our const users
+    email => users.find(user => user.usuario_login === email),
+    id => users.find(user => user.id_usuario === id)
 )
 
+//required for storing all users in db into const users
 const users = []
 
 //ejs render engine
@@ -41,6 +46,7 @@ app.use(cors())
 
 //parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: false}))
 
 //parse application/json
 app.use(bodyParser.json())
@@ -56,14 +62,30 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+//method used for pushing users from db into array declared above
+function getUsuarios(){
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getUsuario)
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            let user = output[i]
+            users.push(user)
+        }
+    })
+}
+
+
 //GET index page
 app.get('/', (req, res) => {
-    res.render('index.ejs', {name: 'Andres'})
+    res.render('index.ejs', {name: req.user.nombre})
 })
 
 //GET login page
 app.get('/login', (req, res) => {
     res.render('login.ejs')
+    getUsuarios()
 })
 
 //POST login
@@ -102,7 +124,6 @@ app.post('/register', async (req, res) => {
     //same as id_tipoUsuario, estado remains as 1
     const estado = "1"
 
-
     try {
         //Usuario insertion into db
         await bcrypt.hash(password_login, saltRounds, function (err, hash) {
@@ -112,12 +133,9 @@ app.post('/register', async (req, res) => {
                     .input('usuario_login', sql.NVarChar, usuario_login)
                     .input('password_login', sql.NVarChar, hash)
                     .input('estado', sql.NVarChar, estado)
-                    .query(queries.addUsuario),
-                    users.push({
-                        usuario_login: req.body.usuario_login,
-                        password_login: hash
-                    })
+                    .query(queries.addUsuario)
             }).then(result => {
+
                 console.log("Usuario have been created: ", result.rowsAffected)
                 //in order to create a Visitante...
                 sql.connect(config).then(pool => {
@@ -148,14 +166,12 @@ app.post('/register', async (req, res) => {
                             .query(queries.addVisitante)
                     }).then(result => {
                         console.log("Visitante have been created: ", result.rowsAffected);
-
                     }).catch(error => {
                         //shit happens
                         console.log("Failed to create new Visitante: " + error)
                         res.sendStatus(500)
                         return
                     })
-
                 }).catch(error => {
                     console.log(error)
                     res.sendStatus(500)

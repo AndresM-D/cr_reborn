@@ -49,15 +49,18 @@
     </div>
     <img id="sideForm_img" src="/img/login/sideForm_img.png" srcset="/img/login/sideForm_img.png 1x">
     <img id="Logo" src="/img/login/Logo.png" srcset="/img/login/Logo.png 1x">
-    <% if (messages.error) { %>
-            <div class="alert alert-danger" role="alert">
-                <%= messages.error %>
-            </div>
-    <% } %>
+
     <div class="form">
         <div class="row">
             <div class="col-md-6">
                 <form id="login" action="/login" method="post">
+                    <div class="form-group">
+                        <% if (messages.error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= messages.error %>
+                            </div>
+                        <% } %>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNombreInput"
                                placeholder="USUARIO" required name="email">

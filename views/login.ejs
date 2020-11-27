@@ -55,6 +55,11 @@
             <div class="col-md-6">
                 <form id="login" action="/login" method="post">
                     <div class="form-group">
+                        <% if (messages.success) { %>
+                            <div class="alert alert-success" role="alert">
+                                <%= messages.success %>
+                            </div>
+                        <% } %>
                         <% if (messages.error) { %>
                             <div class="alert alert-danger" role="alert">
                                 <%= messages.error %>

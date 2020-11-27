@@ -27,12 +27,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
+      <change afterPath="$PROJECT_DIR$/config/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/css/dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/Logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgBg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgCard1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgCard2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgCard3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/dashboard.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/passport-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/passport-config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/register.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +55,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="tsconfig.json" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -77,13 +89,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\backend" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public\html" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\backend" />
     </key>
   </component>
   <component name="RunManager">
@@ -159,7 +171,8 @@
       <workItem from="1605979344552" duration="3136000" />
       <workItem from="1606140567558" duration="14840000" />
       <workItem from="1606261513204" duration="12083000" />
-      <workItem from="1606325837254" duration="34341000" />
+      <workItem from="1606325837254" duration="34556000" />
+      <workItem from="1606410409267" duration="19268000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -266,7 +279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606357714075</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Login dev in process... almost done">
+      <created>1606371211318</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1606371211318</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +330,8 @@
     <MESSAGE value="Now when a user is registered, a page of success is loaded.&#10;Also, hash password is done" />
     <MESSAGE value="ejs implementation" />
     <MESSAGE value="Login dev in process" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login dev in process" />
+    <MESSAGE value="Login dev in process... almost done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login dev in process... almost done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -385,10 +406,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606357720235">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606371216347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606357720235" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606371216347" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/dashboard.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script id="applicationScript" type="text/javascript" src="/js/dashboard.js"></script>
+</head>
+<body>
+<div id="Dashboard">
+    <img id="imgBg" src="/img/dashboard/imgBg.png">
+
+    </svg>
+    <svg class="imgShadow_m">
+        <linearGradient id="imgShadow_m" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
+            <stop offset="0" stop-color="#000" stop-opacity="0.678"></stop>
+            <stop offset="1" stop-color="#000" stop-opacity="0.612"></stop>
+        </linearGradient>
+        <rect id="imgShadow_m" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
+        </rect>
+    </svg>
+    <svg class="Line_5" viewBox="0 0 1589.5 1">
+        <path id="Line_5" d="M 0 0 L 1589.5 0">
+        </path>
+    </svg>
+    <div id="dashOptions">
+        <div id="Dashboard_p">
+            <span>Dashboard</span>
+        </div>
+        <div id="User">
+            <span><%= name %></span>
+        </div>
+        <div id="Logout">
+            <span><a href="/logout" class="btn btn-secondary">Logout</a></span>
+        </div>
+    </div>
+    <img id="Logo" src="/img/dashboard/Logo.png">
+
+    <div id="card1">
+        <svg class="Rectangle_1">
+            <rect id="Rectangle_1" rx="0" ry="0" x="0" y="0" width="460" height="516">
+            </rect>
+        </svg>
+        <img id="imgCard1" src="/img/dashboard/imgCard1.png">
+
+        <div id="Parque_Nacional_Manuel_Antonio">
+            <span>Parque Nacional Manuel Antonio</span>
+        </div>
+        <div id="Descripcin_del_lugar">
+            <span>Descripción del lugar</span>
+        </div>
+    </div>
+    <div id="card2">
+        <svg class="Rectangle_1_z">
+            <rect id="Rectangle_1_z" rx="0" ry="0" x="0" y="0" width="460" height="516">
+            </rect>
+        </svg>
+        <img id="imgCard2" src="/img/dashboard/imgCard2.png">
+
+        <div id="Volcn_Arenal">
+            <span>Volcán Arenal</span>
+        </div>
+        <div id="Descripcin_del_lugar_">
+            <span>Descripción del lugar</span>
+        </div>
+    </div>
+    <div id="card3">
+        <svg class="Rectangle_1_">
+            <rect id="Rectangle_1_" rx="0" ry="0" x="0" y="0" width="460" height="516">
+            </rect>
+        </svg>
+        <img id="imgCard3" src="/img/dashboard/imgCard3.png">
+
+        <div id="Laguna_Don_Manuel">
+            <span>Laguna Don Manuel</span>
+        </div>
+        <div id="Descripcin_del_lugar_ba">
+            <span>Descripción del lugar</span>
+        </div>
+    </div>
+    <div id="Explora_los_diferentes_lugares">
+        <span>Explora los diferentes lugares turísticos que ofrece nuestro bello país</span>
+    </div>
+</div>
+</body>
+</html>

@@ -81,7 +81,6 @@ async function getUsuarios() {
     //console.log(users)
 }
 
-
 function getVisitantes() {
     sql.connect(config).then(pool => {
         return pool.request()
@@ -107,13 +106,6 @@ app.get('/login', forwardAuthenticated, (req, res) => {
     getUsuarios()
     getVisitantes()
 })
-
-//POST login
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
 
 //GET logout function
 app.get('/logout', function (req, res) {
@@ -241,10 +233,56 @@ app.post('/register', async (req, res) => {
         } catch {
             res.redirect('/register')
         }
-    //if the user is registered... a fancy msg shows up
+        //if the user is registered... a fancy msg shows up
     } else {
         req.flash('error', 'Email already exist!')
         res.redirect('/register')
+    }
+})
+
+//GET admin page
+app.get('/admin', forwardAuthenticated, (req, res) => {
+    res.render('loginAdmin.ejs')
+})
+
+//POST admin page
+app.post('/admin', async (req, res) => {
+
+    const usuario_login = req.body.email
+    const password_login = req.body.password
+    let idTipoUsuario
+
+    //first, we need to validate that a new user cant register if he or she is already in the db so...
+    //promise below capture all the users and store it in a array
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getUsuario)
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            user = output[i]
+            users.push(user)
+        }
+    })
+
+    const result = []
+
+    //then we need to validate the data from register page against our array containing all the users
+    result[0] = users.find(user => user.usuario_login === usuario_login)
+
+    if (result[0] === undefined) {
+        req.flash('error', 'Admin not registered!')
+        res.redirect('/admin')
+    } else {
+        idTipoUsuario = result[0].id_tipoUsuario
+
+        if (idTipoUsuario === 1 && password_login === result[0].password_login) {
+            res.redirect('/adminDashboard')
+            console.log('Es admin')
+        } else {
+            req.flash('error', 'Admin not registered!')
+            res.redirect('/admin')
+        }
     }
 })
 

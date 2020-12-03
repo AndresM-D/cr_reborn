@@ -27,24 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
-      <change afterPath="$PROJECT_DIR$/config/auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/dashboard.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgBg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgCard1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgCard2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/imgCard3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/css/loginAdmin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/loginAdmin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/loginAdmin.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/passport-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/passport-config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/register.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,22 +68,26 @@
     <property name="javascript.nodejs.core.library.typings.version" value="12.19.0" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
     <property name="nodejs.jest.jest_package" value="" />
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/views/login.ejs" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\backend" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public\js" />
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public\css" />
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\views" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public\html" />
-      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\backend" />
     </key>
   </component>
   <component name="RunManager">
@@ -172,7 +164,9 @@
       <workItem from="1606140567558" duration="14840000" />
       <workItem from="1606261513204" duration="12083000" />
       <workItem from="1606325837254" duration="34556000" />
-      <workItem from="1606410409267" duration="19268000" />
+      <workItem from="1606410409267" duration="20137000" />
+      <workItem from="1606961933142" duration="209000" />
+      <workItem from="1606962180958" duration="6175000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -286,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606371211318</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="register, login and logout done!">
+      <created>1606449442280</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1606449442280</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,7 +332,8 @@
     <MESSAGE value="ejs implementation" />
     <MESSAGE value="Login dev in process" />
     <MESSAGE value="Login dev in process... almost done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login dev in process... almost done" />
+    <MESSAGE value="register, login and logout done!" />
+    <option name="LAST_COMMIT_MESSAGE" value="register, login and logout done!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -350,14 +352,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1245" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1605577768193" />
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1605593374889">
+    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1606962129387">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605593374889" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1605900329722">
+    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606962129387" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1606966606677">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605900329722" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606966606677" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1606966336091">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606966336091" />
     <state width="1899" height="280" key="GridCell.Tab.0.bottom" timestamp="1605763771125">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -406,10 +412,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606371216347">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606449447917">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606371216347" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606449447917" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

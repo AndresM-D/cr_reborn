@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/loginAdmin.css"/>
+    <script id="applicationScript" type="text/javascript" src="/js/loginAdmin.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JS -->
+    <script id="applicationScript" type="text/javascript" src="/js/register.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="Login">
+    <img id="bg_img" src="/img/login/bg_img.png" srcset="/img/login/bg_img.png 1x">
+
+    </svg>
+    <svg class="bg_shadow_m">
+        <linearGradient id="bg_shadow_m" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
+            <stop offset="0" stop-color="#000" stop-opacity="0.678"></stop>
+            <stop offset="1" stop-color="#000" stop-opacity="0.612"></stop>
+        </linearGradient>
+        <rect id="bg_shadow_m" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
+        </rect>
+    </svg>
+    <svg class="div_form">
+        <rect id="div_form" rx="0" ry="0" x="0" y="0" width="1440" height="860">
+        </rect>
+    </svg>
+    <svg class="div_logData">
+        <rect id="div_logData" rx="0" ry="0" x="0" y="0" width="860" height="860">
+        </rect>
+    </svg>
+    <div id="txt_detail">
+        <span>LOGIN ADMIN</span>
+    </div>
+    <div id="txt_titleForm">
+        <span>Bienvenido a CR Reborn</span>
+    </div>
+    <div id="txt_info">
+        <span>Regístrate para empezar a explorar los diferentes lugares disponibles en nuestro país</span>
+    </div>
+    <img id="sideForm_img" src="/img/login/sideForm_img.png" srcset="/img/login/sideForm_img.png 1x">
+    <img id="Logo" src="/img/login/Logo.png" srcset="/img/login/Logo.png 1x">
+
+    <div class="form">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="login" action="/admin" method="post">
+                    <div class="form-group">
+                        <% if (messages.success) { %>
+                            <div class="alert alert-success" role="alert">
+                                <%= messages.success %>
+                            </div>
+                        <% } %>
+                        <% if (messages.error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= messages.error %>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="formGroupNombreInput"
+                               placeholder="USUARIO" required name="email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg" id="formGroupPasswordInput"
+                               placeholder="CONTRASEÑA" required name="password">
+                    </div>
+                    <button type="submit" value="validate"
+                            class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login">
+                        Login
+                    </button>
+                    <hr>
+                    <small class="form-text text-muted">
+                        ¿Aún no tienes una cuenta?
+                    </small>
+                    <button class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1"
+                            id="btn_register" onclick="getRegister()">
+                        Register
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

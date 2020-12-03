@@ -101,7 +101,7 @@
 }
 #txt_titleForm {
 	left: 1148px;
-	top: 171px;
+	top: 130px;
 	position: absolute;
 	overflow: visible;
 	width: 203px;
@@ -115,7 +115,7 @@
 }
 #txt_info {
 	left: 1026px;
-	top: 243px;
+	top: 195px;
 	position: absolute;
 	overflow: visible;
 	width: 448px;
@@ -417,6 +417,6 @@
 }
 
 .form{
-	margin-top: 380px;
+	margin-top: 315px;
 	margin-left: 1050px;
 }

@@ -107,6 +107,13 @@ app.get('/login', forwardAuthenticated, (req, res) => {
     getVisitantes()
 })
 
+//POST login
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login',
+    failureFlash: true
+}))
+
 //GET logout function
 app.get('/logout', function (req, res) {
     req.logout()
@@ -277,10 +284,10 @@ app.post('/admin', async (req, res) => {
         idTipoUsuario = result[0].id_tipoUsuario
 
         if (idTipoUsuario === 1 && password_login === result[0].password_login) {
-            res.redirect('/adminDashboard')
-            console.log('Es admin')
+            req.flash('success', 'Success!')
+            res.redirect('/admin')
         } else {
-            req.flash('error', 'Admin not registered!')
+            req.flash('error', 'Wrong credentials!')
             res.redirect('/admin')
         }
     }

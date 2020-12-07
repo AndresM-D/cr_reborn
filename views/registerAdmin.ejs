@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="SignUp">
-    <img id="bg_img" src="/img/register/bg_img.png" srcset="/img/register/bg_img.png 1x">
+    <img id="bg_img" src="/img/registerAdmin/bkregister.jpg" srcset="/img/registerAdmin/bkregister.jpg 1x">
     </svg>
     <svg class="bg_shadow_l">
         <linearGradient id="bg_shadow_l" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
@@ -37,22 +37,22 @@
         </rect>
     </svg>
     <div id="txt_note">
-        <span>Al registrar tus datos en nuestro sitio web, aceptas los términos <br/>de uso de tus datos asociados a tu cuenta.</span>
+        <span>Al registrar un nuevo administrador el mismo tendra accesos privilegiados en el sitio web. <br/></span>
     </div>
     <div id="txt_titleForm">
-        <span>Regístrate</span>
+        <span>Registrar</span>
     </div>
     <div id="txt_info">
-            <span>Ingresa tu datos para poder registrarte en nuestro sitio web y empezar a explorar los diferentes lugares que podrías visitar.
+            <span>Ingresa los datos para poder registrar en nuestro sitio web un nuevo administrador.
             </span>
     </div>
-    <img id="sideForm_img" src="/img/register/sideForm_img.png" srcset="/img/register/sideForm_img.png 1x">
+    <img id="sideForm_img" src="/img/registerAdmin/animalRegister.jpg" srcset="/img/registerAdmin/animalRegister.jpg 1x">
     <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x">
     <div class="form">
         <div class="row">
             <div class="col-md-6">
-                <form id="register"
-                      action="/register"
+                <form id="registerAdmin"
+                      action="/registerAdmin"
                       method="POST"
                       oninput='password_login2.setCustomValidity(password_login2.value !== password_login.value ? "Passwords do not match." : "")'>
                     <div class="form-group">
@@ -106,12 +106,6 @@
                         Submit
                     </button>
                     <hr>
-                    <small class="form-text text-muted">
-                        ¿Ya tiene una cuenta?
-                    </small>
-                    <button class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login" onclick="getLogin()">
-                        Login
-                    </button>
                 </form>
             </div>
         </div>

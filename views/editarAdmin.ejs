@@ -15,8 +15,10 @@
     <script id="applicationScript" type="text/javascript" src="/js/register.js"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="app.js"></script>
 </head>
-<body>
+<body >
+
 <div id="SignUp">
     <img id="bg_img" src="/img/registerAdmin/bkregister.jpg" srcset="/img/registerAdmin/bkregister.jpg 1x">
     </svg>
@@ -37,22 +39,22 @@
         </rect>
     </svg>
     <div id="txt_note">
-        <span>Al registrar un nuevo administrador el mismo tendra accesos privilegiados en el sitio web. <br/></span>
+        <span>Al registrar un nuevo administrador el mismo tendra accesos privilegiados en el sitio web.</span>
     </div>
     <div id="txt_titleForm">
-        <span>Registrar</span>
+        <span>Editar</span>
     </div>
     <div id="txt_info">
-            <span>Ingresa los datos para poder registrar en nuestro sitio web un nuevo administrador.
+            <span>Edita los datos para poder actualizar en nuestro sitio web el perfil de administrador.
             </span>
     </div>
     <img id="sideForm_img" src="/img/registerAdmin/animalRegister.jpg" srcset="/img/registerAdmin/animalRegister.jpg 1x">
-    <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x">
-    <div class="form">
+    <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x" onload="myFun()">
+    <div class="form" >
         <div class="row">
             <div class="col-md-6">
-                <form id="registerAdmin"
-                      action="/registerAdmin"
+                <form id="editarAdmin"
+                      action="/editarAdmin"
                       method="POST"
                       oninput='password_login2.setCustomValidity(password_login2.value !== password_login.value ? "Passwords do not match." : "")'>
                     <div class="form-group">
@@ -69,16 +71,16 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
-                               placeholder="NOMBRE" required name="nombre" >
+                                required name="nombre" value="<%= name %>">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupAPELLIDOInput"
-                               placeholder="APELLIDO" required name="apellido">
+                               placeholder="APELLIDO" required name="apellido" value="<%= lastname %>">
                     </div>
                     <div class="form-group">
                         <input type="email" class="email form-control form-control-lg" id="email"
-                               placeholder="CORREO ELECTRÓNICO" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                               required name="usuario_login">
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                               required name="usuario_login" value="<%= email__ %>">
                         <div class="valid-feedback feedback-pos">
                             Looks good!
                         </div>
@@ -88,14 +90,12 @@
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupPASSInput"
-                               placeholder="CONTRASEÑA"
                                aria-describedby="passwordHelpBlock" required name="password_login" pattern=".{8,}"
-                               title="8 characters minimun">
+                               title="8 characters minimun" value="<%= passw %>">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupREPASSInput"
-                               placeholder="CONFIRMAR CONTRASEÑA"
-                               aria-describedby="passwordHelpBlock" required name="password_login2">
+                               aria-describedby="passwordHelpBlock" required name="password_login2" value="<%= passw %>">
                         <small id="passwordHelpBlock" class="form-text text-muted">
                             Your password must be 8-20 characters long, contain letters and numbers, and must not
                             contain spaces,
@@ -103,9 +103,13 @@
                         </small>
                     </div>
                     <button type="submit" value="validate" class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_submit">
-                        Submit
+                        Save
                     </button>
                     <hr>
+
+                    <button class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login" onclick="getLogin()">
+                        Eliminar
+                    </button>
                 </form>
             </div>
         </div>

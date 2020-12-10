@@ -21,6 +21,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const {ensureAuthenticated, forwardAuthenticated} = require('./config/auth')
+const fileUpload = require('express-fileupload')
 
 //ejs render engine
 app.set('view-engine', 'ejs')
@@ -38,7 +39,7 @@ app.use(express.urlencoded({extended: false}))
 
 //parse application/json
 app.use(bodyParser.json())
-
+app.use(fileUpload())
 app.use(morgan('dev'))
 
 app.use(cookieParser(process.env.COOKIE_SECRET))
@@ -120,7 +121,7 @@ app.post('/login', passport.authenticate('local', {
 //GET logout function
 app.get('/logout', function (req, res) {
     req.logout()
-    req.flash('success', 'Logged out!')
+    req.flash('success', 'Sesión cerrada!')
     res.redirect('/login')
 })
 
@@ -614,14 +615,14 @@ app.post('/register', async (req, res) => {
                 })
             })
             //success register page rendering
-            req.flash('success', 'Registration success!')
+            req.flash('success', 'Registro completado!')
             res.redirect('/login')
         } catch {
             res.redirect('/register')
         }
         //if the user is registered... a fancy msg shows up
     } else {
-        req.flash('error', 'Email already exist!')
+        req.flash('error', 'El correo electrónico ya se encuentra registrado!')
         res.redirect('/register')
     }
 })
@@ -657,7 +658,7 @@ app.post('/admin', async (req, res) => {
     result[0] = users.find(user => user.usuario_login === usuario_login)
 
     if (result[0] === undefined) {
-        req.flash('error', 'Admin not registered!')
+        req.flash('error', 'Admin no registrado!')
         res.redirect('/admin')
     } else {
         idTipoUsuario = result[0].id_tipoUsuario
@@ -666,7 +667,7 @@ app.post('/admin', async (req, res) => {
             req.flash('success', 'Success!')
             res.redirect('/admin')
         } else {
-            req.flash('error', 'Wrong credentials!')
+            req.flash('error', 'Credenciales erróneas!')
             res.redirect('/admin')
         }
     }

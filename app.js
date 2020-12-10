@@ -28,6 +28,7 @@ app.set('view-engine', 'ejs')
 //paths where express can access all our html pages, images, etc
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/public/html'))
+app.use(express.static(__dirname + '/images'))
 
 app.use(cors())
 
@@ -54,7 +55,10 @@ app.use(passport.session())
 //required for storing all users in db into const users
 const users = []
 const visitors = []
+const images = []
 let user
+let image
+
 
 //passport initialization login logic
 const initializePassport = require('./passport-config')

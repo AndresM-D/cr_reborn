@@ -1,89 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/index.css"/>
-    <script id="applicationScript" type="text/javascript" src="/js/index.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>One Page Wonder - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/index.css" rel="stylesheet">
+
 </head>
+
 <body>
-<div id="Index">
-    <img id="Mask_Group_1" src="/img/index/Mask_Group_1.png" srcset="/img/index/Mask_Group_1.png 1x">
-    </svg>
-    <div id="Group_5">
-        <svg class="Rectangle_3_n">
-            <linearGradient id="Rectangle_3_n" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
-                <stop offset="0" stop-color="#000" stop-opacity="0.769"></stop>
-                <stop offset="1" stop-color="#000" stop-opacity="0.769"></stop>
-            </linearGradient>
-            <rect id="Rectangle_3_n" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
-            </rect>
-        </svg>
-    </div>
-    <svg class="Line_1" viewBox="0 0 1 530">
-        <path id="Line_1" d="M 0 0 L 0 530">
-        </path>
-    </svg>
-    <svg class="Line_6" viewBox="0 0 1 337">
-        <path id="Line_6" d="M 0 0 L 0 337">
-        </path>
-    </svg>
-    <svg class="Line_8" viewBox="0 0 4.5 337">
-        <path id="Line_8" d="M 4.5 0 L 0 337">
-        </path>
-    </svg>
-    <svg class="Line_7" viewBox="0 0 987 1">
-        <path id="Line_7" d="M 0 0 L 987 0">
-        </path>
-    </svg>
-    <svg class="Line_9" viewBox="0 0 987 1">
-        <path id="Line_9" d="M 0 0 L 987 0">
-        </path>
-    </svg>
-    <div id="Explora_Costa_Rica">
-        <span>Explora </span><span style="font-style:normal;font-weight:bold;font-size:80px;">Costa Rica</span>
-    </div>
-    <div id="y_comparte_con_otros_tu_experi">
-        <span>y comparte con otros tu experiencia!</span>
-    </div>
-    <div id="Te_enseamos_los_increbles_luga">
-        <span>Te enseñamos los increíbles lugares que podrías visitar</span>
-    </div>
-    <div id="Escoge_dentro_de_las_regiones_">
-        <span>Escoge dentro de las regiones disponibles para explorar sitios a los que podrás visitar!</span>
-    </div>
-    <div id="Cada_lugar_tendr_informacin_im">
-        <span>Cada lugar tendrá información importante que debes conocer antes de planificar tu siguiente viaje</span>
-    </div>
-    <div id="Guarda_tu_informacin_sobre_tus">
-        <span>Guarda tu información sobre tus lugares visitados y comparte con otros tus experiencias!</span>
-    </div>
-    <div id="Selecciona_una_regin">
-        <span>Selecciona una región</span>
-    </div>
-    <div id="ID01">
-        <span>01</span>
-    </div>
-    <div id="ID02">
-        <span>02</span>
-    </div>
-    <div id="ID03">
-        <span>03</span>
-    </div>
-    <div id="Encuentra_un_lugar">
-        <span>Encuentra un lugar</span>
-    </div>
-    <div id="Explora">
-        <span>Explora</span>
-    </div>
-    <img id="Logo" src="/img/index/Logo.png" srcset="/img/index/Logo.png 1x">
-    <div id="Group_8">
-        <div id="EMPEZAR">
-            <span class="font-weight-bold cyan-lighter-hover mb-3" id="btn_empezar" onclick="getLogin()">EMPEZAR</span>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">CR Reborn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Registrarse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar Sesión</a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
+
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">Explora Costa Rica</h1>
+            <h2 class="masthead-subheading mb-0">y comparte con otros tu experiencia!</h2>
+            <a href="/login" class="btn btn-primary btn-xl rounded-pill mt-5">Empezar!</a>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="/img/index/01.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">Selecciona un lugar</h2>
+                    <p>Escoge dentro de los lugares disponibles para explorar sitios a los que podrás visitar!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="/img/index/02.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-5">
+                    <h2 class="display-4">Encuentra un lugar</h2>
+                    <p>Cada lugar tendrá información importante que debes conocer antes de planificar tu siguiente viaje.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="/img/index/03.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">Explora</h2>
+                    <p>Guarda tu información sobre tus lugares visitados y comparte con otros tus experiencias!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; CR Reborn 2020</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>

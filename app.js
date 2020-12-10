@@ -22,12 +22,14 @@ const flash = require('express-flash')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const {ensureAuthenticated, forwardAuthenticated} = require('./config/auth')
+const fileUpload = require('express-fileupload')
 
 //ejs render engine
 app.set('view-engine', 'ejs')
 
 //paths where express can access all our html pages, images, etc
 app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/images'))
 app.use(express.static(__dirname + '/public/html'))
 
 app.use(cors())
@@ -38,6 +40,8 @@ app.use(express.urlencoded({extended: false}))
 
 //parse application/json
 app.use(bodyParser.json())
+
+app.use(fileUpload())
 
 app.use(morgan('dev'))
 
@@ -55,7 +59,9 @@ app.use(passport.session())
 //required for storing all users in db into const users
 const users = []
 const visitors = []
+const images = []
 let user
+let image
 
 //passport initialization login logic
 const initializePassport = require('./passport-config')
@@ -105,6 +111,7 @@ app.get('/login', forwardAuthenticated, (req, res) => {
     res.render('login.ejs')
     getUsuarios()
     getVisitantes()
+
 })
 
 //POST login
@@ -117,7 +124,7 @@ app.post('/login', passport.authenticate('local', {
 //GET logout function
 app.get('/logout', function (req, res) {
     req.logout()
-    req.flash('success', 'Logged out!')
+    req.flash('success', 'Sesión cerrada!')
     res.redirect('/login')
 })
 
@@ -140,8 +147,6 @@ app.get('/successReg', (req, res) => {
 //TODO: register validitation from backend to frontend
 //Receives and stores a new Usuario from register page
 app.post('/register', async (req, res) => {
-
-    //getUsuarios()
 
     //data from input's form
     let id_usuario = ''
@@ -235,14 +240,14 @@ app.post('/register', async (req, res) => {
                 })
             })
             //success register page rendering
-            req.flash('success', 'Registration success!')
+            req.flash('success', 'Registro completado!')
             res.redirect('/login')
         } catch {
             res.redirect('/register')
         }
         //if the user is registered... a fancy msg shows up
     } else {
-        req.flash('error', 'Email already exist!')
+        req.flash('error', 'El correo electrónico ya se encuentra registrado!')
         res.redirect('/register')
     }
 })
@@ -278,7 +283,7 @@ app.post('/admin', async (req, res) => {
     result[0] = users.find(user => user.usuario_login === usuario_login)
 
     if (result[0] === undefined) {
-        req.flash('error', 'Admin not registered!')
+        req.flash('error', 'Admin no registrado!')
         res.redirect('/admin')
     } else {
         idTipoUsuario = result[0].id_tipoUsuario
@@ -287,10 +292,72 @@ app.post('/admin', async (req, res) => {
             req.flash('success', 'Success!')
             res.redirect('/admin')
         } else {
-            req.flash('error', 'Wrong credentials!')
+            req.flash('error', 'Credenciales erróneas!')
             res.redirect('/admin')
         }
     }
+})
+
+//Test Dynamic Carousel
+app.get('/carousel', async (req, res) => {
+
+    const _images = []
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * FROM Imagen')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            image = output[i]
+            _images.push(image)
+        }
+    }).catch(error => {
+        //shit happens
+        console.log("Failed to select images path from db : " + error)
+        res.sendStatus(500)
+        return
+    })
+
+    for (let i = 0; i < _images.length; i++) {
+        console.log(_images[i]['direccion'])
+    }
+
+    res.render('carousel.ejs', {
+        _images: _images,
+    })
+})
+
+app.post('/carousel', async (req, res) => {
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        req.flash('error', 'No files were uploaded!')
+        res.redirect('/carousel')
+    }
+
+    let image = req.files.image
+    let path = image.name
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('direccion', sql.NVarChar, path)
+            .query('INSERT INTO Imagen VALUES (@direccion)')
+    }).then(result => {
+        console.log("Image path have been created: ", result.rowsAffected);
+    }).catch(error => {
+        //shit happens
+        console.log("Failed to create new path image into db: " + error)
+        res.sendStatus(500)
+        return
+    })
+
+    image.mv('../cr_reborn/images/' + image.name, function (err) {
+        if (err)
+            return res.status(500).send(err)
+        req.flash('success', 'Archivo cargado!')
+        res.redirect('/carousel')
+    })
+
 })
 
 //create a write stream (in append mode)

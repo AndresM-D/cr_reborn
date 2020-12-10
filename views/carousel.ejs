@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Carousel</title>
+</head>
+<body>
+<h2 class="text-center bg-dark text-light pb-2">Dynamic Boostrap 4 Carousel</h2>
+<div class="container-fluid">
+    <div class="row justify-content-center mb-2">
+        <div class="col-lg-10">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <%for (let i = 0; i < _images.length; i++) {%>
+                        <%actives = ''%>
+                        <%if (i === 0) {%>
+                            <%actives = 'active'%>
+                        <%}%>
+                        <li data-target="#carousel" data-slide-to="<%= i %>" class="<%= actives %>"></li>
+                    <%}%>
+                </ol>
+                <div class="carousel-inner">
+                    <%for (let i = 0; i < _images.length; i++) {%>
+                        <%actives = ''%>
+                        <%if (i === 0) {%>
+                            <%actives = 'active'%>
+                        <%}%>
+                        <div class="carousel-item <%= actives %>">
+                            <img class="d-block w-100" src="<%= _images[i]['direccion']%>">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide label</h5>
+                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            </div>
+                        </div>
+                    <%}%>
+                </div>
+                <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-4 bg-dark rounded px-4">
+            <h4 class="text-center text-light p-1">Select Image to Upload!</h4>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <% if (messages.success) { %>
+                        <div class="alert alert-success" role="alert">
+                            <%= messages.success %>
+                        </div>
+                    <% } %>
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= messages.error %>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="image" id="image" class="form-control p-1" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="upload" class="btn btn-warning btn-block" value="Upload Image">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

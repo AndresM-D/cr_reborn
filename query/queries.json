@@ -16,7 +16,7 @@
   "getAdministrador": "SELECT * FROM Administrador",
   "addAdministrador": "INSERT INTO Administrador (id_usuario,nombre,apellido,correo) VALUES (@id_usuario,@nombre,@apellido,@correo) ",
   "updateAdministrador": "UPDATE Administrador SET nombre = @nombre, apellido = @apellido, correo = @correo WHERE id_usuario = @id_usuario",
-  "deleteAdministrador": "DELETE FROM Administrador WHERE id_administrador = @id_administrador",
+  "deleteAdministrador": "DELETE FROM Administrador WHERE id_usuario = @id_usuario",
   "getAdminName": "SELECT nombre FROM Administrador WHERE id_administrador = @id_administrador",
   "updateAdministradorClave": "UPDATE Usuario SET password_login = @passw, usuario_login = @correo WHERE id_usuario = @id_usuario"
 }

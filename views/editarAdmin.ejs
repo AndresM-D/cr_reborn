@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Edit</title>
     <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/register.css"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -15,7 +15,7 @@
     <script id="applicationScript" type="text/javascript" src="/js/register.js"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="app.js"></script>
+
 </head>
 <body >
 
@@ -39,7 +39,7 @@
         </rect>
     </svg>
     <div id="txt_note">
-        <span>Al registrar un nuevo administrador el mismo tendra accesos privilegiados en el sitio web.</span>
+        <span>Al tener un perfil de administrador el mismo tendra accesos privilegiados en el sitio web.</span>
     </div>
     <div id="txt_titleForm">
         <span>Editar</span>
@@ -49,7 +49,7 @@
             </span>
     </div>
     <img id="sideForm_img" src="/img/registerAdmin/animalRegister.jpg" srcset="/img/registerAdmin/animalRegister.jpg 1x">
-    <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x" onload="myFun()">
+    <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x" >
     <div class="form" >
         <div class="row">
             <div class="col-md-6">
@@ -107,13 +107,23 @@
                     </button>
                     <hr>
 
-                    <button class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login" onclick="getLogin()">
-                        Eliminar
-                    </button>
+
+                </form>
+                <form id="eliminarAdmin"
+                      action="/eliminarAdmin"
+                      method="POST">
+                    <div class="form-group">
+                        <button class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login" >
+                            Eliminar
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+</div>
+
+
 </body>
 </html>

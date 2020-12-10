@@ -167,6 +167,33 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
 
 })
 
+//POST delete
+app.post('/eliminarAdmin', async (req, res) => {
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(7))
+            .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
+
+    }).then(result => {
+        console.log("Admin have been deleted: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(7))
+                .query("DELETE FROM Usuario WHERE id_usuario = @id_usuario")
+        }).then(result => {
+            console.log("User have been deleted: ", result.rowsAffected);
+
+
+        })
+
+    })
+
+    req.flash('success', 'Administrator was deleted!')
+    res.redirect('/editarAdmin')
+
+
+})
+
 //POST register
 //TODO: register validitation from backend to frontend
 //Receives and stores a new Usuario from register page
@@ -194,11 +221,12 @@ app.post('/editarAdmin', async (req, res) => {
                 .query(queries.updateAdministradorClave)
         }).then(result => {
             console.log("Usuario have been updated: ", result.rowsAffected);
+
         })
 
     })
-
-    res.redirect('/register')
+    req.flash('success', 'Successful!')
+    res.redirect('/editarAdmin')
 
 
 })
@@ -423,7 +451,7 @@ app.post('/registerAdmin', async (req, res) => {
         //if the user is registered... a fancy msg shows up
     } else {
         req.flash('error', 'Email already exist!')
-        res.redirect('/register')
+        res.redirect('/registerAdmin')
     }
 })
 

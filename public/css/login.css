@@ -4077,6 +4077,7 @@ input[type="button"].btn-block {
 }
 
 .navbar {
+    background: black;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -9758,8 +9759,8 @@ a:focus {
 .container-md,
 .container-lg,
 .container-xl {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .scroll-to-top {
@@ -11221,3 +11222,37 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
+
+.navbar-custom {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-custom .navbar-brand {
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+}
+
+.navbar-custom .navbar-nav .nav-item .nav-link {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+header.masthead {
+    background: url(../img/dashboard/bg_carousel.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+header.masthead .masthead-content {
+    z-index: 1;
+    position: relative;
+}
+

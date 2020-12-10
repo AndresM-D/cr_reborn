@@ -9,7 +9,7 @@
   "_comment": "Visitante queries",
   "getVisitante": "SELECT * FROM Visitante",
   "addVisitante": "INSERT INTO Visitante (id_usuario,nombre,apellido,correo) VALUES (@id_usuario,@nombre,@apellido,@correo) ",
-  "updateVisitante": "UPDATE Visitante SET nombre = @nombre, apellido = @apellido WHERE id_visitante = @id_visitante",
+  "updateVisitante": "UPDATE Visitante SET nombre = @nombre, apellido = @apellido, correo = @correo WHERE id_usuario = @id_usuario",
   "deleteVisitante": "DELETE FROM Visitante WHERE id_visitante = @id_visitante",
 
   "_comment": "Administrador queries",

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/register.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JS -->
+    <script id="applicationScript" type="text/javascript" src="/js/register.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="SignUp">
+    <img id="bg_img" src="/img/register/bg_img.png" srcset="/img/register/bg_img.png 1x">
+    </svg>
+    <svg class="bg_shadow_l">
+        <linearGradient id="bg_shadow_l" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
+            <stop offset="0" stop-color="#000" stop-opacity="0.678"></stop>
+            <stop offset="1" stop-color="#000" stop-opacity="0.612"></stop>
+        </linearGradient>
+        <rect id="bg_shadow_l" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
+        </rect>
+    </svg>
+    <svg class="div_form">
+        <rect id="div_form" rx="0" ry="0" x="0" y="0" width="1440" height="860">
+        </rect>
+    </svg>
+    <svg class="div_regData">
+        <rect id="div_regData" rx="0" ry="0" x="0" y="0" width="860" height="860">
+        </rect>
+    </svg>
+    <div id="txt_note">
+        <span>Al registrar un nuevo lugar turístico debe de llenar toda la información que se requiere. <br/>de uso de tus datos asociados a tu cuenta.</span>
+    </div>
+    <div id="txt_titleForm">
+        <span>Regístrate</span>
+    </div>
+    <div id="txt_info">
+            <span>Ingresa los diferentes lugares que podrías visitar.
+            </span>
+    </div>
+    <img id="sideForm_img" src="/img/registerAdmin/tortuga.jpg" srcset="/img/registerAdmin/tortuga.jpg 1x">
+    <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x">
+    <div class="form">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="registerLugar"
+                      action="/registerLugar"
+                      method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
+                               placeholder="NOMBRE LUGAR" required name="nombre">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupUBICACIONInput"
+                               placeholder="PROVINCIA" required name="ubicacion">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupREGIONInput"
+                               placeholder="REGIÓN"
+                               required name="region">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupTIPOInput"
+                               placeholder="TIPO"
+                               required name="tipo">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupHORARIOInput"
+                               placeholder="HORARIO"
+                               required name="horario">
+                        <input type="text" class="form-control form-control-lg" id="formGroupSERVICIOSInput"
+                               placeholder="SERVICIOS"
+                               required name="servicios">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupTELEFONOInput"
+                               placeholder="TELEFONO"
+                               required name="telefono">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupCOSTOAInput"
+                               placeholder="COSTO ADULTOS"
+                               required name="costoA">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupCOSTONInput"
+                               placeholder="COSTO NINO"
+                               required name="costoN">
+
+                        <input type="text" class="form-control form-control-lg" id="formGroupCOSTOMInput"
+                               placeholder="COSTO ADULTO MAYOR"
+                               required name="costoM">
+                        </div>
+
+
+
+
+                    <button type="submit" value="validate" class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_submit">
+                        Submit
+                    </button>
+                    <hr>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

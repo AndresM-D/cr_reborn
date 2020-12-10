@@ -27,6 +27,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
+      <change afterPath="$PROJECT_DIR$/public/img/registerAdmin/kink.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/registerAdmin/loro.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/registerAdmin/tortuga.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/editarUser.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/registerLugar.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
@@ -67,7 +72,7 @@
     <property name="javascript.nodejs.core.library.typings.version" value="12.19.0" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img/registerAdmin" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
     <property name="nodejs.jest.jest_package" value="" />
@@ -80,9 +85,9 @@
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\backend" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Steven\WebstormProjects\cr_reborn\public\css" />
-      <recent name="C:\Users\Steven\WebstormProjects\cr_reborn\views" />
       <recent name="C:\Users\Steven\WebstormProjects\cr_reborn\public\img\registerAdmin" />
+      <recent name="C:\Users\Steven\WebstormProjects\cr_reborn\views" />
+      <recent name="C:\Users\Steven\WebstormProjects\cr_reborn\public\css" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public" />
       <recent name="C:\Users\Andres\WebstormProjects\cr_reborn\public\html" />
     </key>
@@ -175,7 +180,7 @@
       <workItem from="1606261513204" duration="12083000" />
       <workItem from="1606325837254" duration="34556000" />
       <workItem from="1606410409267" duration="19268000" />
-      <workItem from="1607569278457" duration="2906000" />
+      <workItem from="1607569278457" duration="11854000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -303,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607377267824</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Fields validation... ready!">
+      <created>1607575430595</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1607575430595</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,25 +387,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605900329722" />
-    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1607575063546">
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1607584066776">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607575063546" />
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607584066776" />
     <state width="1899" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771125" />
-    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1607575063546">
+    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1607584066776">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607575063546" />
+    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607584066776" />
     <state width="1899" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771124" />
-    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1607575063546">
+    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1607584066776">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607575063546" />
+    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607584066776" />
     <state width="1899" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771124" />
-    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1607575063546">
+    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1607584066776">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607575063546" />
+    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607584066776" />
     <state width="1899" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771124" />
     <state width="1345" height="227" key="GridCell.Tab.1.bottom" timestamp="1607574659172">
       <screen x="0" y="0" width="1366" height="738" />
@@ -451,10 +463,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1345" height="227" key="GridCell.Tab.3.right/0.0.1366.738@0.0.1366.738" timestamp="1607574659172" />
-    <state x="550" y="182" key="Vcs.Push.Dialog.v2" timestamp="1607377273208">
+    <state x="550" y="182" key="Vcs.Push.Dialog.v2" timestamp="1607575331863">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="550" y="182" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607377273208" />
+    <state x="550" y="182" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607575331863" />
     <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606371216347" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />

@@ -39,22 +39,22 @@
         </rect>
     </svg>
     <div id="txt_note">
-        <span>Al tener un perfil de administrador el mismo tendra accesos privilegiados en el sitio web.</span>
+        <span>Al tener un perfil de usuario el mismo acepta nuestros términos y condiciones de uso.</span>
     </div>
     <div id="txt_titleForm">
         <span>Editar</span>
     </div>
     <div id="txt_info">
-            <span>Edita los datos para poder actualizar en nuestro sitio web el perfil de administrador.
+            <span>Edita los datos para poder actualizar en nuestro sitio web el perfil del usuario.
             </span>
     </div>
-    <img id="sideForm_img" src="/img/registerAdmin/kink.jpg" srcset="/img/registerAdmin/kink.jpg 1x">
+    <img id="sideForm_img" src="/img/registerAdmin/loro.jpg" srcset="/img/registerAdmin/loro.jpg 1x">
     <img id="Logo" src="/img/register/Logo.png" srcset="/img/register/Logo.png 1x" >
     <div class="form" >
         <div class="row">
             <div class="col-md-6">
-                <form id="editarAdmin"
-                      action="/editarAdmin"
+                <form id="editarUser"
+                      action="/editarUser"
                       method="POST"
                       oninput='password_login2.setCustomValidity(password_login2.value !== password_login.value ? "Passwords do not match." : "")'>
                     <div class="form-group">
@@ -109,8 +109,8 @@
 
 
                 </form>
-                <form id="eliminarAdmin"
-                      action="/eliminarAdmin"
+                <form id="eliminarUser"
+                      action="/eliminarUser"
                       method="POST">
                     <div class="form-group">
                         <button class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login" >

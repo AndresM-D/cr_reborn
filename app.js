@@ -142,20 +142,23 @@ app.get('/registerAdmin', forwardAuthenticated, (req, res) => {
     res.render('registerAdmin.ejs')
 })
 
-//GET registerAdmin page
+//GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
     let pass = ' '
     let email_ = ' '
+    let idUser=8
     sql.connect(config).then(pool => {
         return pool.request()
-            .query('SELECT * FROM Usuario WHERE id_usuario = 7')
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
     }).then(result => {
         pass = result.recordset[0].password_login
         email_ = result.recordset[0].usuario_login
         console.log(email_)
         sql.connect(config).then(pool => {
             return pool.request()
-                .query('SELECT * FROM Administrador WHERE id_usuario = 7')
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query('SELECT * FROM Administrador WHERE id_usuario = @id_usuario')
         }).then(result => {
             res.render('editarAdmin.ejs', {name:result.recordset[0].nombre, lastname:result.recordset[0].apellido, email__: email_, passw:pass})
 
@@ -169,19 +172,20 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
 
 //POST delete
 app.post('/eliminarAdmin', async (req, res) => {
+    let idUser=8
     sql.connect(config).then(pool => {
         return pool.request()
-            .input('id_usuario', sql.Int, parseInt(7))
+            .input('id_usuario', sql.Int, parseInt(idUser))
             .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
 
     }).then(result => {
         console.log("Admin have been deleted: ", result.rowsAffected);
         sql.connect(config).then(pool => {
             return pool.request()
-                .input('id_usuario', sql.Int, parseInt(7))
-                .query("DELETE FROM Usuario WHERE id_usuario = @id_usuario")
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
         }).then(result => {
-            console.log("User have been deleted: ", result.rowsAffected);
+            console.log("User have been deactivated: ", result.rowsAffected);
 
 
         })
@@ -194,9 +198,7 @@ app.post('/eliminarAdmin', async (req, res) => {
 
 })
 
-//POST register
-//TODO: register validitation from backend to frontend
-//Receives and stores a new Usuario from register page
+//POST edit
 app.post('/editarAdmin', async (req, res) => {
 
     let id_usuario = ''
@@ -204,9 +206,10 @@ app.post('/editarAdmin', async (req, res) => {
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
+    let idUser=8
     sql.connect(config).then(pool => {
         return pool.request()
-            .input('id_usuario', sql.Int, parseInt(7))
+            .input('id_usuario', sql.Int, parseInt(idUser))
             .input('nombre', sql.NVarChar, nombre)
             .input('apellido', sql.NVarChar, apellido)
             .input('correo', sql.NVarChar, usuario_login)
@@ -216,7 +219,7 @@ app.post('/editarAdmin', async (req, res) => {
         sql.connect(config).then(pool => {
             return pool.request()
                 .input('passw', sql.NVarChar, password_login)
-                .input('id_usuario', sql.Int, parseInt(7))
+                .input('id_usuario', sql.Int, parseInt(idUser))
                 .input('correo', sql.NVarChar, usuario_login)
                 .query(queries.updateAdministradorClave)
         }).then(result => {
@@ -232,6 +235,314 @@ app.post('/editarAdmin', async (req, res) => {
 })
 
 
+//GET registerLugar page
+app.get('/registerLugar', forwardAuthenticated, (req, res) => {
+    res.render('registerLugar.ejs')
+})
+
+//POST registerLugar
+app.post('/registerLugar', async (req, res) => {
+
+    let id_tipo = ''
+    let id_region = ''
+    let id_servicios = ''
+    let id_centro = ''
+    const nombre = req.body.nombre
+    const ubicacion = req.body.ubicacion
+    const region = req.body.region
+    const tipo = req.body.tipo
+    const horario = req.body.horario
+    const telefono = req.body.telefono
+    const costoA = req.body.costoA
+    const costoN = req.body.costoN
+    const costoM = req.body.costoM
+    const servicios = req.body.servicios
+    const login = 3
+
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('tipo', sql.NVarChar, tipo)
+                        .query('INSERT INTO TipoCentro (nombre_tipo) VALUES (@tipo)')
+                }).then(result => {
+
+                    console.log("Tipo have been created: ", result.rowsAffected)
+
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('region', sql.NVarChar, region)
+                            .input('ubicacion', sql.NVarChar, ubicacion)
+                            .query('INSERT INTO Region (nombre_region, provincia) VALUES (@region, @ubicacion)')
+                    }).then(result => {
+
+                        console.log("Region have been created: ", result.rowsAffected)
+
+                        sql.connect(config).then(pool => {
+                            return pool.request()
+                                .input('servicios', sql.NVarChar, servicios)
+                                .query('INSERT INTO Servicio (nombre_servicio) VALUES (@servicios)')
+                        }).then(result => {
+
+                            console.log("Servicios have been created: ", result.rowsAffected)
+                            sql.connect(config).then(pool => {
+                                return pool.request()
+                                    .query('SELECT TOP 1 id_tipo FROM TipoCentro ORDER BY id_tipo DESC')
+                            }).then(result => {
+                                id_tipo=result.recordset[0].id_tipo
+                                sql.connect(config).then(pool => {
+                                    return pool.request()
+                                        .query('SELECT TOP 1 id_region FROM Region ORDER BY id_region DESC')
+                                }).then(result => {
+
+                                    id_region=result.recordset[0].id_region
+                                    sql.connect(config).then(pool => {
+                                        return pool.request()
+                                            .query('SELECT TOP 1 id_servicio FROM Servicio ORDER BY id_servicio DESC')
+                                    }).then(result => {
+
+                                        id_servicios=result.recordset[0].id_servicio
+                                        sql.connect(config).then(pool => {
+                                            return pool.request()
+                                                .input('id_tipo', sql.Int, id_tipo)
+                                                .input('id_region', sql.NVarChar, id_region)
+                                                .input('id_servicios', sql.NVarChar, id_servicios)
+                                                .input('nombre', sql.NVarChar, nombre)
+                                                .input('horario', sql.NVarChar, horario)
+                                                .input('telefono', sql.NVarChar, telefono)
+                                                .input('costoA', sql.NVarChar, costoA)
+                                                .input('costoN', sql.NVarChar, costoN)
+                                                .input('costoM', sql.NVarChar, costoM)
+                                                .input('login', sql.NVarChar, login)
+                                                .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN)")
+                                        }).then(result => {
+
+                                            console.log("Centro Turistico: ", result.rowsAffected)
+                                            sql.connect(config).then(pool => {
+                                                return pool.request()
+                                                    .query('SELECT TOP 1 id_centro FROM CentroTuristico ORDER BY id_centro DESC')
+                                            }).then(result => {
+
+                                                id_centro=result.recordset[0].id_centro
+                                                sql.connect(config).then(pool => {
+                                                    return pool.request()
+                                                        .input('id_servicio', sql.NVarChar, id_servicios)
+                                                        .input('id_centro', sql.NVarChar, id_centro)
+                                                        .query('INSERT INTO CentroServicio (id_servicio,id_centro) VALUES (@id_servicio,@id_centro)')
+                                                }).then(result => {
+
+                                                    console.log("Centro Turistico Agregado con EXITO: ", result.rowsAffected)
+                                                })
+                                                   })
+
+                                        })
+
+                                    })
+
+                                })
+
+
+                            })
+
+                        })
+
+                    })
+
+                        })
+
+
+
+    req.flash('success', 'Centro turistico creado con exito!')
+    res.redirect('/registerLugar')
+
+})
+
+
+//GET editAdmin page
+app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
+    let pass = ' '
+    let email_ = ' '
+    let idUser=8
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
+    }).then(result => {
+        pass = result.recordset[0].password_login
+        email_ = result.recordset[0].usuario_login
+        console.log(email_)
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query('SELECT * FROM Administrador WHERE id_usuario = @id_usuario')
+        }).then(result => {
+            res.render('editarAdmin.ejs', {name:result.recordset[0].nombre, lastname:result.recordset[0].apellido, email__: email_, passw:pass})
+
+        })
+
+
+    })
+
+
+})
+
+//POST delete
+app.post('/eliminarAdmin', async (req, res) => {
+    let idUser=8
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
+
+    }).then(result => {
+        console.log("Admin have been deleted: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
+        }).then(result => {
+            console.log("User have been deactivated: ", result.rowsAffected);
+
+
+        })
+
+    })
+
+    req.flash('success', 'Administrator was deleted!')
+    res.redirect('/editarAdmin')
+
+
+})
+
+//POST edit
+app.post('/editarAdmin', async (req, res) => {
+
+    let id_usuario = ''
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
+    const usuario_login = req.body.usuario_login
+    const password_login = req.body.password_login
+    let idUser=8
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .input('nombre', sql.NVarChar, nombre)
+            .input('apellido', sql.NVarChar, apellido)
+            .input('correo', sql.NVarChar, usuario_login)
+            .query(queries.updateAdministrador)
+    }).then(result => {
+        console.log("Admin have been update: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('passw', sql.NVarChar, password_login)
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .input('correo', sql.NVarChar, usuario_login)
+                .query(queries.updateAdministradorClave)
+        }).then(result => {
+            console.log("Usuario have been updated: ", result.rowsAffected);
+
+        })
+
+    })
+    req.flash('success', 'Successful!')
+    res.redirect('/editarAdmin')
+
+
+})
+
+
+
+
+//GET edit page
+app.get('/editarUser', forwardAuthenticated, (req, res) => {
+    let pass = ' '
+    let email_ = ' '
+    let idUser=6
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
+    }).then(result => {
+        pass = result.recordset[0].password_login
+        email_ = result.recordset[0].usuario_login
+        console.log(email_)
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query('SELECT * FROM Visitante WHERE id_usuario = @id_usuario')
+        }).then(result => {
+
+            res.render('editarUser.ejs', {name:result.recordset[0].nombre, lastname:result.recordset[0].apellido, email__: email_, passw:pass})
+
+        })
+
+
+    })
+
+
+})
+
+//POST delete
+app.post('/eliminarUser', async (req, res) => {
+    let idUser=6
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query("DELETE FROM Visitante WHERE id_usuario = @id_usuario")
+
+    }).then(result => {
+        console.log("Admin have been deleted: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
+        }).then(result => {
+            console.log("User have been deactivated: ", result.rowsAffected);
+
+
+        })
+
+    })
+
+    req.flash('success', 'Administrator was deleted!')
+    res.redirect('/editarUser')
+
+
+})
+
+//POST edit
+app.post('/editarUser', async (req, res) => {
+
+    let id_usuario = ''
+    let idUser=6
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
+    const usuario_login = req.body.usuario_login
+    const password_login = req.body.password_login
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .input('nombre', sql.NVarChar, nombre)
+            .input('apellido', sql.NVarChar, apellido)
+            .input('correo', sql.NVarChar, usuario_login)
+            .query(queries.updateVisitante)
+    }).then(result => {
+        console.log("Admin have been update: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('passw', sql.NVarChar, password_login)
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .input('correo', sql.NVarChar, usuario_login)
+                .query("UPDATE Usuario SET password_login = @passw, usuario_login = @correo WHERE id_usuario = @id_usuario")
+        }).then(result => {
+            console.log("Usuario have been updated: ", result.rowsAffected);
+
+        })
+
+    })
+    req.flash('success', 'Successful!')
+    res.redirect('/editarUser')
+
+
+})
 
 
 

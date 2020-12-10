@@ -51,46 +51,46 @@
     <div class="form">
         <div class="row">
             <div class="col-md-6">
-                <form id="registerLugar"
-                      action="/registerLugar"
+                <form id="editLugar"
+                      action="/editLugar"
                       method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
-                               placeholder="NOMBRE LUGAR" required name="nombre">
+                                required name="nombre" value="<%= name %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupUBICACIONInput"
-                               placeholder="PROVINCIA" required name="ubicacion">
+                                required name="ubicacion" value="<%= provincia %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupREGIONInput"
-                               placeholder="REGIÓN"
-                               required name="region">
+
+                               required name="region" value="<%= region %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupTIPOInput"
-                               placeholder="TIPO"
-                               required name="tipo">
+
+                               required name="tipo" value="<%= tipo %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupHORARIOInput"
-                               placeholder="HORARIO"
-                               required name="horario">
+
+                               required name="horario" value="<%= horario %>">
                         <input type="text" class="form-control form-control-lg" id="formGroupSERVICIOSInput"
-                               placeholder="SERVICIOS"
-                               required name="servicios">
+
+                               required name="servicios" value="<%= servicio %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupTELEFONOInput"
-                               placeholder="TELEFONO"
-                               required name="telefono">
+
+                               required name="telefono" value="<%= telefono %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupCOSTOAInput"
-                               placeholder="COSTO ADULTOS"
-                               required name="costoA">
+
+                               required name="costoA" value="<%= costoA %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupCOSTONInput"
-                               placeholder="COSTO NINO"
-                               required name="costoN">
+
+                               required name="costoN" value="<%= costoN %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupCOSTOMInput"
-                               placeholder="COSTO ADULTO MAYOR"
-                               required name="costoM">
+
+                               required name="costoM" value="<%= costoM %>">
                         </div>
 
 

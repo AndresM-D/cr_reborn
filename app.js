@@ -164,7 +164,7 @@ app.get('/successReg', (req, res) => {
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
     let pass = ' '
     let email_ = ' '
-    let idUser = 8
+    let idUser = 11
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -213,12 +213,12 @@ app.post('/eliminarAdmin', async (req, res) => {
 //POST edit
 app.post('/editarAdmin', async (req, res) => {
 
+    let idUser = 11
     let id_usuario = ''
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
-    let idUser = 8
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -349,6 +349,112 @@ app.post('/registerLugar', async (req, res) => {
     req.flash('success', 'Centro turistico creado con exito!')
     res.redirect('/registerLugar')
 })
+
+//POST edit
+app.post('/editarLugar', async (req, res) => {
+
+    let idUser = 4
+    let id_usuario = ''
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
+    const usuario_login = req.body.usuario_login
+    const password_login = req.body.password_login
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .input('nombre', sql.NVarChar, nombre)
+            .input('apellido', sql.NVarChar, apellido)
+            .input('correo', sql.NVarChar, usuario_login)
+            .query(queries.updateAdministrador)
+    }).then(result => {
+        console.log("Admin have been update: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('passw', sql.NVarChar, password_login)
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .input('correo', sql.NVarChar, usuario_login)
+                .query(queries.updateAdministradorClave)
+        }).then(result => {
+            console.log("Usuario have been updated: ", result.rowsAffected);
+        })
+    })
+    req.flash('success', 'Successful!')
+    res.redirect('/editarAdmin')
+})
+
+//GET editLugar page
+app.get('/editLugar', forwardAuthenticated, (req, res) => {
+    let id_centro = 4
+    let regionID = ' '
+    let tipoID = ' '
+    let region = ' '
+    let tipo = ' '
+    let nombre = ' '
+    let horario = ' '
+    let telefono = ' '
+    let costoN = ' '
+    let costoA = ' '
+    let costoM = ' '
+    let servicio = ' '
+    let servicioID = ' '
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_centro', sql.Int, parseInt(id_centro))
+            .query('SELECT * FROM CentroTuristico WHERE id_centro = @id_centro')
+    }).then(result => {
+        nombre = result.recordset[0].nombre_centro
+        horario = result.recordset[0].horario
+        telefono = result.recordset[0].telefono
+        costoA = result.recordset[0].costo_entrada_adulto
+        costoM = result.recordset[0].costo_entrada_aMayor
+        costoN = result.recordset[0].costo_entrada_nino
+        regionID = result.recordset[0].id_region
+        tipoID = result.recordset[0].id_tipo
+
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_centro', sql.Int, parseInt(id_centro))
+                .query('SELECT id_servicio FROM CentroServicio WHERE id_centro = @id_centro')
+        }).then(result => {
+            servicioID = result.recordset[0].id_servicio
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('servicioID', sql.Int, parseInt(servicioID))
+                    .query('SELECT nombre_servicio FROM Servicio WHERE id_servicio = @servicioID')
+            }).then(result => {
+                servicio = result.recordset[0].nombre_servicio
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('tipoID', sql.Int, parseInt(tipoID))
+                        .query('SELECT nombre_tipo FROM TipoCentro WHERE id_tipo = @tipoID')
+                }).then(result => {
+                    tipo = result.recordset[0].nombre_tipo
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('regionID', sql.Int, parseInt(regionID))
+                            .query('SELECT * FROM Region WHERE id_region = @regionID')
+                    }).then(result => {
+                        res.render('editarLugar.ejs', {
+                            name: nombre,
+                            region: result.recordset[0].nombre_region,
+                            provincia: result.recordset[0].provincia,
+                            tipo: tipo,
+                            horario: horario,
+                            telefono: telefono,
+                            costoA: costoA,
+                            costoN: costoN,
+                            costoM: costoM,
+                            servicio: servicio
+                        })
+                    })
+
+                })
+            })
+        })
+    })
+})
+
+
 
 
 //GET editAdmin page
@@ -698,6 +804,126 @@ app.post('/carousel', async (req, res) => {
         res.redirect('/carousel')
     })
 })
+
+
+//GET registerAdmin page
+app.get('/registerAdmin', forwardAuthenticated, (req, res) => {
+    res.render('registerAdmin.ejs')
+})
+
+//POST registerAdmin
+app.post('/registerAdmin', async (req, res) => {
+
+    let id_usuario = ''
+
+    //when a Usuario is stored from register, id_tipoUsuario remains as 2 always!
+    const id_tipoUsuario = 1
+
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
+    const usuario_login = req.body.usuario_login
+    const password_login = req.body.password_login
+
+    //same as id_tipoUsuario, estado remains as 1
+    const estado = "1"
+
+    //first, we need to validate that a new user cant register if he or she is already in the db so...
+    //promise below capture all the users and store it in a array
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getUsuario)
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            user = output[i]
+            users.push(user)
+        }
+    })
+
+    //then we need to validate the data from register page against our array containing all the users
+    const result = users.find(user => user.usuario_login === usuario_login)
+
+    //if the user isn't registered yet
+    if (result === undefined) {
+        try {
+            //Usuario insertion into db
+            await bcrypt.hash(password_login, saltRounds, function (err, hash) {
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('id_tipoUsuario', sql.Int, id_tipoUsuario)
+                        .input('usuario_login', sql.NVarChar, usuario_login)
+                        .input('password_login', sql.NVarChar, hash)
+                        .input('estado', sql.NVarChar, estado)
+                        .query(queries.addUsuario)
+                }).then(result => {
+
+                    console.log("Usuario have been created: ", result.rowsAffected)
+                    //in order to create an Admin
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('usuario_login', sql.NVarChar, usuario_login)
+                            .query('SELECT id_usuario FROM Usuario WHERE usuario_login = @usuario_login')
+                    }).then(result => {
+                        //the id from last insertion is assigned to result
+                        let output = result.recordset
+
+                        //now we need to get that id as an object that can be saved into the db
+                        //that's what it does the for loop below
+                        for (let i = 0; i < output.length; i++) {
+                            let id = output[i]
+                            for (let idKey in id) {
+                                id_usuario = id[idKey]
+                            }
+                        }
+
+                        //having the right id from Usuario we need to assign the same id to Visitante record as well
+                        //Visitante insertion into db
+                        sql.connect(config).then(pool => {
+                            return pool.request()
+                                .input('id_usuario', sql.Int, parseInt(id_usuario))
+                                .input('nombre', sql.NVarChar, nombre)
+                                .input('apellido', sql.NVarChar, apellido)
+                                .input('correo', sql.NVarChar, usuario_login)
+                                .query(queries.addAdministrador)
+                        }).then(result => {
+                            console.log("Admin have been created: ", result.rowsAffected);
+                        }).catch(error => {
+                            //shit happens
+                            console.log("Failed to create new Admin: " + error)
+                            res.sendStatus(500)
+                            return
+                        })
+                    }).catch(error => {
+                        console.log(error)
+                        res.sendStatus(500)
+                        return
+                    })
+                }).catch(error => {
+                    console.log("Failed to create new Usuario: " + error)
+                    res.sendStatus(500)
+                    return
+                })
+            })
+            //success register page rendering
+            req.flash('success', 'Registration success!')
+            res.redirect('/login')
+        } catch {
+            res.redirect('/registerAdmin')
+        }
+        //if the user is registered... a fancy msg shows up
+    } else {
+        req.flash('error', 'Email already exist!')
+        res.redirect('/registerAdmin')
+    }
+})
+
+
+
+
+
+
+
+
 
 
 //create a write stream (in append mode)

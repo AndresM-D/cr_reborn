@@ -58,7 +58,6 @@ const users = []
 const visitors = []
 const images = []
 let user
-let image
 
 //passport initialization login logic
 const initializePassport = require('./passport-config')
@@ -126,17 +125,24 @@ app.get('/logout', function (req, res) {
 
 //GET dashboard page
 app.get('/dashboard', ensureAuthenticated, async (req, res) => {
-    const _images = []
+    const _videos = []
+    const _imagenes = []
     const _centros = []
+    // current timestamp in milliseconds
+    let _ts = Date.now();
+
+    let _date_ob = new Date(_ts);
+    let _date = _date_ob.getDate();
+    let _month = _date_ob.getMonth() + 1;
+    let _year = _date_ob.getFullYear();
 
     await sql.connect(config).then(pool => {
         return pool.request()
-            .query('SELECT * FROM Imagen')
+            .query('SELECT * FROM Video')
     }).then(result => {
         let output = result.recordset
         for (let i = 0; i < output.length; i++) {
-            image = output[i]
-            _images.push(image)
+            _videos.push(output[i])
         }
     }).catch(error => {
         //shit happens
@@ -154,13 +160,33 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
             _centros.push(output[i])
         }
     }).catch(error => {
-        return error
+        //shit happens
+        console.log("Failed to select images path from db : " + error)
+        res.sendStatus(500)
+        return
+    })
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * FROM Imagen')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _imagenes.push(output[i])
+        }
+    }).catch(error => {
+        //shit happens
+        console.log("Failed to select images path from db : " + error)
+        res.sendStatus(500)
+        return
     })
 
     res.render('dashboard.ejs', {
-        images: _images,
+        name: req.user.usuario_login,
+        videos: _videos,
         centros: _centros,
-        name: req.user.usuario_login
+        imagenes: _imagenes,
+        fecha: _date + '/' + _month + '/' + _year
     })
 })
 
@@ -420,27 +446,6 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
             })
         })
     })
-})
-
-//POST delete
-app.post('/eliminarAdmin', async (req, res) => {
-    let idUser = 8
-    sql.connect(config).then(pool => {
-        return pool.request()
-            .input('id_usuario', sql.Int, parseInt(idUser))
-            .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
-    }).then(result => {
-        console.log("Admin have been deleted: ", result.rowsAffected);
-        sql.connect(config).then(pool => {
-            return pool.request()
-                .input('id_usuario', sql.Int, parseInt(idUser))
-                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
-        }).then(result => {
-            console.log("User have been deactivated: ", result.rowsAffected);
-        })
-    })
-    req.flash('success', 'Administrator was deleted!')
-    res.redirect('/editarAdmin')
 })
 
 //POST edit

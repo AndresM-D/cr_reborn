@@ -27,10 +27,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/bg_cards.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/dashboard/bg_cards.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/editLugar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/editLugar.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607626903791</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Dashboard client">
+      <created>1607651431167</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1607651431167</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -365,7 +375,8 @@
     <MESSAGE value="register, login and logout done!" />
     <MESSAGE value="Login admin done" />
     <MESSAGE value="Fields validation... ready!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fields validation... ready!" />
+    <MESSAGE value="Dashboard client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dashboard client" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -448,10 +459,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1606968543215">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1607651437748">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606968543215" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607651437748" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

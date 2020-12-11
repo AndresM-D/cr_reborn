@@ -1,114 +1,227 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/dashboard.css"/>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script id="applicationScript" type="text/javascript" src="/js/dashboard.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CR Reborn - Dashboard Visitante</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/login.css" rel="stylesheet">
+
 </head>
-<body>
-<div id="Dashboard">
-    <img id="imgBg" src="/img/dashboard/imgBg.png">
 
-    </svg>
-    <svg class="imgShadow_m">
-        <linearGradient id="imgShadow_m" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
-            <stop offset="0" stop-color="#000" stop-opacity="0.678"></stop>
-            <stop offset="1" stop-color="#000" stop-opacity="0.612"></stop>
-        </linearGradient>
-        <rect id="imgShadow_m" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
-        </rect>
-    </svg>
-    <svg class="Line_5" viewBox="0 0 1589.5 1">
-        <path id="Line_5" d="M 0 0 L 1589.5 0">
-        </path>
-    </svg>
-    <div id="dashOptions">
-        <div id="Dashboard_p">
-            <span>Dashboard</span>
-        </div>
-        <div id="User">
-            <span><%= name %></span>
-        </div>
-        <div id="Logout">
-            <span><a href="/logout" class="btn btn-secondary">Logout</a></span>
-        </div>
-    </div>
-    <img id="Logo" src="/img/dashboard/Logo.png">
+<body id="page-top">
 
-    <!-- Card -->
-    <div class="card" id="card1">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <!-- Card image -->
-        <div class="view overlay">
-            <img class="card-img-top" src="/img/dashboard/imgCard1.png"
-                 alt="Card image cap">
-            <a href="#!">
-                <div class="mask rgba-white-slight"></div>
-            </a>
-        </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Card content -->
-        <div class="card-body">
+        <!-- Main Content -->
+        <div id="content">
 
-            <!-- Title -->
-            <h4 class="card-title">Card title</h4>
-            <!-- Text -->
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <!-- Button -->
-            <a href="#" class="btn btn-primary">Button</a>
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light topbar static-top shadow">
 
-        </div>
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
 
-    </div>
-    <!-- Card -->
+                <a class="navbar-brand text-white text-uppercase" href="#">CR Reborn</a>
 
-    <!-- Card -->
-   <!-- <div class="card-deck">
-        <div class="card" id="card1">
-            <img class="card-img-top" src="/img/dashboard/imgCard1.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-white small"><%= name %></span>
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Perfil
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Configuración
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Cerrar sesión
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Carousel -->
+                <header class="masthead">
+                    <div class="masthead-content">
+                        <div class="container">
+                            <div class="row justify-content-center mb-2">
+                                <div class="col-lg">
+                                    <div id="carousel" class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators">
+                                            <%for (let i = 0; i < images.length; i++) {%>
+                                            <%actives = ''%>
+                                            <%if (i === 0) {%>
+                                            <%actives = 'active'%>
+                                            <%}%>
+                                            <li data-target="#carousel" data-slide-to="<%= i %>" class="<%= actives %>"></li>
+                                            <%}%>
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <%for (let i = 0; i < images.length; i++) {%>
+                                            <%actives = ''%>
+                                            <%if (i === 0) {%>
+                                            <%actives = 'active'%>
+                                            <%}%>
+                                            <div class="carousel-item <%= actives %>">
+                                                <img class="d-block w-100" src="<%= images[i]['direccion']%>">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <%if (images[i]['id_imagen'] === centros[i]['id_imagen']) {%>
+                                                        <h5><%= centros[i]['nombre_centro'] %></h5>
+                                                        <p><%= centros[i]['descripcion'] %></p>
+                                                    <%}%>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <!-- End of Carousel -->
+
+                <!-- Upload Image -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 bg-dark rounded px-4">
+                        <h4 class="text-center text-light p-1">Select Image to Upload!</h4>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <% if (messages.success) { %>
+                                    <div class="alert alert-success" role="alert">
+                                        <%= messages.success %>
+                                    </div>
+                                <% } %>
+                                <% if (messages.error) { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <%= messages.error %>
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="image" id="image" class="form-control p-1" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="upload" class="btn btn-warning btn-block" value="Upload Image">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End of Upload Image -->
+
+
+
             </div>
+            <!-- /.container-fluid -->
+
         </div>
-        <div class="card" id="card2">
-            <img class="card-img-top" src="/img/dashboard/imgCard2.png" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-        <div class="card" id="card3">
-            <div class="view overlay">
-                <img class="card-img-top" src="/img/dashboard/imgCard3.png" alt="Card image cap">
-                <a href="#!">
-                    <div class="mask rgba-white-slight"></div>
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; CR Reborn 2020</span>
                 </div>
             </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Listo para irte?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Selecciona "Cerrar Sesión" si deseas cerrar la sesión.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="/logout">Cerrar Sesión</a>
+            </div>
         </div>
-    </div>-->
-    <!-- Card -->
-
-
-    <div id="Explora_los_diferentes_lugares">
-        <span>Explora los diferentes lugares turísticos que ofrece nuestro bello país</span>
     </div>
 </div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
 </body>
+
 </html>

@@ -27,16 +27,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/bg_carousel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/dashboard2.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/arenal.GIF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cerro-pelado.GIF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/costa-rica.GIF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/manuel-antonio.GIF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/monteverde.GIF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/login/bgAdmin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/loginAdmin2.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/TLN_E32017_backalley.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/TLN_E32017_balcony.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/TLN_E32017_basement.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/TLN_E32017_bath.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/dashboard.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/dashboard/imgBg.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/dashboard/imgBg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/register.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard2.ejs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +190,7 @@
       <workItem from="1607350870743" duration="62000" />
       <workItem from="1607389970192" duration="609000" />
       <workItem from="1607551691038" duration="9788000" />
-      <workItem from="1607622532675" duration="785000" />
+      <workItem from="1607622532675" duration="10022000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -317,7 +325,28 @@
       <option name="project" value="LOCAL" />
       <updated>1607018282935</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Merge 1.0">
+      <created>1607623388771</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1607623388771</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Merge 2.0">
+      <created>1607623772183</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1607623772183</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Merge 3.0">
+      <created>1607624124650</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1607624124650</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,7 +404,10 @@
     <MESSAGE value="register, login and logout done!" />
     <MESSAGE value="Login admin done" />
     <MESSAGE value="minor bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor bugs fixed" />
+    <MESSAGE value="Merge 1.0" />
+    <MESSAGE value="Merge 2.0" />
+    <MESSAGE value="Merge 3.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge 3.0" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -458,10 +490,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="748" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607622148950" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1607018286509">
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1607624149135">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607018286509" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607624149135" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

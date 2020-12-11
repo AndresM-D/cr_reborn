@@ -10809,6 +10809,12 @@ a:focus {
     background-size: cover;
 }
 
+.bg-loginAdmin-image {
+    background: url(../img/login/bgAdmin.png);
+    background-position: center;
+    background-size: cover;
+}
+
 .bg-register-image {
     background: url(../img/register/sideForm_img.png);
     background-position: center;

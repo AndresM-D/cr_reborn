@@ -60,7 +60,6 @@ const images = []
 let user
 let image
 
-
 //passport initialization login logic
 const initializePassport = require('./passport-config')
 //email and id are needed for passport to validate the user credentials typed from view login.ejs
@@ -128,6 +127,7 @@ app.get('/logout', function (req, res) {
 //GET dashboard page
 app.get('/dashboard', ensureAuthenticated, async (req, res) => {
     const _images = []
+    const _centros = []
 
     await sql.connect(config).then(pool => {
         return pool.request()
@@ -145,13 +145,52 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
         return
     })
 
-    for (let i = 0; i < _images.length; i++) {
-        console.log(_images[i]['direccion'])
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * FROM CentroTuristico')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _centros.push(output[i])
+        }
+    }).catch(error => {
+        return error
+    })
+
+    res.render('dashboard.ejs', {
+        images: _images,
+        centros: _centros,
+        name: req.user.usuario_login
+    })
+})
+
+app.post('/dashboard', async (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        req.flash('error', 'Ningún archivo fue cargado!')
+        res.redirect('/dashboard')
     }
 
-    res.render('dashboard2.ejs', {
-        _images: _images,
-        name: req.user.usuario_login
+    let image = req.files.image
+    let path = image.name
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('direccion', sql.NVarChar, path)
+            .query('INSERT INTO Imagen VALUES (@direccion)')
+    }).then(result => {
+        console.log("Image path have been created: ", result.rowsAffected);
+    }).catch(error => {
+        //shit happens
+        console.log("Failed to create new path image into db: " + error)
+        res.sendStatus(500)
+        return
+    })
+
+    image.mv('../cr_reborn/images/' + image.name, function (err) {
+        if (err)
+            return res.status(500).send(err)
+        req.flash('success', 'Archivo cargado!')
+        res.redirect('/dashboard')
     })
 })
 
@@ -169,7 +208,7 @@ app.get('/successReg', (req, res) => {
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
     let pass = ' '
     let email_ = ' '
-    let idUser = 8
+    let idUser = 11
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -354,7 +393,6 @@ app.post('/registerLugar', async (req, res) => {
     req.flash('success', 'Centro turistico creado con exito!')
     res.redirect('/registerLugar')
 })
-
 
 //GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
@@ -629,7 +667,7 @@ app.post('/register', async (req, res) => {
 
 //GET admin page
 app.get('/admin', forwardAuthenticated, (req, res) => {
-    res.render('loginAdmin.ejs')
+    res.render('loginAdmin2.ejs')
 })
 
 //POST admin page
@@ -673,36 +711,7 @@ app.post('/admin', async (req, res) => {
     }
 })
 
-app.post('/carousel', async (req, res) => {
 
-    if (!req.files || Object.keys(req.files).length === 0) {
-        req.flash('error', 'No files were uploaded!')
-        res.redirect('/carousel')
-    }
-
-    let image = req.files.image
-    let path = image.name
-
-    await sql.connect(config).then(pool => {
-        return pool.request()
-            .input('direccion', sql.NVarChar, path)
-            .query('INSERT INTO Imagen VALUES (@direccion)')
-    }).then(result => {
-        console.log("Image path have been created: ", result.rowsAffected);
-    }).catch(error => {
-        //shit happens
-        console.log("Failed to create new path image into db: " + error)
-        res.sendStatus(500)
-        return
-    })
-
-    image.mv('../cr_reborn/images/' + image.name, function (err) {
-        if (err)
-            return res.status(500).send(err)
-        req.flash('success', 'Archivo cargado!')
-        res.redirect('/carousel')
-    })
-})
 
 
 //create a write stream (in append mode)

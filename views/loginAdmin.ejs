@@ -1,95 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="/css/loginAdmin.css"/>
-    <script id="applicationScript" type="text/javascript" src="/js/loginAdmin.js"></script>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- JS -->
-    <script id="applicationScript" type="text/javascript" src="/js/register.js"></script>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CR Reborn - Admin Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/login.css" rel="stylesheet">
+
 </head>
-<body>
-<div id="Login">
-    <img id="bg_img" src="/img/login/bg_img.png" srcset="/img/login/bg_img.png 1x">
 
-    </svg>
-    <svg class="bg_shadow_m">
-        <linearGradient id="bg_shadow_m" spreadMethod="pad" x1="0.5" x2="0.5" y1="0" y2="1">
-            <stop offset="0" stop-color="#000" stop-opacity="0.678"></stop>
-            <stop offset="1" stop-color="#000" stop-opacity="0.612"></stop>
-        </linearGradient>
-        <rect id="bg_shadow_m" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
-        </rect>
-    </svg>
-    <svg class="div_form">
-        <rect id="div_form" rx="0" ry="0" x="0" y="0" width="1440" height="860">
-        </rect>
-    </svg>
-    <svg class="div_logData">
-        <rect id="div_logData" rx="0" ry="0" x="0" y="0" width="860" height="860">
-        </rect>
-    </svg>
-    <div id="txt_detail">
-        <span>LOGIN ADMIN</span>
-    </div>
-    <div id="txt_titleForm">
-        <span>Bienvenido a CR Reborn</span>
-    </div>
-    <div id="txt_info">
-        <span>Regístrate para empezar a explorar los diferentes lugares disponibles en nuestro país</span>
-    </div>
-    <img id="sideForm_img" src="/img/login/sideForm_img.png" srcset="/img/login/sideForm_img.png 1x">
-    <img id="Logo" src="/img/login/Logo.png" srcset="/img/login/Logo.png 1x">
+<body class="bg-gradient-primary" id="bgAdmin">
 
-    <div class="form">
-        <div class="row">
-            <div class="col-md-6">
-                <form id="login" action="/admin" method="post">
-                    <div class="form-group">
-                        <% if (messages.success) { %>
-                            <div class="alert alert-success" role="alert">
-                                <%= messages.success %>
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-loginAdmin-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Bienvenido Administrador!</h1>
+                                </div>
+                                <form class="user" id="login" action="/admin" method="post">
+                                    <div class="form-group">
+                                        <% if (messages.success) { %>
+                                            <div class="alert alert-success" role="alert">
+                                                <%= messages.success %>
+                                            </div>
+                                        <% } %>
+                                        <% if (messages.error) { %>
+                                            <div class="alert alert-danger" role="alert">
+                                                <%= messages.error %>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user"
+                                               id="formGroupNombreInput" aria-describedby="emailHelp"
+                                               placeholder="Ingresa tu correo electrónico..." required name="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="formGroupPasswordInput" placeholder="Contraseña" required
+                                               name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Recuérdame</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" value="validate"
+                                            class="btn btn-primary btn-user btn-block" id="btn_login">
+                                        Iniciar
+                                    </button>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="#">¿Olvidaste la contraseña?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="#">Crea una cuenta!</a>
+                                </div>
                             </div>
-                        <% } %>
-                        <% if (messages.error) { %>
-                            <div class="alert alert-danger" role="alert">
-                                <%= messages.error %>
-                            </div>
-                        <% } %>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" id="formGroupNombreInput"
-                               placeholder="USUARIO" required name="email">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control form-control-lg" id="formGroupPasswordInput"
-                               placeholder="CONTRASEÑA" required name="password">
-                    </div>
-                    <button type="submit" value="validate"
-                            class="btn btn-info text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_login">
-                        Login
-                    </button>
-                    <hr>
-                    <small class="form-text text-muted">
-                        ¿Aún no tienes una cuenta?
-                    </small>
-                    <button class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1"
-                            id="btn_register" onclick="getRegister()">
-                        Register
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages -->
+<script src="js/sb-admin-2.min.js"></script>
+
 </body>
+
 </html>

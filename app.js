@@ -667,7 +667,7 @@ app.post('/register', async (req, res) => {
 
 //GET admin page
 app.get('/admin', forwardAuthenticated, (req, res) => {
-    res.render('loginAdmin2.ejs')
+    res.render('loginAdmin.ejs')
 })
 
 //POST admin page
@@ -710,9 +710,6 @@ app.post('/admin', async (req, res) => {
         }
     }
 })
-
-
-
 
 //create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), {flags: 'a'})

@@ -27,13 +27,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="326c8a1b-b8bd-41fa-84f2-2223c97ac8d2" name="Default Changelist" comment="Fields validation... ready!">
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/bg_cards.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/dashboard/bg_cards.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dashboard.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/editLugar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/editLugar.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/registerLugar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/registerLugar.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +50,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <hideBySeverity>
+      <option value="300" />
+    </hideBySeverity>
+    <option name="showPreview" value="true" />
+  </component>
   <component name="ProjectId" id="1kGPFSx9LqhPR8oAUuxV2YCCIVN" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -65,8 +69,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.karma.karma_node_package_dir" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.19.0" />
-    <property name="javascript.nodejs.core.library.typings.version" value="12.19.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.15.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.14.12" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/views" />
@@ -177,6 +181,7 @@
       <workItem from="1606961933142" duration="209000" />
       <workItem from="1606962180958" duration="6391000" />
       <workItem from="1607011420623" duration="5604000" />
+      <workItem from="1607703319868" duration="16250000" />
     </task>
     <task id="LOCAL-00001" summary="SignUp form ready">
       <created>1605328347343</created>
@@ -311,14 +316,7 @@
       <option name="project" value="LOCAL" />
       <updated>1607626903791</updated>
     </task>
-    <task id="LOCAL-00020" summary="Dashboard client">
-      <created>1607651431167</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1607651431167</updated>
-    </task>
-    <option name="localTasksCounter" value="21" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,8 +373,7 @@
     <MESSAGE value="register, login and logout done!" />
     <MESSAGE value="Login admin done" />
     <MESSAGE value="Fields validation... ready!" />
-    <MESSAGE value="Dashboard client" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dashboard client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fields validation... ready!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="714" y="344" key="#Notifications" timestamp="1605593344864">
@@ -407,25 +404,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606966336091" />
-    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1607629391538">
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom" timestamp="1607725163555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607629391538" />
+    <state width="1345" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607725163555" />
     <state width="1899" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771125" />
-    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1607629391538">
+    <state width="1345" height="182" key="GridCell.Tab.0.center" timestamp="1607725163555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607629391538" />
+    <state width="1345" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607725163555" />
     <state width="1899" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771124" />
-    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1607629391538">
+    <state width="1345" height="182" key="GridCell.Tab.0.left" timestamp="1607725163555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607629391538" />
+    <state width="1345" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607725163555" />
     <state width="1899" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771124" />
-    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1607629391538">
+    <state width="1345" height="182" key="GridCell.Tab.0.right" timestamp="1607725163555">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607629391538" />
+    <state width="1345" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607725163555" />
     <state width="1899" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605763771124" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1605763771121">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -459,17 +456,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605716420811" />
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2" timestamp="1607651437748">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="550" y="182" key="Vcs.Push.Dialog.v2" timestamp="1607709344099">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607651437748" />
+    <state x="550" y="182" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607709344099" />
+    <state x="791" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606968543215" />
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1605926074857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="766" y="254" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605926074857" />
-    <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605568172935">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="553" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607703344245">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="553" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.738@0.0.1366.738" timestamp="1607703344245" />
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605568172935" />
     <state x="953" y="0" width="974" height="1047" key="dock-window-1" timestamp="1606330023528">
       <screen x="0" y="0" width="1920" height="1040" />

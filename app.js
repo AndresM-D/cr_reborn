@@ -58,6 +58,8 @@ const users = []
 const visitors = []
 const images = []
 let user
+let image
+
 
 //passport initialization login logic
 const initializePassport = require('./passport-config')
@@ -125,46 +127,7 @@ app.get('/logout', function (req, res) {
 
 //GET dashboard page
 app.get('/dashboard', ensureAuthenticated, async (req, res) => {
-    const _videos = []
-    const _imagenes = []
-    const _centros = []
-    // current timestamp in milliseconds
-    let _ts = Date.now();
-
-    let _date_ob = new Date(_ts);
-    let _date = _date_ob.getDate();
-    let _month = _date_ob.getMonth() + 1;
-    let _year = _date_ob.getFullYear();
-
-    await sql.connect(config).then(pool => {
-        return pool.request()
-            .query('SELECT * FROM Video')
-    }).then(result => {
-        let output = result.recordset
-        for (let i = 0; i < output.length; i++) {
-            _videos.push(output[i])
-        }
-    }).catch(error => {
-        //shit happens
-        console.log("Failed to select images path from db : " + error)
-        res.sendStatus(500)
-        return
-    })
-
-    await sql.connect(config).then(pool => {
-        return pool.request()
-            .query('SELECT * FROM CentroTuristico')
-    }).then(result => {
-        let output = result.recordset
-        for (let i = 0; i < output.length; i++) {
-            _centros.push(output[i])
-        }
-    }).catch(error => {
-        //shit happens
-        console.log("Failed to select images path from db : " + error)
-        res.sendStatus(500)
-        return
-    })
+    const _images = []
 
     await sql.connect(config).then(pool => {
         return pool.request()
@@ -172,7 +135,8 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
     }).then(result => {
         let output = result.recordset
         for (let i = 0; i < output.length; i++) {
-            _imagenes.push(output[i])
+            image = output[i]
+            _images.push(image)
         }
     }).catch(error => {
         //shit happens
@@ -181,42 +145,13 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
         return
     })
 
-    res.render('dashboard.ejs', {
-        name: req.user.usuario_login,
-        videos: _videos,
-        centros: _centros,
-        imagenes: _imagenes,
-        fecha: _date + '/' + _month + '/' + _year
-    })
-})
-
-app.post('/dashboard', async (req, res) => {
-    if (!req.files || Object.keys(req.files).length === 0) {
-        req.flash('error', 'Ningún archivo fue cargado!')
-        res.redirect('/dashboard')
+    for (let i = 0; i < _images.length; i++) {
+        console.log(_images[i]['direccion'])
     }
 
-    let image = req.files.image
-    let path = image.name
-
-    await sql.connect(config).then(pool => {
-        return pool.request()
-            .input('direccion', sql.NVarChar, path)
-            .query('INSERT INTO Imagen VALUES (@direccion)')
-    }).then(result => {
-        console.log("Image path have been created: ", result.rowsAffected);
-    }).catch(error => {
-        //shit happens
-        console.log("Failed to create new path image into db: " + error)
-        res.sendStatus(500)
-        return
-    })
-
-    image.mv('../cr_reborn/images/' + image.name, function (err) {
-        if (err)
-            return res.status(500).send(err)
-        req.flash('success', 'Archivo cargado!')
-        res.redirect('/dashboard')
+    res.render('dashboard2.ejs', {
+        _images: _images,
+        name: req.user.usuario_login
     })
 })
 
@@ -283,12 +218,12 @@ app.post('/eliminarAdmin', async (req, res) => {
 //POST edit
 app.post('/editarAdmin', async (req, res) => {
 
+    let idUser = 11
     let id_usuario = ''
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
-    let idUser = 8
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -314,8 +249,43 @@ app.post('/editarAdmin', async (req, res) => {
 
 //GET registerLugar page
 app.get('/registerLugar', forwardAuthenticated, (req, res) => {
-    res.render('registerLugar.ejs')
+    let set = [];
+    let set2 = [];
+    let set3 = [];
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * from TipoCentro')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            set[i] = output[i].nombre_tipo
+
+        }
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .query('SELECT * from Region')
+        }).then(result => {
+            let output = result.recordset
+            for (let i = 0; i < output.length; i++) {
+                set2[i] = output[i].provincia
+
+            }
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .query('SELECT * from Servicio')
+            }).then(result => {
+                let output = result.recordset
+                for (let i = 0; i < output.length; i++) {
+                    set3[i] = output[i].nombre_servicio
+                }
+
+
+                res.render('registerLugar.ejs', {tipoCombo: set, ubicacionCombo: set2, servicioCombo: set3})
+            })
+        })
+    })
 })
+
 
 //POST registerLugar
 app.post('/registerLugar', async (req, res) => {
@@ -326,6 +296,66 @@ app.post('/registerLugar', async (req, res) => {
     let id_centro = ''
     const nombre = req.body.nombre
     const ubicacion = req.body.ubicacion
+    const tipo = req.body.tipo
+    const horario = req.body.horario
+    const telefono = req.body.telefono
+    const costoA = req.body.costoA
+    const costoN = req.body.costoN
+    const costoM = req.body.costoM
+    const descripcion = req.body.descipcion
+    const idImagen = req.body.costoM
+    const servicios = req.body.servicios
+    const login = 3
+
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('tipo', sql.NVarChar, tipo)
+            .query('SELECT * FROM TipoCentro WHERE nombre_tipo = @tipo')
+    }).then(result => {
+
+        id_tipo = result.recordset[0].id_tipo
+        console.log("GET ID TIPO")
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('ubicacion', sql.NVarChar, ubicacion)
+                .query('SELECT * FROM Region WHERE provincia = @ubicacion')
+        }).then(result => {
+
+            id_region = result.recordset[0].id_region
+            console.log("GET ID REGION")
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('id_tipo', sql.Int, id_tipo)
+                    .input('id_region', sql.NVarChar, id_region)
+                    .input('nombre', sql.NVarChar, nombre)
+                    .input('horario', sql.NVarChar, horario)
+                    .input('telefono', sql.NVarChar, telefono)
+                    .input('costoA', sql.NVarChar, costoA)
+                    .input('costoN', sql.NVarChar, costoN)
+                    .input('costoM', sql.NVarChar, costoM)
+                    .input('login', sql.NVarChar, login)
+                    .input('idImagen', sql.Int, parseInt(idImagen))
+                    .input('descripcion', sql.NVarChar, descripcion)
+                    .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN)")
+            }).then(result => {
+                console.log("INSERT CENTRO")
+
+            })
+        })
+    })
+
+
+})
+
+//POST edit
+app.post('/editLugar', async (req, res) => {
+
+    let id_centro = 5
+    let id_tipo = ''
+    let id_region = ''
+    let id_servicios = ''
+    const nombre = req.body.nombre
+    const ubicacion = req.body.ubicacion
     const region = req.body.region
     const tipo = req.body.tipo
     const horario = req.body.horario
@@ -334,91 +364,213 @@ app.post('/registerLugar', async (req, res) => {
     const costoN = req.body.costoN
     const costoM = req.body.costoM
     const servicios = req.body.servicios
-    const login = 3
-
     sql.connect(config).then(pool => {
         return pool.request()
-            .input('tipo', sql.NVarChar, tipo)
-            .query('INSERT INTO TipoCentro (nombre_tipo) VALUES (@tipo)')
+            .input('id_centro', sql.Int, parseInt(id_centro))
+            .query('SELECT * FROM CentroTuristico WHERE id_centro = @id_centro')
     }).then(result => {
-
-        console.log("Tipo have been created: ", result.rowsAffected)
+        id_region = result.recordset[0].id_region
+        id_tipo = result.recordset[0].id_tipo
 
         sql.connect(config).then(pool => {
             return pool.request()
-                .input('region', sql.NVarChar, region)
-                .input('ubicacion', sql.NVarChar, ubicacion)
-                .query('INSERT INTO Region (nombre_region, provincia) VALUES (@region, @ubicacion)')
+                .input('id_centro', sql.Int, parseInt(id_centro))
+                .query('SELECT id_servicio FROM CentroServicio WHERE id_centro = @id_centro')
         }).then(result => {
-
-            console.log("Region have been created: ", result.rowsAffected)
-
+            id_servicios = result.recordset[0].id_servicio
             sql.connect(config).then(pool => {
                 return pool.request()
-                    .input('servicios', sql.NVarChar, servicios)
-                    .query('INSERT INTO Servicio (nombre_servicio) VALUES (@servicios)')
-            }).then(result => {
+                    .input('id_centro', sql.Int, parseInt(id_centro))
+                    .input('nombre', sql.NVarChar, nombre)
+                    .input('horario', sql.NVarChar, horario)
+                    .input('telefono', sql.NVarChar, telefono)
+                    .input('costoA', sql.NVarChar, costoA)
+                    .input('costoM', sql.NVarChar, costoM)
+                    .input('costoN', sql.NVarChar, costoN)
+                    .query('UPDATE CentroTuristico SET nombre_centro = @nombre, horario = @horario, telefono = @telefono, costo_entrada_adulto = @costoA, costo_entrada_aMayor = @costoM, costo_entrada_nino = @costoN WHERE id_centro = @id_centro')
 
-                console.log("Servicios have been created: ", result.rowsAffected)
+            }).then(result => {
+                console.log("ACTUALIZO Centro")
+                console.log("Nuevo Tipo es ",id_tipo)
                 sql.connect(config).then(pool => {
                     return pool.request()
-                        .query('SELECT TOP 1 id_tipo FROM TipoCentro ORDER BY id_tipo DESC')
+                        .input('id_tipo', sql.Int, parseInt(id_tipo))
+                        .input('tipo', sql.NVarChar, tipo)
+                        .query('UPDATE TipoCentro SET nombre_tipo = @tipo WHERE id_tipo = @id_tipo')
+
                 }).then(result => {
-                    id_tipo = result.recordset[0].id_tipo
+                    console.log("ACTUALIZO Tipo")
                     sql.connect(config).then(pool => {
                         return pool.request()
-                            .query('SELECT TOP 1 id_region FROM Region ORDER BY id_region DESC')
-                    }).then(result => {
+                            .input('id_region', sql.Int, parseInt(id_region))
+                            .input('region', sql.NVarChar, region)
+                            .input('ubicacion', sql.NVarChar, ubicacion)
+                            .query('UPDATE Region SET nombre_region = @region, provincia = @ubicacion WHERE id_region = @id_region')
 
-                        id_region = result.recordset[0].id_region
+                    }).then(result => {
+                        console.log("ACTUALIZO Region")
                         sql.connect(config).then(pool => {
                             return pool.request()
-                                .query('SELECT TOP 1 id_servicio FROM Servicio ORDER BY id_servicio DESC')
+                                .input('id_servicios', sql.Int, parseInt(id_servicios))
+                                .input('servicios', sql.NVarChar, servicios)
+                                .query('UPDATE Servicio SET nombre_servicio = @servicios WHERE id_servicio = @id_servicios')
+
                         }).then(result => {
-
-                            id_servicios = result.recordset[0].id_servicio
-                            sql.connect(config).then(pool => {
-                                return pool.request()
-                                    .input('id_tipo', sql.Int, id_tipo)
-                                    .input('id_region', sql.NVarChar, id_region)
-                                    .input('id_servicios', sql.NVarChar, id_servicios)
-                                    .input('nombre', sql.NVarChar, nombre)
-                                    .input('horario', sql.NVarChar, horario)
-                                    .input('telefono', sql.NVarChar, telefono)
-                                    .input('costoA', sql.NVarChar, costoA)
-                                    .input('costoN', sql.NVarChar, costoN)
-                                    .input('costoM', sql.NVarChar, costoM)
-                                    .input('login', sql.NVarChar, login)
-                                    .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN)")
-                            }).then(result => {
-
-                                console.log("Centro Turistico: ", result.rowsAffected)
-                                sql.connect(config).then(pool => {
-                                    return pool.request()
-                                        .query('SELECT TOP 1 id_centro FROM CentroTuristico ORDER BY id_centro DESC')
-                                }).then(result => {
-
-                                    id_centro = result.recordset[0].id_centro
-                                    sql.connect(config).then(pool => {
-                                        return pool.request()
-                                            .input('id_servicio', sql.NVarChar, id_servicios)
-                                            .input('id_centro', sql.NVarChar, id_centro)
-                                            .query('INSERT INTO CentroServicio (id_servicio,id_centro) VALUES (@id_servicio,@id_centro)')
-                                    }).then(result => {
-
-                                        console.log("Centro Turistico Agregado con EXITO: ", result.rowsAffected)
-                                    })
-                                })
-                            })
+                            console.log("ACTUALIZO Servicios")
+                            req.flash('success', 'Successful!')
+                            res.redirect('/editLugar')
                         })
                     })
                 })
             })
         })
+
+        //res.redirect('/editarAdmin')
     })
-    req.flash('success', 'Centro turistico creado con exito!')
-    res.redirect('/registerLugar')
 })
+
+//GET editLugar page
+app.get('/editLugar', forwardAuthenticated, (req, res) => {
+    let id_centro = 9
+    let regionID = ' '
+    let tipoID = ' '
+    let region = ' '
+    let tipo = ' '
+    let nombre = ' '
+    let horario = ' '
+    let telefono = ' '
+    let costoN = ' '
+    let costoA = ' '
+    let costoM = ' '
+    let servicio = ' '
+    let servicioID = ' '
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_centro', sql.Int, parseInt(id_centro))
+            .query('SELECT * FROM CentroTuristico WHERE id_centro = @id_centro')
+    }).then(result => {
+        nombre = result.recordset[0].nombre_centro
+        horario = result.recordset[0].horario
+        telefono = result.recordset[0].telefono
+        costoA = result.recordset[0].costo_entrada_adulto
+        costoM = result.recordset[0].costo_entrada_aMayor
+        costoN = result.recordset[0].costo_entrada_nino
+        regionID = result.recordset[0].id_region
+        tipoID = result.recordset[0].id_tipo
+
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_centro', sql.Int, parseInt(id_centro))
+                .query('SELECT id_servicio FROM CentroServicio WHERE id_centro = @id_centro')
+        }).then(result => {
+          //  servicioID = result.recordset[0].id_servicio
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('servicioID', sql.Int, parseInt(servicioID))
+                    .query('SELECT nombre_servicio FROM Servicio WHERE id_servicio = @servicioID')
+            }).then(result => {
+                servicio = result.recordset[0].nombre_servicio
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('tipoID', sql.Int, parseInt(tipoID))
+                        .query('SELECT nombre_tipo FROM TipoCentro WHERE id_tipo = @tipoID')
+                }).then(result => {
+                    tipo = result.recordset[0].nombre_tipo
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('regionID', sql.Int, parseInt(regionID))
+                            .query('SELECT * FROM Region WHERE id_region = @regionID')
+                    }).then(result => {
+                        res.render('editLugar.ejs', {
+                            name: nombre,
+                            region: result.recordset[0].nombre_region,
+                            provincia: result.recordset[0].provincia,
+                            tipo: tipo,
+                            horario: horario,
+                            telefono: telefono,
+                            costoA: costoA,
+                            costoN: costoN,
+                            costoM: costoM,
+                            servicio: servicio
+                        })
+                    })
+
+                })
+            })
+        })
+    })
+})
+
+//POST eliminar
+app.post('/eliminarLugar', async (req, res) => {
+
+    let id_centro = 5
+    let id_tipo = ''
+    let id_region = ''
+    let id_servicios = ''
+
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_centro', sql.Int, parseInt(id_centro))
+            .query('SELECT * FROM CentroTuristico WHERE id_centro = @id_centro')
+    }).then(result => {
+        id_region = result.recordset[0].id_region
+        id_tipo = result.recordset[0].id_tipo
+
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_centro', sql.Int, parseInt(id_centro))
+                .query('SELECT id_servicio FROM CentroServicio WHERE id_centro = @id_centro')
+        }).then(result => {
+            id_servicios = result.recordset[0].id_servicio
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('id_centro', sql.Int, parseInt(id_centro))
+                    .query('DELETE FROM CentroServicio WHERE id_centro = @id_centro')
+
+            }).then(result => {
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('id_centro', sql.Int, parseInt(id_centro))
+                        .query('DELETE FROM CentroTuristico WHERE id_centro = @id_centro')
+
+                }).then(result => {
+                    console.log("ELIMINO Centro")
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('id_tipo', sql.Int, parseInt(id_tipo))
+                            .query('DELETE FROM TipoCentro WHERE id_tipo = @id_tipo')
+
+                    }).then(result => {
+                        console.log("ELIMINO Tipo")
+                        sql.connect(config).then(pool => {
+                            return pool.request()
+                                .input('id_region', sql.Int, parseInt(id_region))
+                                .query('DELETE FROM Region WHERE id_region = @id_region')
+                        }).then(result => {
+                            console.log("ELIMINO Region")
+                            sql.connect(config).then(pool => {
+                                return pool.request()
+                                    .input('id_servicios', sql.Int, parseInt(id_servicios))
+                                    .query('DELETE FROM Servicio WHERE id_servicio = @id_servicios')
+
+                            }).then(result => {
+                                console.log("ELIMINO Servicios")
+                                req.flash('success', 'Successful!')
+                                res.redirect('/editLugar')
+                            })
+                        })
+                    })
+                })
+            })
+
+            //res.redirect('/editarAdmin')
+        })
+    })
+
+})
+
+
 
 //GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
@@ -446,6 +598,27 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
             })
         })
     })
+})
+
+//POST delete
+app.post('/eliminarAdmin', async (req, res) => {
+    let idUser = 8
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
+    }).then(result => {
+        console.log("Admin have been deleted: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
+        }).then(result => {
+            console.log("User have been deactivated: ", result.rowsAffected);
+        })
+    })
+    req.flash('success', 'Administrator was deleted!')
+    res.redirect('/editarAdmin')
 })
 
 //POST edit
@@ -715,6 +888,151 @@ app.post('/admin', async (req, res) => {
         }
     }
 })
+
+app.post('/carousel', async (req, res) => {
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        req.flash('error', 'No files were uploaded!')
+        res.redirect('/carousel')
+    }
+
+    let image = req.files.image
+    let path = image.name
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('direccion', sql.NVarChar, path)
+            .query('INSERT INTO Imagen VALUES (@direccion)')
+    }).then(result => {
+        console.log("Image path have been created: ", result.rowsAffected);
+    }).catch(error => {
+        //shit happens
+        console.log("Failed to create new path image into db: " + error)
+        res.sendStatus(500)
+        return
+    })
+
+    image.mv('../cr_reborn/images/' + image.name, function (err) {
+        if (err)
+            return res.status(500).send(err)
+        req.flash('success', 'Archivo cargado!')
+        res.redirect('/carousel')
+    })
+})
+
+
+//GET registerAdmin page
+app.get('/registerAdmin', forwardAuthenticated, (req, res) => {
+    res.render('registerAdmin.ejs')
+})
+
+//POST registerAdmin
+app.post('/registerAdmin', async (req, res) => {
+
+    let id_usuario = ''
+
+    //when a Usuario is stored from register, id_tipoUsuario remains as 2 always!
+    const id_tipoUsuario = 1
+
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
+    const usuario_login = req.body.usuario_login
+    const password_login = req.body.password_login
+
+    //same as id_tipoUsuario, estado remains as 1
+    const estado = "1"
+
+    //first, we need to validate that a new user cant register if he or she is already in the db so...
+    //promise below capture all the users and store it in a array
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getUsuario)
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            user = output[i]
+            users.push(user)
+        }
+    })
+
+    //then we need to validate the data from register page against our array containing all the users
+    const result = users.find(user => user.usuario_login === usuario_login)
+
+    //if the user isn't registered yet
+    if (result === undefined) {
+        try {
+            //Usuario insertion into db
+            await bcrypt.hash(password_login, saltRounds, function (err, hash) {
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('id_tipoUsuario', sql.Int, id_tipoUsuario)
+                        .input('usuario_login', sql.NVarChar, usuario_login)
+                        .input('password_login', sql.NVarChar, hash)
+                        .input('estado', sql.NVarChar, estado)
+                        .query(queries.addUsuario)
+                }).then(result => {
+
+                    console.log("Usuario have been created: ", result.rowsAffected)
+                    //in order to create an Admin
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('usuario_login', sql.NVarChar, usuario_login)
+                            .query('SELECT id_usuario FROM Usuario WHERE usuario_login = @usuario_login')
+                    }).then(result => {
+                        //the id from last insertion is assigned to result
+                        let output = result.recordset
+
+                        //now we need to get that id as an object that can be saved into the db
+                        //that's what it does the for loop below
+                        for (let i = 0; i < output.length; i++) {
+                            let id = output[i]
+                            for (let idKey in id) {
+                                id_usuario = id[idKey]
+                            }
+                        }
+
+                        //having the right id from Usuario we need to assign the same id to Visitante record as well
+                        //Visitante insertion into db
+                        sql.connect(config).then(pool => {
+                            return pool.request()
+                                .input('id_usuario', sql.Int, parseInt(id_usuario))
+                                .input('nombre', sql.NVarChar, nombre)
+                                .input('apellido', sql.NVarChar, apellido)
+                                .input('correo', sql.NVarChar, usuario_login)
+                                .query(queries.addAdministrador)
+                        }).then(result => {
+                            console.log("Admin have been created: ", result.rowsAffected);
+                        }).catch(error => {
+                            //shit happens
+                            console.log("Failed to create new Admin: " + error)
+                            res.sendStatus(500)
+                            return
+                        })
+                    }).catch(error => {
+                        console.log(error)
+                        res.sendStatus(500)
+                        return
+                    })
+                }).catch(error => {
+                    console.log("Failed to create new Usuario: " + error)
+                    res.sendStatus(500)
+                    return
+                })
+            })
+            //success register page rendering
+            req.flash('success', 'Registration success!')
+            res.redirect('/login')
+        } catch {
+            res.redirect('/registerAdmin')
+        }
+        //if the user is registered... a fancy msg shows up
+    } else {
+        req.flash('error', 'Email already exist!')
+        res.redirect('/registerAdmin')
+    }
+})
+
+
 
 //create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), {flags: 'a'})

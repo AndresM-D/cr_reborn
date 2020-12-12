@@ -128,13 +128,20 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
     const _videos = []
     const _imagenes = []
     const _centros = []
-    // current timestamp in milliseconds
-    let _ts = Date.now();
+    const _idUsuarios = []
+    const _visitante = []
+    const _servicios = []
+    const _regiones = []
+    const _correoUsuario = req.user.usuario_login
 
-    let _date_ob = new Date(_ts);
-    let _date = _date_ob.getDate();
-    let _month = _date_ob.getMonth() + 1;
-    let _year = _date_ob.getFullYear();
+    let _idUsuario
+
+    // current timestamp in milliseconds
+    const _ts = Date.now();
+    const _date_ob = new Date(_ts);
+    const _date = _date_ob.getDate();
+    const _month = _date_ob.getMonth() + 1;
+    const _year = _date_ob.getFullYear();
 
     await sql.connect(config).then(pool => {
         return pool.request()
@@ -145,10 +152,7 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
             _videos.push(output[i])
         }
     }).catch(error => {
-        //shit happens
-        console.log("Failed to select images path from db : " + error)
-        res.sendStatus(500)
-        return
+        return 'VIDEO error: ' + error
     })
 
     await sql.connect(config).then(pool => {
@@ -160,10 +164,7 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
             _centros.push(output[i])
         }
     }).catch(error => {
-        //shit happens
-        console.log("Failed to select images path from db : " + error)
-        res.sendStatus(500)
-        return
+        return 'CENTRO error: ' + error
     })
 
     await sql.connect(config).then(pool => {
@@ -175,10 +176,64 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
             _imagenes.push(output[i])
         }
     }).catch(error => {
-        //shit happens
-        console.log("Failed to select images path from db : " + error)
-        res.sendStatus(500)
-        return
+        return 'IMAGEN error: ' + error
+    })
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * FROM Usuario')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _idUsuarios.push(output[i])
+        }
+    }).catch(error => {
+        return 'ID USUARIO error: ' + error
+    })
+
+    for (let i = 0; i < _idUsuarios.length; i++) {
+        if (_idUsuarios[i]['usuario_login'] === _correoUsuario) {
+            _idUsuario = _idUsuarios[i]['id_usuario']
+        }
+    }
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, _idUsuario)
+            .query('SELECT * FROM Visitante WHERE id_usuario = @id_usuario')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _visitante.push(output[i])
+        }
+    }).catch(error => {
+        return 'ID VISITANTE error: ' + error
+    })
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * FROM Region')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _regiones.push(output[i])
+        }
+    }).catch(error => {
+        return 'REGIONES error: ' + error
+    })
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT CentroServicio.id_centro, Servicio.nombre_servicio\n' +
+                'FROM Servicio\n' +
+                'INNER JOIN CentroServicio ON Servicio.id_servicio=CentroServicio.id_servicio')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _servicios.push(output[i])
+        }
+    }).catch(error => {
+        return 'SERVICIOS error: ' + error
     })
 
     res.render('dashboard.ejs', {
@@ -186,12 +241,79 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
         videos: _videos,
         centros: _centros,
         imagenes: _imagenes,
-        fecha: _date + '/' + _month + '/' + _year
+        servicios: _servicios,
+        regiones: _regiones,
+        fecha: _date + '/' + _month + '/' + _year,
+        nombre: _visitante[0]['nombre'],
+        apellido: _visitante[0]['apellido']
     })
 })
 
-app.post('/dashboard', async (req, res) => {
-    if (!req.files || Object.keys(req.files).length === 0) {
+app.post('/editUser', async (req, res) => {
+    let nombre = req.body.nombre
+    let apellido = req.body.apellido
+    let correo = req.user.usuario_login
+
+    if (nombre === '' && apellido === '') {
+        req.flash('error', 'No debes dejar espacios en blanco')
+        res.redirect('/dashboard')
+    } else {
+        await sql.connect(config).then(pool => {
+            return pool.request()
+                .input('nombre', sql.NVarChar, nombre)
+                .input('apellido', sql.NVarChar, apellido)
+                .input('correo', sql.NVarChar, correo)
+                .query('UPDATE Visitante SET nombre = @nombre, apellido = @apellido WHERE correo = @correo')
+        }).then(result => {
+            console.log("User updated: ", result.rowsAffected);
+
+        }).catch(error => {
+            return 'DATOS USUARIO error: ' + error
+        })
+
+        req.flash('success', 'Datos Actualizados!')
+        res.redirect('/dashboard')
+    }
+})
+
+app.post('/editPass', async (req, res) => {
+
+    const usuario_login = req.user.usuario_login
+    const password_login = req.body.password_login
+    const password_login2 = req.body.password_login2
+
+    console.log(usuario_login)
+    console.log(password_login)
+
+    if (password_login === '' && password_login2 === '') {
+        console.log('NO')
+        req.flash('error', 'No debes dejar espacios en blanco')
+        res.redirect('/dashboard')
+    } else {
+        console.log('YES')
+        await bcrypt.hash(password_login, saltRounds, function (err, hash) {
+            sql.connect(config).then(pool => {
+                console.log('SQL CONNECTION DONE')
+                return pool.request()
+                    .input('password_login', sql.NVarChar, hash)
+                    .input('usuario_login', sql.NVarChar, usuario_login)
+                    .query('UPDATE Usuario SET password_login = @password_login WHERE usuario_login = @usuario_login')
+            }).then(result => {
+                console.log(hash)
+                console.log('QUERY COMPLETED')
+                console.log("Password updated: ", result.rowsAffected);
+            }).catch(error => {
+                console.log('QUERY ERROR')
+                return 'PASS USUARIO error: ' + error
+            })
+        })
+
+        req.flash('success', 'Datos Actualizados, vuelva a iniciar sesión con la nueva contraseña.')
+        res.redirect('/logout')
+    }
+
+
+    /*if (!req.files || Object.keys(req.files).length === 0) {
         req.flash('error', 'Ningún archivo fue cargado!')
         res.redirect('/dashboard')
     }
@@ -217,7 +339,7 @@ app.post('/dashboard', async (req, res) => {
             return res.status(500).send(err)
         req.flash('success', 'Archivo cargado!')
         res.redirect('/dashboard')
-    })
+    })*/
 })
 
 //GET register page

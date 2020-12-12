@@ -24,109 +24,195 @@
 
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+<aside class="sidebar">
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div class="side-inner">
 
-        <!-- Main Content -->
-        <div id="content">
-
-            <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light topbar static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <a class="navbar-brand text-white text-uppercase" href="#">CR Reborn</a>
-
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-
-                    <div class="topbar-divider d-none d-sm-block"></div>
-
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-white small"><%= name %></span>
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Perfil
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Cerrar sesión
-                            </a>
+        <div class="share">
+            <i class="fas fa-user-edit"></i>
+            <h2>Editar Perfil</h2>
+            <form action="#">
+                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#userInfo" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Información de la cuenta
+                </a>
+                <a class="btn btn-danger btn-block" data-toggle="collapse" href="#userPass" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Cambiar contraseña
+                </a>
+            </form>
+        </div>
+        <div class="collapse" id="userInfo">
+            <form method="post">
+                <div class="form-group">
+                    <% if (messages.success) { %>
+                        <div class="alert alert-success" role="alert">
+                            <%= messages.success %>
                         </div>
-                    </li>
-                </ul>
-            </nav>
-            <!-- End of Topbar -->
+                    <% } %>
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= messages.error %>
+                        </div>
+                    <% } %>
+                </div>
+                <h4>Editar nombre</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-user"
+                           id="formGroupNombreInput" aria-describedby="emailHelp"
+                           placeholder="<%= nombre %>" required name="nombre">
+                </div>
+                <h4>Editar apellido</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-user"
+                           id="formGroupPasswordInput" placeholder="<%= apellido %>" required name="apellido">
+                </div>
+                <button type="submit" value="validate"
+                        class="btn btn-primary btn-user btn-block btnEditUser" formaction="/editUser" id="btn_login"
+                        name="btn_editInfo">
+                    Guardar
+                </button>
+                <hr>
+            </form>
+        </div>
+        <div class="collapse" id="userPass">
+            <form method="post"
+                  oninput='repass.setCustomValidity(repass.value !== pass.value ? "Passwords do not match." : "")'>
+                <h4>Ingresar la nueva constraseña</h4>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="password" class="form-control form-control-user"
+                               id="formGroupPASSInput" placeholder="Nueva contraseña"
+                               aria-describedby="passwordHelpBlock" required name="password_login" pattern=".{8,}"
+                               title="8 characters minimun">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control form-control-user"
+                               id="formGroupREPASSInput" placeholder="Confirmar contraseña"
+                               aria-describedby="passwordHelpBlock" required name="password_login2">
+                    </div>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        Tu contraseña debe ser mínimo de 8 caracteres. Es importante que escogas una contraseña fuerte
+                        que no vayas a olvidar!
+                    </small>
+                </div>
+                <button type="submit" value="validate"
+                        class="btn btn-danger btn-user btn-block btnEditPass" formaction="/editPass" id="btn_login"
+                        name="btn_editPass">
+                    Cambiar
+                </button>
+                <hr>
+            </form>
+        </div>
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
+    </div>
 
-                <!-- Carousel -->
-                <header class="masthead">
-                    <div class="masthead-content">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg">
-                                    <div id="carousel" class="carousel slide" data-ride="carousel">
-                                        <ol class="carousel-indicators">
-                                            <% for (let i = 0; i < videos.length; i++) { %>
-                                                <% actives = '' %>
-                                                <% if (i === 0) { %>
-                                                    <% actives = 'active' %>
+</aside>
+
+<main>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <a class="navbar-brand text-white text-uppercase" href="#">CR Reborn</a>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-white small"><%= name %></span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item js-menu-toggle" href="/client">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar sesión
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Carousel -->
+                    <header class="masthead">
+                        <div class="masthead-content">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg">
+                                        <div id="carousel" class="carousel slide" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <% for (let i = 0; i < videos.length; i++) { %>
+                                                    <% actives = '' %>
+                                                    <% if (i === 0) { %>
+                                                        <% actives = 'active' %>
+                                                    <% } %>
+                                                    <li data-target="#carousel" data-slide-to="<%= i %>"
+                                                        class="<%= actives %>"></li>
                                                 <% } %>
-                                                <li data-target="#carousel" data-slide-to="<%= i %>"
-                                                    class="<%= actives %>"></li>
-                                            <% } %>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <% for (let i = 0; i < videos.length; i++) { %>
-                                                <% actives = '' %>
-                                                <% if (i === 0) { %>
-                                                    <% actives = 'active' %>
-                                                <% } %>
-                                                <div class="carousel-item <%= actives %>">
-                                                    <img class="d-block w-100" src="<%= videos[i]['direccion'] %>">
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <h5><%= videos[i]['nombre'] %></h5>
-                                                        <p><%= videos[i]['descripcion'] %></p>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <% for (let i = 0; i < videos.length; i++) { %>
+                                                    <% actives = '' %>
+                                                    <% if (i === 0) { %>
+                                                        <% actives = 'active' %>
+                                                    <% } %>
+                                                    <div class="carousel-item <%= actives %>">
+                                                        <img class="d-block w-100" src="<%= videos[i]['direccion'] %>">
+                                                        <div class="carousel-caption d-none d-md-block">
+                                                            <h5><%= videos[i]['nombre'] %></h5>
+                                                            <p><%= videos[i]['descripcion'] %></p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            <% } %>
+                                                <% } %>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carousel" role="button"
+                                               data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carousel" role="button"
+                                               data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
                                         </div>
-                                        <a class="carousel-control-prev" href="#carousel" role="button"
-                                           data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carousel" role="button"
-                                           data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </header>
-                <!-- End of Carousel -->
+                    </header>
+                    <!-- End of Carousel -->
 
-                <!-- Upload Image -->
-                <!--<div class="row justify-content-center">
+                    <!-- Upload Image -->
+                    <!--<div class="row justify-content-center">
                     <div class="col-lg-4 bg-dark rounded px-4">
                         <h4 class="text-center text-light p-1">Select Image to Upload!</h4>
                         <form action="" method="post" enctype="multipart/form-data">
@@ -151,79 +237,163 @@
                         </form>
                     </div>
                 </div>-->
-                <!-- End of Upload Image -->
+                    <!-- End of Upload Image -->
 
-                <!-- Cards -->
-                <div class="row" id="cards">
-                    <div class="container mt-5">
-                        <div class="card-columns">
-                            <% for (let i = 0; i < centros.length; i++) { %>
-                                <div class="card">
-                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
-                                        <% if (centros[i]['id_imagen'] === imagenes[i]['id_imagen']) { %>
-                                            <img class="card-img-top"
-                                                 src="<%= imagenes[i]['direccion'] %>"
-                                                 alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title"> <%= centros[i]['nombre_centro'] %> </h5>
-                                                <p class="card-text"> <%= centros[i]['descripcion'] %> </p>
-                                                <p class="card-text"><small class="text-muted"><i
-                                                                class="fas fa-eye"></i>1000<i
-                                                                class="far fa-user"></i>admin<i
-                                                                class="fas fa-calendar-alt"></i> <%= fecha %> </small></p>
-                                            </div>
-                                        <% } %>
-                                    </a>
-                                </div>
-                            <% } %>
+                    <!-- Cards -->
+                    <div class="row" id="cards">
+                        <div class="container mt-5">
+                            <div class="card-columns">
+                                <% for (let i = 0; i < centros.length; i++) { %>
+                                    <% let idModal = '_' + i %>
+                                    <% let modalTarget = '#' + idModal %>
+                                    <div class="card">
+                                        <a href="#" data-toggle="modal" data-target="<%= modalTarget %>">
+                                            <% if (centros[i]['id_imagen'] === imagenes[i]['id_imagen']) { %>
+                                                <img class="card-img-top"
+                                                     src="<%= imagenes[i]['direccion'] %>"
+                                                     alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> <%= centros[i]['nombre_centro'] %> </h5>
+                                                    <p class="card-text"> <%= centros[i]['descripcion'] %> </p>
+                                                    <p class="card-text"><small class="text-muted"><i
+                                                                    class="fas fa-eye"></i>1000<i
+                                                                    class="far fa-user"></i>admin<i
+                                                                    class="fas fa-calendar-alt"></i> <%= fecha %>
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="<%= idModal %>" tabindex="-1" role="dialog"
+                                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="exampleModalCenterTitle"> <%= centros[i]['nombre_centro'] %> </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <!-- Modal Carousel -->
+                                                                <div id="carouselExampleSlidesOnly"
+                                                                     class="carousel slide"
+                                                                     data-ride="carousel">
+                                                                    <div class="carousel-inner">
+                                                                        <div class="carousel-item active">
+                                                                            <img class="d-block w-100"
+                                                                                 src=" <%= imagenes[i]['direccion'] %>"
+                                                                                 alt="First slide">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End of Modal Carousel -->
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <!-- Modal Assets -->
+                                                                <div>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-campground"></i>Servicios:
+                                                                    </small>
+                                                                    <% for (let j = 0; j < servicios.length; j++) { %>
+                                                                        <% if (centros[i]['id_centro'] === servicios[j]['id_centro']) { %>
+                                                                            <li> <%= servicios[j]['nombre_servicio'] %> </li>
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                </div>
+                                                                <hr>
+                                                                <div>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-map-marker-alt"></i>Región:
+                                                                    </small>
+                                                                    <% if (centros[i]['id_region'] === regiones[i]['id_region']) { %>
+                                                                        <a> <%= regiones[i]['nombre_region'] %>
+                                                                            - <%= regiones[i]['provincia'] %> </a>
+                                                                    <% } %>
+                                                                </div>
+                                                                <hr>
+                                                                <div>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-clock"></i>Horario:
+                                                                    </small>
+                                                                    <a> <%= centros[i]['horario'] %> </a>
+                                                                </div>
+                                                                <hr>
+                                                                <div>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-phone"></i>Teléfono:
+                                                                    </small>
+                                                                    <a> <%= centros[i]['telefono'] %> </a>
+                                                                </div>
+                                                                <hr>
+                                                                <div>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-money-bill-wave-alt"></i>Costo
+                                                                        Entrada: ₡
+                                                                    </small>
+                                                                    <a> <%= centros[i]['costo_entrada_adulto'] %> </a>
+                                                                </div>
+                                                                <hr>
+                                                                <div>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-book-open"></i>Descripción:
+                                                                    </small>
+                                                                    <div>
+                                                                        <a> <%= centros[i]['descripcion'] %> </a>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End of Modal Assets -->
+                                                                <hr>
+                                                                <button type="submit" class="btn btn-danger btn-block">
+                                                                    Me gusta!<i class="fas fa-heart ml-2"
+                                                                                aria-hidden="true"></i></button>
+                                                            </div>
+
+                                                            <div class="modal-footer justify-content-center">
+                                                                <small class="text-muted">
+                                                                    CR Reborn 2020
+                                                                </small>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End of Modal -->
+                                            <% } %>
+                                        </a>
+                                    </div>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
+                    <!-- End of Cards -->
+
                 </div>
-                <!-- End of Cards -->
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Modal -->
-
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- /.container-fluid -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; CR Reborn 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; CR Reborn 2020</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
+        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
+</main>
 
-</div>
-<!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -266,6 +436,9 @@
 <!-- Page level custom scripts -->
 <script src="js/demo/chart-area-demo.js"></script>
 <script src="js/demo/chart-pie-demo.js"></script>
+
+<script src="/js/dashboard.js"></script>
+
 
 </body>
 

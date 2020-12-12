@@ -56,23 +56,17 @@
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
                                 required name="nombre" value="<%= name %>">
 
-                        <input type="text" class="form-control form-control-lg" id="formGroupUBICACIONInput"
-                                required name="ubicacion" value="<%= provincia %>">
+                        <select id="ubicacion"  class="form-control form-control-lg" required name="ubicacion"  value="<%= provincia %>"></select>
 
-                        <input type="text" class="form-control form-control-lg" id="formGroupREGIONInput"
 
-                               required name="region" value="<%= region %>">
+                        <select id="tipo"  class="form-control form-control-lg" required name="tipo" value="<%= tipo %>"></select>
 
-                        <input type="text" class="form-control form-control-lg" id="formGroupTIPOInput"
 
-                               required name="tipo" value="<%= tipo %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupHORARIOInput"
 
                                required name="horario" value="<%= horario %>">
-                        <input type="text" class="form-control form-control-lg" id="formGroupSERVICIOSInput"
 
-                               required name="servicios" value="<%= servicio %>">
 
                         <input type="text" class="form-control form-control-lg" id="formGroupTELEFONOInput"
 
@@ -90,7 +84,13 @@
 
                                required name="costoM" value="<%= costoM %>">
                         </div>
+                    <div >
 
+
+                        <input type="file" name="image" id="image"  required>
+
+                    </div>
+                    <br>
 
 
 
@@ -114,5 +114,100 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+    var select = document.getElementById("tipo");
+    var elmts = [];
+    var elmts2 = "<%= tipoCombo %>";
+    var aux='';
+    var cont=0;
+    for(var i = 0;i<elmts2.length;i++)
+    {
+        if(elmts2[i]==",")
+        {
+            elmts[cont]=aux;
+            cont++;
+            aux='';
+        }
+        else
+            aux+=elmts2[i];
+    }
+    for (var i = 0; i < elmts.length; i++) {
+        var optn = elmts[i];
+        var el = document.createElement("option");
+        el.textContent = optn;
+        el.value = optn;
+        select.appendChild(el);
+    }
+
+    var select3 = document.getElementById("ubicacion");
+    var elmts5 = [];
+    var elmts6 = "<%= ubicacionCombo %>";
+    var aux3='';
+    var cont3=0;
+
+
+    for(var i = 0;i<elmts6.length;i++)
+    {
+
+        if(elmts6[i]==",")
+        {
+            elmts5[cont3]=aux3;
+            cont3++;
+            aux3='';
+
+
+        }
+        else
+            aux3+=elmts6[i];
+
+
+    }
+    elmts5[elmts5.length]=aux3;
+    for (var i = 0; i < elmts5.length; i++) {
+        var optn3 = elmts5[i];
+        var el3 = document.createElement("option");
+        el3.textContent = optn3;
+        el3.value = optn3;
+        select3.appendChild(el3);
+    }
+
+    var select2 = document.getElementById("servicios");
+    var elmts3 = [];
+    var elmts4 = "<%= servicioCombo %>";
+    var aux2='';
+    var cont2=0;
+
+
+    for(var i = 0;i<elmts4.length;i++)
+    {
+
+        if(elmts4[i]==",")
+        {
+            elmts3[cont2]=aux2;
+            cont2++;
+            aux2='';
+
+
+        }
+        else
+            aux2+=elmts4[i];
+
+
+    }
+    elmts3[elmts3.length]=aux2;
+    for (var i = 0; i < elmts3.length; i++) {
+        var optn2 = elmts3[i];
+        var el2 = document.createElement("option");
+        el2.textContent = optn2;
+        el2.value = optn2;
+        select2.appendChild(el2);
+    }
+
+
+</script>
+
 </body>
 </html>

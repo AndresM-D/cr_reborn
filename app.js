@@ -405,12 +405,12 @@ app.post('/eliminarAdmin', async (req, res) => {
 //POST edit
 app.post('/editarAdmin', async (req, res) => {
 
+    let idUser = 11
     let id_usuario = ''
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
-    let idUser = 8
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -436,8 +436,43 @@ app.post('/editarAdmin', async (req, res) => {
 
 //GET registerLugar page
 app.get('/registerLugar', forwardAuthenticated, (req, res) => {
-    res.render('registerLugar.ejs')
+    let set = [];
+    let set2 = [];
+    let set3 = [];
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * from TipoCentro')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            set[i] = output[i].nombre_tipo
+
+        }
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .query('SELECT * from Region')
+        }).then(result => {
+            let output = result.recordset
+            for (let i = 0; i < output.length; i++) {
+                set2[i] = output[i].provincia
+
+            }
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .query('SELECT * from Servicio')
+            }).then(result => {
+                let output = result.recordset
+                for (let i = 0; i < output.length; i++) {
+                    set3[i] = output[i].nombre_servicio
+                }
+
+
+                res.render('registerLugar.ejs', {tipoCombo: set, ubicacionCombo: set2, servicioCombo: set3})
+            })
+        })
+    })
 })
+
 
 //POST registerLugar
 app.post('/registerLugar', async (req, res) => {
@@ -446,9 +481,100 @@ app.post('/registerLugar', async (req, res) => {
     let id_region = ''
     let id_servicios = ''
     let id_centro = ''
+    let i = 0
     const nombre = req.body.nombre
     const ubicacion = req.body.ubicacion
-    const region = req.body.region
+    const tipo = req.body.tipo
+    const horario = req.body.horario
+    const telefono = req.body.telefono
+    const costoA = req.body.costoA
+    const costoN = req.body.costoN
+    const costoM = req.body.costoM
+    const descripcion = req.body.descipcion
+    const idImagen = req.body.costoM
+    const servicios = req.body.servicios
+    const login = 3
+
+
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('tipo', sql.NVarChar, tipo)
+            .query('SELECT * FROM TipoCentro WHERE nombre_tipo = @tipo')
+    }).then(result => {
+
+        id_tipo = result.recordset[0].id_tipo
+        console.log("GET ID TIPO")
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('ubicacion', sql.NVarChar, ubicacion)
+                .query('SELECT * FROM Region WHERE provincia = @ubicacion')
+        }).then(result => {
+
+            id_region = result.recordset[0].id_region
+            console.log("GET ID REGION")
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('id_tipo', sql.Int, id_tipo)
+                    .input('id_region', sql.NVarChar, id_region)
+                    .input('nombre', sql.NVarChar, nombre)
+                    .input('horario', sql.NVarChar, horario)
+                    .input('telefono', sql.NVarChar, telefono)
+                    .input('costoA', sql.NVarChar, costoA)
+                    .input('costoN', sql.NVarChar, costoN)
+                    .input('costoM', sql.NVarChar, costoM)
+                    .input('login', sql.NVarChar, login)
+                    .input('idImagen', sql.Int, parseInt(idImagen))
+                    .input('descripcion', sql.NVarChar, descripcion)
+                    .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN)")
+            }).then(result => {
+                console.log("INSERT CENTRO")
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .query("SELECT TOP 1 * FROM CentroTuristico ORDER BY id_centro DESC")
+                }).then(result => {
+                    console.log("GET LAST RECORD CENTRO")
+                    id_centro = result.recordset[0].id_centro
+                        for (i = 0;i<servicios.length;i++) {
+
+                                console.log(servicios[i])
+                            sql.connect(config).then(pool => {
+                                return pool.request()
+                                    .input('servicios', sql.NVarChar, servicios[i])
+                                    .query("SELECT * from Servicio WHERE nombre_servicio=@servicios")
+                            }).then(result => {
+                                console.log(result.recordset[0])
+                                    if(result.recordset!=null) {
+                                        id_servicios = result.recordset[0].id_servicio
+                                        sql.connect(config).then(pool => {
+                                            return pool.request()
+                                                .input('id_servicio', sql.Int, parseInt(id_servicios))
+                                                .input('id_centro', sql.Int, parseInt(id_centro))
+                                                .query("INSERT INTO CentroServicio (id_centro,id_servicio) VALUES (@id_centro,@id_servicio)")
+                                        })
+                                    }
+                                    })
+
+                            }
+
+                    })
+
+                    })
+                })
+
+        })
+
+
+    })
+
+//POST edit
+app.post('/editLugar', async (req, res) => {
+
+    let id_centro = 9
+    let id_tipo = ''
+    let id_region = ''
+    let id_servicios = ''
+    const nombre = req.body.nombre
+    const ubicacion = req.body.ubicacion
     const tipo = req.body.tipo
     const horario = req.body.horario
     const telefono = req.body.telefono
@@ -456,81 +582,144 @@ app.post('/registerLugar', async (req, res) => {
     const costoN = req.body.costoN
     const costoM = req.body.costoM
     const servicios = req.body.servicios
-    const login = 3
-
     sql.connect(config).then(pool => {
         return pool.request()
             .input('tipo', sql.NVarChar, tipo)
-            .query('INSERT INTO TipoCentro (nombre_tipo) VALUES (@tipo)')
+            .query('SELECT * FROM TipoCentro WHERE nombre_tipo = @tipo')
     }).then(result => {
-
-        console.log("Tipo have been created: ", result.rowsAffected)
-
+        id_tipo = result.recordset[0].id_tipo
         sql.connect(config).then(pool => {
             return pool.request()
-                .input('region', sql.NVarChar, region)
                 .input('ubicacion', sql.NVarChar, ubicacion)
-                .query('INSERT INTO Region (nombre_region, provincia) VALUES (@region, @ubicacion)')
+                .query('SELECT * FROM Region WHERE provincia = @ubicacion')
         }).then(result => {
-
-            console.log("Region have been created: ", result.rowsAffected)
-
+            id_region = result.recordset[0].id_region
+            console.log(tipo)
             sql.connect(config).then(pool => {
                 return pool.request()
-                    .input('servicios', sql.NVarChar, servicios)
-                    .query('INSERT INTO Servicio (nombre_servicio) VALUES (@servicios)')
+                    .input('id_centro', sql.Int, parseInt(id_centro))
+                    .input('id_region', sql.Int, parseInt(id_region))
+                    .input('id_tipo', sql.Int, parseInt(id_tipo))
+                    .input('nombre', sql.NVarChar, nombre)
+                    .input('horario', sql.NVarChar, horario)
+                    .input('telefono', sql.NVarChar, telefono)
+                    .input('costoA', sql.NVarChar, costoA)
+                    .input('costoM', sql.NVarChar, costoM)
+                    .input('costoN', sql.NVarChar, costoN)
+                    .query('UPDATE CentroTuristico SET nombre_centro = @nombre, horario = @horario, telefono = @telefono, costo_entrada_adulto = @costoA, costo_entrada_aMayor = @costoM, costo_entrada_nino = @costoN, id_region = @id_region, id_tipo = @id_tipo WHERE id_centro = @id_centro')
+
+            }).then(result => {
+                console.log("ACTUALIZO Centro")
+
+
+                req.flash('success', 'Successful!')
+               // res.redirect('/editLugar')
+            })
+        })
+    })
+})
+
+
+
+
+//GET editLugar page
+app.get('/editLugar', forwardAuthenticated, (req, res) => {
+    let id_centro = 9
+    let regionID = ' '
+    let tipoID = ' '
+    let region = ' '
+    let tipo = ' '
+    let nombre = ' '
+    let horario = ' '
+    let telefono = ' '
+    let costoN = ' '
+    let costoA = ' '
+    let costoM = ' '
+    let servicio = ' '
+    let servicioID = ' '
+    let set = [];
+    let set2 = [];
+    let set3 = [];
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .query('SELECT * from TipoCentro')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            set[i] = output[i].nombre_tipo
+
+        }
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .query('SELECT * from Region')
+        }).then(result => {
+            let output = result.recordset
+            for (let i = 0; i < output.length; i++) {
+                set2[i] = output[i].provincia
+
+            }
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .query('SELECT * from Servicio')
+            }).then(result => {
+                let output = result.recordset
+                for (let i = 0; i < output.length; i++) {
+                    set3[i] = output[i].nombre_servicio
+                }
+
             }).then(result => {
 
-                console.log("Servicios have been created: ", result.rowsAffected)
                 sql.connect(config).then(pool => {
                     return pool.request()
-                        .query('SELECT TOP 1 id_tipo FROM TipoCentro ORDER BY id_tipo DESC')
+                        .input('id_centro', sql.Int, parseInt(id_centro))
+                        .query('SELECT * FROM CentroTuristico WHERE id_centro = @id_centro')
                 }).then(result => {
-                    id_tipo = result.recordset[0].id_tipo
+                    nombre = result.recordset[0].nombre_centro
+                    horario = result.recordset[0].horario
+                    telefono = result.recordset[0].telefono
+                    costoA = result.recordset[0].costo_entrada_adulto
+                    costoM = result.recordset[0].costo_entrada_aMayor
+                    costoN = result.recordset[0].costo_entrada_nino
+                    regionID = result.recordset[0].id_region
+                    tipoID = result.recordset[0].id_tipo
+
                     sql.connect(config).then(pool => {
                         return pool.request()
-                            .query('SELECT TOP 1 id_region FROM Region ORDER BY id_region DESC')
+                            .input('id_centro', sql.Int, parseInt(id_centro))
+                            .query('SELECT id_servicio FROM CentroServicio WHERE id_centro = @id_centro')
                     }).then(result => {
-
-                        id_region = result.recordset[0].id_region
+                        //  servicioID = result.recordset[0].id_servicio
                         sql.connect(config).then(pool => {
                             return pool.request()
-                                .query('SELECT TOP 1 id_servicio FROM Servicio ORDER BY id_servicio DESC')
+                                .input('servicioID', sql.Int, parseInt(servicioID))
+                                .query('SELECT nombre_servicio FROM Servicio WHERE id_servicio = @servicioID')
                         }).then(result => {
-
-                            id_servicios = result.recordset[0].id_servicio
+                            //servicio = result.recordset[0].nombre_servicio
                             sql.connect(config).then(pool => {
                                 return pool.request()
-                                    .input('id_tipo', sql.Int, id_tipo)
-                                    .input('id_region', sql.NVarChar, id_region)
-                                    .input('id_servicios', sql.NVarChar, id_servicios)
-                                    .input('nombre', sql.NVarChar, nombre)
-                                    .input('horario', sql.NVarChar, horario)
-                                    .input('telefono', sql.NVarChar, telefono)
-                                    .input('costoA', sql.NVarChar, costoA)
-                                    .input('costoN', sql.NVarChar, costoN)
-                                    .input('costoM', sql.NVarChar, costoM)
-                                    .input('login', sql.NVarChar, login)
-                                    .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN)")
+                                    .input('tipoID', sql.Int, parseInt(tipoID))
+                                    .query('SELECT nombre_tipo FROM TipoCentro WHERE id_tipo = @tipoID')
                             }).then(result => {
-
-                                console.log("Centro Turistico: ", result.rowsAffected)
+                                tipo = result.recordset[0].nombre_tipo
                                 sql.connect(config).then(pool => {
                                     return pool.request()
-                                        .query('SELECT TOP 1 id_centro FROM CentroTuristico ORDER BY id_centro DESC')
+                                        .input('regionID', sql.Int, parseInt(regionID))
+                                        .query('SELECT * FROM Region WHERE id_region = @regionID')
                                 }).then(result => {
-
-                                    id_centro = result.recordset[0].id_centro
-                                    sql.connect(config).then(pool => {
-                                        return pool.request()
-                                            .input('id_servicio', sql.NVarChar, id_servicios)
-                                            .input('id_centro', sql.NVarChar, id_centro)
-                                            .query('INSERT INTO CentroServicio (id_servicio,id_centro) VALUES (@id_servicio,@id_centro)')
-                                    }).then(result => {
-
-                                        console.log("Centro Turistico Agregado con EXITO: ", result.rowsAffected)
+                                    res.render('editLugar.ejs', {
+                                        name: nombre,
+                                        region: result.recordset[0].nombre_region,
+                                        provincia: result.recordset[0].provincia,
+                                        tipo: tipo,
+                                        horario: horario,
+                                        telefono: telefono,
+                                        costoA: costoA,
+                                        costoN: costoN,
+                                        costoM: costoM,
+                                        servicio: servicio, tipoCombo: set, ubicacionCombo: set2, servicioCombo: set3
                                     })
                                 })
+
                             })
                         })
                     })
@@ -538,9 +727,56 @@ app.post('/registerLugar', async (req, res) => {
             })
         })
     })
-    req.flash('success', 'Centro turistico creado con exito!')
-    res.redirect('/registerLugar')
 })
+
+//POST eliminar
+app.post('/eliminarLugar', async (req, res) => {
+
+    let id_centro = 5
+    let id_tipo = ''
+    let id_region = ''
+    let id_servicios = ''
+
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_centro', sql.Int, parseInt(id_centro))
+            .query('SELECT * FROM CentroTuristico WHERE id_centro = @id_centro')
+    }).then(result => {
+        id_region = result.recordset[0].id_region
+        id_tipo = result.recordset[0].id_tipo
+
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_centro', sql.Int, parseInt(id_centro))
+                .query('SELECT id_servicio FROM CentroServicio WHERE id_centro = @id_centro')
+        }).then(result => {
+            id_servicios = result.recordset[0].id_servicio
+            sql.connect(config).then(pool => {
+                return pool.request()
+                    .input('id_centro', sql.Int, parseInt(id_centro))
+                    .query('DELETE FROM CentroServicio WHERE id_centro = @id_centro')
+
+            }).then(result => {
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('id_centro', sql.Int, parseInt(id_centro))
+                        .query('DELETE FROM CentroTuristico WHERE id_centro = @id_centro')
+
+                }).then(result => {
+                    console.log("ELIMINO Centro")
+
+
+                                req.flash('success', 'Successful!')
+                                res.redirect('/editLugar')
+                            })
+                        })
+                    })
+                })
+
+
+})
+
+
 
 //GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
@@ -568,6 +804,27 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
             })
         })
     })
+})
+
+//POST delete
+app.post('/eliminarAdmin', async (req, res) => {
+    let idUser = 8
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUser))
+            .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
+    }).then(result => {
+        console.log("Admin have been deleted: ", result.rowsAffected);
+        sql.connect(config).then(pool => {
+            return pool.request()
+                .input('id_usuario', sql.Int, parseInt(idUser))
+                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
+        }).then(result => {
+            console.log("User have been deactivated: ", result.rowsAffected);
+        })
+    })
+    req.flash('success', 'Administrator was deleted!')
+    res.redirect('/editarAdmin')
 })
 
 //POST edit

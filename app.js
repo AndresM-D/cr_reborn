@@ -125,6 +125,7 @@ app.get('/logout', function (req, res) {
 
 //GET dashboard page
 app.get('/dashboard', ensureAuthenticated, async (req, res) => {
+
     const _videos = []
     const _imagenes = []
     const _centros = []
@@ -132,9 +133,13 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
     const _visitante = []
     const _servicios = []
     const _regiones = []
+    const _registros = []
     const _correoUsuario = req.user.usuario_login
 
     let _idUsuario
+    let _idVisitante
+
+    idCentro = req.body.idCentro
 
     // current timestamp in milliseconds
     const _ts = Date.now();
@@ -236,6 +241,41 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
         return 'SERVICIOS error: ' + error
     })
 
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('correo', sql.NVarChar, _correoUsuario)
+            .query('SELECT * FROM Visitante WHERE correo = @correo')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _visitante.push(output[i])
+        }
+    }).catch(error => {
+        return 'VISITANTE error: ' + error
+    })
+
+    for (let i = 0; i < _visitante.length; i++) {
+        _idVisitante = _visitante[i]['id_visitante']
+    }
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_visitante', sql.Int, _idVisitante)
+            .query('SELECT Registro.id_registro, CentroTuristico.nombre_centro, Region.nombre_region, Region.provincia\n' +
+                'FROM Visitante\n' +
+                'INNER JOIN Registro ON Visitante.id_visitante = Registro.id_visitante\n' +
+                'INNER JOIN CentroTuristico ON Registro.id_centro = CentroTuristico.id_centro\n' +
+                'INNER JOIN Region ON CentroTuristico.id_region = Region.id_region\n' +
+                'WHERE Visitante.id_visitante = 53')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _registros.push(output[i])
+        }
+    }).catch(error => {
+        return 'REGISTROS error: ' + error
+    })
+
     res.render('dashboard.ejs', {
         name: req.user.usuario_login,
         videos: _videos,
@@ -243,12 +283,74 @@ app.get('/dashboard', ensureAuthenticated, async (req, res) => {
         imagenes: _imagenes,
         servicios: _servicios,
         regiones: _regiones,
+        registros: _registros,
         fecha: _date + '/' + _month + '/' + _year,
         nombre: _visitante[0]['nombre'],
         apellido: _visitante[0]['apellido']
     })
 })
 
+//POST /dashboard/centroRegUser
+app.post('/centroRegUser', async (req, res) => {
+
+    const _correoUsuario = req.user.usuario_login
+    const _idCentro = req.body.id_centro
+    const _registro = '1'
+    const _visitante = []
+
+    let _idVisitante
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('correo', sql.NVarChar, _correoUsuario)
+            .query('SELECT * FROM Visitante WHERE correo = @correo')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _visitante.push(output[i])
+        }
+    }).catch(error => {
+        return 'VISITANTE error: ' + error
+    })
+
+    for (let i = 0; i < _visitante.length; i++) {
+        _idVisitante = _visitante[i]['id_visitante']
+    }
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_visitante', sql.Int, _idVisitante)
+            .input('id_centro', sql.Int, _idCentro)
+            .input('registro', sql.Int, _registro)
+            .query('INSERT INTO Registro VALUES (@id_visitante,@id_centro,@registro)')
+    }).then(result => {
+        console.log("Registro have been created: ", result.rowsAffected)
+    }).catch(error => {
+        return 'REGISTRO error: ' + error
+    })
+
+    res.redirect('/dashboard')
+})
+
+app.post('/eraseRegUser', async (req, res) => {
+
+    const _idRegistro = req.body.id_registro
+
+    console.log(_idRegistro)
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_registro', sql.Int, _idRegistro)
+            .query('DELETE FROM Registro WHERE id_registro = @id_registro')
+    }).then(result => {
+        console.log("Registro have been deleted: ", result.rowsAffected)
+    }).catch(error => {
+        return 'REGISTRO error: ' + error
+    })
+
+    res.redirect('/dashboard')
+})
+
+//POST /dashboard/editUser
 app.post('/editUser', async (req, res) => {
     let nombre = req.body.nombre
     let apellido = req.body.apellido
@@ -276,6 +378,7 @@ app.post('/editUser', async (req, res) => {
     }
 })
 
+//POST /dashboard/editPass
 app.post('/editPass', async (req, res) => {
 
     const usuario_login = req.user.usuario_login
@@ -354,9 +457,11 @@ app.get('/successReg', (req, res) => {
 
 //GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
+
     let pass = ' '
     let email_ = ' '
     let idUser = 11
+
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -446,7 +551,6 @@ app.get('/registerLugar', forwardAuthenticated, (req, res) => {
         let output = result.recordset
         for (let i = 0; i < output.length; i++) {
             set[i] = output[i].nombre_tipo
-
         }
         sql.connect(config).then(pool => {
             return pool.request()
@@ -455,7 +559,6 @@ app.get('/registerLugar', forwardAuthenticated, (req, res) => {
             let output = result.recordset
             for (let i = 0; i < output.length; i++) {
                 set2[i] = output[i].provincia
-
             }
             sql.connect(config).then(pool => {
                 return pool.request()
@@ -465,14 +568,11 @@ app.get('/registerLugar', forwardAuthenticated, (req, res) => {
                 for (let i = 0; i < output.length; i++) {
                     set3[i] = output[i].nombre_servicio
                 }
-
-
                 res.render('registerLugar.ejs', {tipoCombo: set, ubicacionCombo: set2, servicioCombo: set3})
             })
         })
     })
 })
-
 
 //POST registerLugar
 app.post('/registerLugar', async (req, res) => {
@@ -494,7 +594,6 @@ app.post('/registerLugar', async (req, res) => {
     const idImagen = req.body.costoM
     const servicios = req.body.servicios
     const login = 3
-
 
     sql.connect(config).then(pool => {
         return pool.request()
@@ -534,37 +633,31 @@ app.post('/registerLugar', async (req, res) => {
                 }).then(result => {
                     console.log("GET LAST RECORD CENTRO")
                     id_centro = result.recordset[0].id_centro
-                        for (i = 0;i<servicios.length;i++) {
+                    for (i = 0; i < servicios.length; i++) {
 
-                                console.log(servicios[i])
-                            sql.connect(config).then(pool => {
-                                return pool.request()
-                                    .input('servicios', sql.NVarChar, servicios[i])
-                                    .query("SELECT * from Servicio WHERE nombre_servicio=@servicios")
-                            }).then(result => {
-                                console.log(result.recordset[0])
-                                    if(result.recordset!=null) {
-                                        id_servicios = result.recordset[0].id_servicio
-                                        sql.connect(config).then(pool => {
-                                            return pool.request()
-                                                .input('id_servicio', sql.Int, parseInt(id_servicios))
-                                                .input('id_centro', sql.Int, parseInt(id_centro))
-                                                .query("INSERT INTO CentroServicio (id_centro,id_servicio) VALUES (@id_centro,@id_servicio)")
-                                        })
-                                    }
-                                    })
-
+                        console.log(servicios[i])
+                        sql.connect(config).then(pool => {
+                            return pool.request()
+                                .input('servicios', sql.NVarChar, servicios[i])
+                                .query("SELECT * from Servicio WHERE nombre_servicio=@servicios")
+                        }).then(result => {
+                            console.log(result.recordset[0])
+                            if (result.recordset != null) {
+                                id_servicios = result.recordset[0].id_servicio
+                                sql.connect(config).then(pool => {
+                                    return pool.request()
+                                        .input('id_servicio', sql.Int, parseInt(id_servicios))
+                                        .input('id_centro', sql.Int, parseInt(id_centro))
+                                        .query("INSERT INTO CentroServicio (id_centro,id_servicio) VALUES (@id_centro,@id_servicio)")
+                                })
                             }
-
-                    })
-
-                    })
+                        })
+                    }
                 })
-
+            })
         })
-
-
     })
+})
 
 //POST edit
 app.post('/editLugar', async (req, res) => {
@@ -582,6 +675,7 @@ app.post('/editLugar', async (req, res) => {
     const costoN = req.body.costoN
     const costoM = req.body.costoM
     const servicios = req.body.servicios
+
     sql.connect(config).then(pool => {
         return pool.request()
             .input('tipo', sql.NVarChar, tipo)
@@ -613,14 +707,11 @@ app.post('/editLugar', async (req, res) => {
 
 
                 req.flash('success', 'Successful!')
-               // res.redirect('/editLugar')
+                // res.redirect('/editLugar')
             })
         })
     })
 })
-
-
-
 
 //GET editLugar page
 app.get('/editLugar', forwardAuthenticated, (req, res) => {
@@ -766,17 +857,15 @@ app.post('/eliminarLugar', async (req, res) => {
                     console.log("ELIMINO Centro")
 
 
-                                req.flash('success', 'Successful!')
-                                res.redirect('/editLugar')
-                            })
-                        })
-                    })
+                    req.flash('success', 'Successful!')
+                    res.redirect('/editLugar')
                 })
+            })
+        })
+    })
 
 
 })
-
-
 
 //GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {

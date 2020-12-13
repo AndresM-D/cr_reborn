@@ -24,6 +24,7 @@
 
 <body id="page-top">
 
+<!-- Side Visitor Bar -->
 <aside class="sidebar">
 
     <div class="side-inner">
@@ -31,6 +32,8 @@
         <div class="share">
             <i class="fas fa-user-edit"></i>
             <h2>Editar Perfil</h2>
+
+            <!-- Options -->
             <form action="#">
                 <a class="btn btn-primary btn-block" data-toggle="collapse" href="#userInfo" role="button"
                    aria-expanded="false" aria-controls="collapseExample">
@@ -40,8 +43,16 @@
                    aria-expanded="false" aria-controls="collapseExample">
                     Cambiar contraseña
                 </a>
+                <a class="btn btn-warning btn-block" data-toggle="collapse" href="#userReg" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Mostrar registros
+                </a>
             </form>
+            <!-- End of Options -->
+
         </div>
+
+        <!-- Edit user info form -->
         <div class="collapse" id="userInfo">
             <form method="post">
                 <div class="form-group">
@@ -75,6 +86,9 @@
                 <hr>
             </form>
         </div>
+        <!-- End of Edit user info form -->
+
+        <!-- Edit user pass form -->
         <div class="collapse" id="userPass">
             <form method="post"
                   oninput='repass.setCustomValidity(repass.value !== pass.value ? "Passwords do not match." : "")'>
@@ -104,6 +118,43 @@
                 <hr>
             </form>
         </div>
+        <!-- End of Edit user pass form -->
+
+        <!-- User reg form -->
+        <div class="collapse" id="userReg">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Centro Turístico</th>
+                    <th scope="col">Región</th>
+                    <th scope="col">Provincia</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let i = 0; i < registros.length; i++) { %>
+                    <tr>
+                        <td> <%= i + 1 %> </td>
+                        <td> <%= registros[i]['nombre_centro'] %> </td>
+                        <td> <%= registros[i]['nombre_region'] %> </td>
+                        <td> <%= registros[i]['provincia'] %> </td>
+                        <form method="post">
+                            <td>
+                                <input type="text" name="id_registro"
+                                       value=" <%= registros[i]['id_registro'] %> " hidden>
+                                <button type="submit" class="btn" formaction="/eraseRegUser">
+                                    <i class="fas fa-window-close" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </form>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+        <!-- End of Edit user info form -->
 
     </div>
 
@@ -347,9 +398,16 @@
                                                                 </div>
                                                                 <!-- End of Modal Assets -->
                                                                 <hr>
-                                                                <button type="submit" class="btn btn-danger btn-block">
-                                                                    Me gusta!<i class="fas fa-heart ml-2"
-                                                                                aria-hidden="true"></i></button>
+                                                                <form method="post" action="/centroRegUser">
+                                                                    <input type="text" name="id_centro"
+                                                                           value=" <%= centros[i]['id_centro'] %> "
+                                                                           hidden>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger btn-block">
+                                                                        Me gusta!<i class="fas fa-heart ml-2"
+                                                                                    aria-hidden="true"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
 
                                                             <div class="modal-footer justify-content-center">

@@ -124,13 +124,13 @@ class MainController {
         try {
             if (req.body.nombre != null &&
                 req.body.apellido != null &&
-                req.body.id_visitante != null)
+                req.body.id_usuario != null)
             {
                 const pool = await poolPromise
                 const result = await pool.request()
                     .input('nombre', sql.NVarChar, req.body.nombre)
                     .input('apellido', sql.NVarChar, req.body.apellido)
-                    .input('id_visitante', sql.Int, req.body.id_visitante)
+                    .input('id_usuario', sql.Int, req.body.id_usuario)
                     .query(queries.updateVisitante)
                 res.json(result)
             } else {

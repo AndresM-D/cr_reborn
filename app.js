@@ -54,11 +54,14 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //required for storing all users in db into const users
-const users = []
+let users = []
 const visitors = []
 const images = []
 let user
+let admin
+let lugares = []
 
+let lugaresV = []
 //passport initialization login logic
 const initializePassport = require('./passport-config')
 //email and id are needed for passport to validate the user credentials typed from view login.ejs
@@ -68,6 +71,12 @@ initializePassport(passport,
     id => users.find(user => user.id_usuario === id)
 )
 
+//Get info from db
+ function getuserdb (req, res, next) {
+    sql.connect(config).then(pool => {
+        return pool.request().query('SELECT * FROM Usuario')
+    })
+}
 //method used for pushing users from db into array declared above
 async function getUsuarios() {
     await sql.connect(config).then(pool => {
@@ -75,6 +84,7 @@ async function getUsuarios() {
             .query(queries.getUsuario)
     }).then(result => {
         let output = result.recordset
+        users =[]
         for (let i = 0; i < output.length; i++) {
             user = output[i]
             users.push(user)
@@ -96,6 +106,22 @@ function getVisitantes() {
         //console.log(visitors)
     })
 }
+function getLugares() {
+    sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getLugar)
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            let lug = output[i]
+            lugares.push(lug)
+        }
+        //console.log(visitors)
+    })
+}
+
+
+
 
 //GET index page
 app.get('/', forwardAuthenticated, (req, res) => {
@@ -449,6 +475,11 @@ app.post('/editPass', async (req, res) => {
 app.get('/register', forwardAuthenticated, (req, res) => {
     res.render('register.ejs')
 })
+//GET registerAdmin page
+app.get('/registerAdmin', forwardAuthenticated, (req, res) => {
+    res.render('registerAdmin.ejs')
+})
+
 
 //GET successReg page
 app.get('/successReg', (req, res) => {
@@ -457,11 +488,10 @@ app.get('/successReg', (req, res) => {
 
 //GET editAdmin page
 app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
-
+    console.log("aquiii"+req.query.id)
     let pass = ' '
     let email_ = ' '
-    let idUser = 11
-
+    let idUser = req.query.id
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -475,7 +505,9 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
                 .input('id_usuario', sql.Int, parseInt(idUser))
                 .query('SELECT * FROM Administrador WHERE id_usuario = @id_usuario')
         }).then(result => {
+            console.log(result.recordset[0])
             res.render('editarAdmin.ejs', {
+
                 name: result.recordset[0].nombre,
                 lastname: result.recordset[0].apellido,
                 email__: email_,
@@ -484,6 +516,116 @@ app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
         })
     })
 })
+//POST registerAdmin
+
+//Receives and stores a new Usuario from registerAdmin page
+app.post('/registerAdmin', async (req, res) => {
+
+    //data from input's form
+    let id_usuario = ''
+
+    //when a Usuario is stored from registerAdmin, id_tipoUsuario remains as 1 always!
+    const id_tipoUsuario = 1
+
+    const nombre = req.body.nombre
+    const apellido = req.body.apellido
+    const usuario_login = req.body.usuario_login
+    const password_login = req.body.password_login
+
+    //same as id_tipoUsuario, estado remains as 1
+    const estado = "1"
+
+    //first, we need to validate that a new user cant register if he or she is already in the db so...
+    //promise below capture all the users and store it in a array
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getUsuario)
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            user = output[i]
+            users.push(user)
+        }
+    })
+
+    //then we need to validate the data from register page against our array containing all the users
+    const result = users.find(user => user.usuario_login === usuario_login)
+
+    //if the user isn't registered yet
+    if (result === undefined) {
+        try {
+            //Usuario insertion into db
+            await bcrypt.hash(password_login, saltRounds, function (err, hash) {
+                sql.connect(config).then(pool => {
+                    return pool.request()
+                        .input('id_tipoUsuario', sql.Int, id_tipoUsuario)
+                        .input('usuario_login', sql.NVarChar, usuario_login)
+                        .input('password_login', sql.NVarChar, hash)
+                        .input('estado', sql.NVarChar, estado)
+                        .query(queries.addUsuario)
+                }).then(result => {
+
+                    console.log("Usuario have been created: ", result.rowsAffected)
+                    //in order to create a Administrador...
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .input('usuario_login', sql.NVarChar, usuario_login)
+                            .query('SELECT id_usuario FROM Usuario WHERE usuario_login = @usuario_login')
+                    }).then(result => {
+                        //the id from last insertion is assigned to result
+                        let output = result.recordset
+
+                        //now we need to get that id as an object that can be saved into the db
+                        //that's what it does the for loop below
+                        for (let i = 0; i < output.length; i++) {
+                            let id = output[i]
+                            for (let idKey in id) {
+                                id_usuario = id[idKey]
+                            }
+                        }
+
+                        //having the right id from Usuario we need to assign the same id to Administrador record as well
+                        //Administrador insertion into db
+                        sql.connect(config).then(pool => {
+                            return pool.request()
+                                .input('id_usuario', sql.Int, parseInt(id_usuario))
+                                .input('nombre', sql.NVarChar, nombre)
+                                .input('apellido', sql.NVarChar, apellido)
+                                .input('correo', sql.NVarChar, usuario_login)
+                                .query(queries.addAdministrador)
+                        }).then(result => {
+                            console.log("Administrador has been created: ", result.rowsAffected);
+                            req.flash('success', 'Registro completado!')
+                            res.redirect('/dashboardAdminAd')
+                        }).catch(error => {
+                            //shit happens
+                            console.log("Failed to create new Administrador: " + error)
+                            res.sendStatus(500)
+                            return
+                        })
+                    }).catch(error => {
+                        console.log(error)
+                        res.sendStatus(500)
+                        return
+                    })
+                }).catch(error => {
+                    console.log("Failed to create new Usuario: " + error)
+                    res.sendStatus(500)
+                    return
+                })
+            })
+            //success register page rendering
+
+        } catch {
+            res.redirect('/register')
+        }
+        //if the user is registered... a fancy msg shows up
+    } else {
+        req.flash('error', 'El correo electrónico ya se encuentra registrado!')
+        res.redirect('/register')
+    }
+})
+
 
 //POST delete
 app.post('/eliminarAdmin', async (req, res) => {
@@ -510,12 +652,12 @@ app.post('/eliminarAdmin', async (req, res) => {
 //POST edit
 app.post('/editarAdmin', async (req, res) => {
 
-    let idUser = 11
     let id_usuario = ''
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
+    let idUser = 8
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -924,7 +1066,7 @@ app.post('/editarAdmin', async (req, res) => {
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
-    let idUser = 8
+    let idUser = req.query.id
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
@@ -949,15 +1091,18 @@ app.post('/editarAdmin', async (req, res) => {
 })
 
 //GET edit page
+//editarUser?id=9
 app.get('/editarUser', forwardAuthenticated, (req, res) => {
-    let pass = ' '
-    let email_ = ' '
-    let idUser = 6
+    console.log(req.query.id)
+    let pass = '12345678'
+    let email_ = 'a@a.com'
+    let idUser = req.query.id
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
             .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
     }).then(result => {
+        console.log('result',result.recordset[0])
         pass = result.recordset[0].password_login
         email_ = result.recordset[0].usuario_login
         console.log(email_)
@@ -999,9 +1144,9 @@ app.post('/eliminarUser', async (req, res) => {
 
 //POST edit
 app.post('/editarUser', async (req, res) => {
-
+    console.log('tonces',req.body)
     let id_usuario = ''
-    let idUser = 6
+    const idUser = req.body.id_usuario
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
@@ -1014,7 +1159,7 @@ app.post('/editarUser', async (req, res) => {
             .input('correo', sql.NVarChar, usuario_login)
             .query(queries.updateVisitante)
     }).then(result => {
-        console.log("Admin have been update: ", result.rowsAffected);
+        console.log("User has been update: ", result.rowsAffected);
         sql.connect(config).then(pool => {
             return pool.request()
                 .input('passw', sql.NVarChar, password_login)
@@ -1022,7 +1167,7 @@ app.post('/editarUser', async (req, res) => {
                 .input('correo', sql.NVarChar, usuario_login)
                 .query("UPDATE Usuario SET password_login = @passw, usuario_login = @correo WHERE id_usuario = @id_usuario")
         }).then(result => {
-            console.log("Usuario have been updated: ", result.rowsAffected);
+            console.log("Usuario has been updated: ", result.rowsAffected);
         })
     })
     req.flash('success', 'Successful!')
@@ -1143,6 +1288,25 @@ app.get('/admin', forwardAuthenticated, (req, res) => {
     res.render('loginAdmin.ejs')
 })
 
+//GET dashboardAdmin page
+app.get('/dashboardAdminUs', forwardAuthenticated, async (req, res) => {
+   await getUsuarios()
+    console.log('length', users.length)
+    res.render('dashboardAdminUs.ejs', {users})
+})
+//GET dashboardAdminAd page
+app.get('/dashboardAdminAd', forwardAuthenticated, async (req, res) => {
+    await getUsuarios()
+    console.log('length', users.length)
+    res.render('dashboardAdminAd.ejs', {admins: users.filter(user => user.id_tipoUsuario === 1)})
+})
+//GET dashboardAdminLug page
+app.get('/dashboardAdminLug', forwardAuthenticated, async (req, res) => {
+    await getLugares()
+    console.log("dfgdhgfdsa",lugares)
+    res.render('dashboardAdminLug.ejs', {lugares})
+})
+
 //POST admin page
 app.post('/admin', async (req, res) => {
 
@@ -1176,7 +1340,8 @@ app.post('/admin', async (req, res) => {
 
         if (idTipoUsuario === 1 && password_login === result[0].password_login) {
             req.flash('success', 'Success!')
-            res.redirect('/admin')
+            console.log(idTipoUsuario)
+            res.redirect('/dashboardAdminUs')
         } else {
             req.flash('error', 'Credenciales erróneas!')
             res.redirect('/admin')

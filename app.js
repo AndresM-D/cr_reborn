@@ -670,10 +670,13 @@ app.post('/registerLugar', async (req, res) => {
     const costoA = req.body.costoA
     const costoN = req.body.costoN
     const costoM = req.body.costoM
-    const descripcion = req.body.descipcion
+    const descripcion = req.body.descripcion1
     const idImagen = req.body.costoM
     const servicios = req.body.servicios
-    const login = 3
+    let servicios2 = ''
+    const login = 8
+
+    console.log("DESC ", descripcion)
 
     let image = req.files.image
     let path = image.name
@@ -698,67 +701,85 @@ app.post('/registerLugar', async (req, res) => {
 
     sql.connect(config).then(pool => {
         return pool.request()
-            .input('tipo', sql.NVarChar, tipo)
-            .query('SELECT * FROM TipoCentro WHERE nombre_tipo = @tipo')
+            .query("SELECT TOP 1 * FROM Imagen ORDER BY id_imagen DESC")
     }).then(result => {
-
-        id_tipo = result.recordset[0].id_tipo
-        console.log("GET ID TIPO")
+        id_Imagen = result.recordset[0].id_imagen
         sql.connect(config).then(pool => {
             return pool.request()
-                .input('ubicacion', sql.NVarChar, ubicacion)
-                .query('SELECT * FROM Region WHERE provincia = @ubicacion')
+                .input('tipo', sql.NVarChar, tipo)
+                .query('SELECT * FROM TipoCentro WHERE nombre_tipo = @tipo')
         }).then(result => {
 
-            id_region = result.recordset[0].id_region
-            console.log("GET ID REGION")
+            id_tipo = result.recordset[0].id_tipo
+            console.log("GET ID TIPO")
             sql.connect(config).then(pool => {
                 return pool.request()
-                    .input('id_tipo', sql.Int, id_tipo)
-                    .input('id_region', sql.NVarChar, id_region)
-                    .input('nombre', sql.NVarChar, nombre)
-                    .input('horario', sql.NVarChar, horario)
-                    .input('telefono', sql.NVarChar, telefono)
-                    .input('costoA', sql.NVarChar, costoA)
-                    .input('costoN', sql.NVarChar, costoN)
-                    .input('costoM', sql.NVarChar, costoM)
-                    .input('login', sql.NVarChar, login)
-                    .input('idImagen', sql.Int, parseInt(idImagen))
-                    .input('descripcion', sql.NVarChar, descripcion)
-                    .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN)")
+                    .input('ubicacion', sql.NVarChar, ubicacion)
+                    .query('SELECT * FROM Region WHERE provincia = @ubicacion')
             }).then(result => {
-                console.log("INSERT CENTRO")
+
+
+                id_region = result.recordset[0].id_region
+                console.log("GET ID REGION")
                 sql.connect(config).then(pool => {
                     return pool.request()
-                        .query("SELECT TOP 1 * FROM CentroTuristico ORDER BY id_centro DESC")
+                        .input('id_tipo', sql.Int, id_tipo)
+                        .input('id_region', sql.NVarChar, id_region)
+                        .input('nombre', sql.NVarChar, nombre)
+                        .input('horario', sql.NVarChar, horario)
+                        .input('telefono', sql.NVarChar, telefono)
+                        .input('costoA', sql.NVarChar, costoA)
+                        .input('costoN', sql.NVarChar, costoN)
+                        .input('costoM', sql.NVarChar, costoM)
+                        .input('login', sql.NVarChar, login)
+                        .input('descripcion', sql.NVarChar, descripcion)
+                        .input('id_Imagen', sql.Int, parseInt(id_Imagen))
+                        .query("INSERT INTO CentroTuristico (id_administrador, id_region, id_tipo, nombre_centro, horario, telefono, costo_entrada_adulto,costo_entrada_aMayor,costo_entrada_nino, id_imagen, descripcion ) VALUES (@login, @id_region, @id_tipo,@nombre, @horario,@telefono,@costoA,@costoM,@costoN, @id_Imagen, @descripcion)")
                 }).then(result => {
-                    console.log("GET LAST RECORD CENTRO")
-                    id_centro = result.recordset[0].id_centro
-                    for (i = 0; i < servicios.length; i++) {
-
-                        console.log(servicios[i])
+                    console.log("INSERT CENTRO")
+                    sql.connect(config).then(pool => {
+                        return pool.request()
+                            .query("SELECT TOP 1 * FROM CentroTuristico ORDER BY id_centro DESC")
+                    }).then(result => {
+                        console.log("GET LAST RECORD CENTRO")
+                        id_centro = result.recordset[0].id_centro
+                        //   console.log(servicios[i])
+                        //console.log(servicios[10].length)
+                        for (i = 0; i < servicios.length; i++) {
+                            servicios2 += servicios[i] + " , "
+                        }
                         sql.connect(config).then(pool => {
                             return pool.request()
-                                .input('servicios', sql.NVarChar, servicios[i])
-                                .query("SELECT * from Servicio WHERE nombre_servicio=@servicios")
+                                .input('servicios2', sql.NVarChar, servicios2)
+                                .query("INSERT INTO Servicio (nombre_servicio) VALUES (@servicios2)")
                         }).then(result => {
-                            console.log(result.recordset[0])
-                            if (result.recordset != null) {
+                            sql.connect(config).then(pool => {
+                                return pool.request()
+                                    .input('servicios2', sql.NVarChar, servicios2)
+                                    .query("SELECT TOP 1 * FROM Servicio ORDER BY id_servicio DESC")
+                            }).then(result => {
                                 id_servicios = result.recordset[0].id_servicio
+                                console.log(result.recordset)
                                 sql.connect(config).then(pool => {
                                     return pool.request()
                                         .input('id_servicio', sql.Int, parseInt(id_servicios))
                                         .input('id_centro', sql.Int, parseInt(id_centro))
                                         .query("INSERT INTO CentroServicio (id_centro,id_servicio) VALUES (@id_centro,@id_servicio)")
                                 })
-                            }
+
+                            })
                         })
-                    }
+
+
+                    })
+
                 })
             })
+
         })
     })
 })
+
 
 //POST edit
 app.post('/editLugar', async (req, res) => {

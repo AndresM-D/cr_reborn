@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
 
                 <div class="sidebar-brand-text mx-3">CR REBORN</div>
             </a>
@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/dashboardAdmin">
+                <a class="nav-link" href="/dashboardAdminUs">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -142,6 +142,18 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
+                     <div class="form-group justify-content-center">
+                        <% if (messages.success) { %>
+                            <div class="alert alert-success" role="alert">
+                                <%= messages.success %>
+                            </div>
+                        <% } %>
+                        <% if (messages.error) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= messages.error %>
+                            </div>
+                        <% } %>
+                    </div>
 
                     <!-- Content Row -->
 
@@ -169,6 +181,14 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-primary btn-icon-split" onclick="location.href = '/editarUser?id=<%=user.id_usuario%>';"><span class="text">Editar</span></button>
+                                    <form id="eliminarUser"
+                                          action="/eliminarUser"
+                                          method="POST">
+                                        <div class="form-group">
+                                            <button class="btn btn-danger btn-icon-split" onclick="location.href = '/eliminarUser?id=<%=user.id_usuario%>';"><span class="text">Eliminar</span></button>
+                                        </div>
+                                    </form>
+
                                 </td>
                             </tr>
                             <% } %>
@@ -228,7 +248,7 @@
                 <div class="modal-body">Selecciona "Cerrar Sesión" si deseas cerrar la sesión.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="/logout">Cerrar Sesión</a>
+                    <a class="btn btn-primary" href="/logoutAdmin">Cerrar Sesión</a>
                 </div>
             </div>
         </div>

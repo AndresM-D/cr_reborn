@@ -55,12 +55,13 @@ app.use(passport.session())
 
 //required for storing all users in db into const users
 let users = []
+let admins = []
 const visitors = []
 const images = []
 let user
 let admin
 let lugares = []
-
+let idUsuario
 let lugaresV = []
 //passport initialization login logic
 const initializePassport = require('./passport-config')
@@ -72,11 +73,12 @@ initializePassport(passport,
 )
 
 //Get info from db
- function getuserdb (req, res, next) {
+function getuserdb(req, res, next) {
     sql.connect(config).then(pool => {
         return pool.request().query('SELECT * FROM Usuario')
     })
 }
+
 //method used for pushing users from db into array declared above
 async function getUsuarios() {
     await sql.connect(config).then(pool => {
@@ -84,13 +86,27 @@ async function getUsuarios() {
             .query(queries.getUsuario)
     }).then(result => {
         let output = result.recordset
-        users =[]
+        users = []
         for (let i = 0; i < output.length; i++) {
             user = output[i]
             users.push(user)
         }
     })
     //console.log(users)
+}
+
+async function getAdministradores() {
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .query(queries.getAdministrador)
+    }).then(result => {
+        let output = result.recordset
+        admins = []
+        for (let i = 0; i < output.length; i++) {
+            admin = output[i]
+            admins.push(admin)
+        }
+    })
 }
 
 function getVisitantes() {
@@ -106,6 +122,7 @@ function getVisitantes() {
         //console.log(visitors)
     })
 }
+
 function getLugares() {
     sql.connect(config).then(pool => {
         return pool.request()
@@ -119,8 +136,6 @@ function getLugares() {
         //console.log(visitors)
     })
 }
-
-
 
 
 //GET index page
@@ -147,6 +162,12 @@ app.get('/logout', function (req, res) {
     req.logout()
     req.flash('success', 'Sesión cerrada!')
     res.redirect('/login')
+})
+//GET logoutAdmin function
+app.get('/logoutAdmin', function (req, res) {
+    req.logout()
+    req.flash('success', 'Sesión cerrada!')
+    res.redirect('/Admin')
 })
 
 //GET dashboard page
@@ -486,36 +507,7 @@ app.get('/successReg', (req, res) => {
     res.render('successReg.ejs')
 })
 
-//GET editAdmin page
-app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
-    console.log("aquiii"+req.query.id)
-    let pass = ' '
-    let email_ = ' '
-    let idUser = req.query.id
-    sql.connect(config).then(pool => {
-        return pool.request()
-            .input('id_usuario', sql.Int, parseInt(idUser))
-            .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
-    }).then(result => {
-        pass = result.recordset[0].password_login
-        email_ = result.recordset[0].usuario_login
-        console.log(email_)
-        sql.connect(config).then(pool => {
-            return pool.request()
-                .input('id_usuario', sql.Int, parseInt(idUser))
-                .query('SELECT * FROM Administrador WHERE id_usuario = @id_usuario')
-        }).then(result => {
-            console.log(result.recordset[0])
-            res.render('editarAdmin.ejs', {
 
-                name: result.recordset[0].nombre,
-                lastname: result.recordset[0].apellido,
-                email__: email_,
-                passw: pass
-            })
-        })
-    })
-})
 //POST registerAdmin
 
 //Receives and stores a new Usuario from registerAdmin page
@@ -627,60 +619,6 @@ app.post('/registerAdmin', async (req, res) => {
 })
 
 
-//POST delete
-app.post('/eliminarAdmin', async (req, res) => {
-    let idUser = 8
-    sql.connect(config).then(pool => {
-        return pool.request()
-            .input('id_usuario', sql.Int, parseInt(idUser))
-            .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
-
-    }).then(result => {
-        console.log("Admin have been deleted: ", result.rowsAffected);
-        sql.connect(config).then(pool => {
-            return pool.request()
-                .input('id_usuario', sql.Int, parseInt(idUser))
-                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
-        }).then(result => {
-            console.log("User have been deactivated: ", result.rowsAffected);
-        })
-    })
-    req.flash('success', 'Administrator was deleted!')
-    res.redirect('/editarAdmin')
-})
-
-//POST edit
-app.post('/editarAdmin', async (req, res) => {
-
-    let id_usuario = ''
-    const nombre = req.body.nombre
-    const apellido = req.body.apellido
-    const usuario_login = req.body.usuario_login
-    const password_login = req.body.password_login
-    let idUser = 8
-    sql.connect(config).then(pool => {
-        return pool.request()
-            .input('id_usuario', sql.Int, parseInt(idUser))
-            .input('nombre', sql.NVarChar, nombre)
-            .input('apellido', sql.NVarChar, apellido)
-            .input('correo', sql.NVarChar, usuario_login)
-            .query(queries.updateAdministrador)
-    }).then(result => {
-        console.log("Admin have been update: ", result.rowsAffected);
-        sql.connect(config).then(pool => {
-            return pool.request()
-                .input('passw', sql.NVarChar, password_login)
-                .input('id_usuario', sql.Int, parseInt(idUser))
-                .input('correo', sql.NVarChar, usuario_login)
-                .query(queries.updateAdministradorClave)
-        }).then(result => {
-            console.log("Usuario have been updated: ", result.rowsAffected);
-        })
-    })
-    req.flash('success', 'Successful!')
-    res.redirect('/editarAdmin')
-})
-
 //GET registerLugar page
 app.get('/registerLugar', forwardAuthenticated, (req, res) => {
     let set = [];
@@ -736,6 +674,27 @@ app.post('/registerLugar', async (req, res) => {
     const idImagen = req.body.costoM
     const servicios = req.body.servicios
     const login = 3
+
+    let image = req.files.image
+    let path = image.name
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('direccion', sql.NVarChar, path)
+            .query('INSERT INTO Imagen VALUES (@direccion)')
+    }).then(result => {
+        console.log("Image path have been created: ", result.rowsAffected);
+    }).catch(error => {
+        //shit happens
+        console.log("Failed to create new path image into db: " + error)
+        res.sendStatus(500)
+        return
+    })
+
+    image.mv('../cr_reborn/images/' + image.name, function (err) {
+        if (err)
+            return res.status(500).send(err)
+    })
 
     sql.connect(config).then(pool => {
         return pool.request()
@@ -962,7 +921,7 @@ app.get('/editLugar', forwardAuthenticated, (req, res) => {
     })
 })
 
-//POST eliminar
+//POST eliminar Lugat
 app.post('/eliminarLugar', async (req, res) => {
 
     let id_centro = 5
@@ -1009,38 +968,17 @@ app.post('/eliminarLugar', async (req, res) => {
 
 })
 
-//GET editAdmin page
-app.get('/editarAdmin', forwardAuthenticated, (req, res) => {
-    let pass = ' '
-    let email_ = ' '
-    let idUser = 8
-    sql.connect(config).then(pool => {
-        return pool.request()
-            .input('id_usuario', sql.Int, parseInt(idUser))
-            .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
-    }).then(result => {
-        pass = result.recordset[0].password_login
-        email_ = result.recordset[0].usuario_login
-        console.log(email_)
-        sql.connect(config).then(pool => {
-            return pool.request()
-                .input('id_usuario', sql.Int, parseInt(idUser))
-                .query('SELECT * FROM Administrador WHERE id_usuario = @id_usuario')
-        }).then(result => {
-            res.render('editarAdmin.ejs', {
-                name: result.recordset[0].nombre,
-                lastname: result.recordset[0].apellido,
-                email__: email_,
-                passw: pass
-            })
-        })
-    })
+// GET ELIMINAR ADMIN
+app.get('/eliminarAdmin', async (req, res) => {
+    idUsuario = req.query.id
+    res.redirect('/dashboardAdminAd')
 })
 
-//POST delete
+//POST ELIMINAR ADMIN
 app.post('/eliminarAdmin', async (req, res) => {
-    let idUser = 8
-    sql.connect(config).then(pool => {
+    let idUser = req.body.id_usuario
+
+    await sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
             .query("DELETE FROM Administrador WHERE id_usuario = @id_usuario")
@@ -1049,109 +987,195 @@ app.post('/eliminarAdmin', async (req, res) => {
         sql.connect(config).then(pool => {
             return pool.request()
                 .input('id_usuario', sql.Int, parseInt(idUser))
-                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
+                .query("DELETE FROM Usuario WHERE id_usuario = @id_usuario\"")
         }).then(result => {
             console.log("User have been deactivated: ", result.rowsAffected);
         })
     })
+
     req.flash('success', 'Administrator was deleted!')
-    res.redirect('/editarAdmin')
+    res.redirect('/dashboardAdminAd')
 })
 
-//POST edit
+//GET editAdmin page
+app.get('/editarAdmin', forwardAuthenticated, async (req, res) => {
+
+    const _usuarios = []
+    const _administradores = []
+
+    idUsuario = req.query.id
+    let nombre
+    let apellido
+    let correo
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUsuario))
+            .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _usuarios.push(output[i])
+        }
+    }).catch(error => {
+        return 'ID USUARIO error: ' + error
+    })
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUsuario))
+            .query('SELECT * FROM Administrador WHERE id_usuario = @id_usuario')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _administradores.push(output[i])
+        }
+    }).catch(error => {
+        return 'ID USUARIO error: ' + error
+    })
+
+    for (let i = 0; i < _administradores.length; i++) {
+        nombre = _administradores[i]['nombre']
+        apellido = _administradores[i]['apellido']
+        correo = _administradores[i]['correo']
+    }
+
+    res.render('editarAdmin.ejs', {
+        nombre: nombre,
+        apellido: apellido,
+        correo: correo,
+    })
+})
+//POST edit admin
 app.post('/editarAdmin', async (req, res) => {
 
-    let id_usuario = ''
+    const idUser = idUsuario
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
-    let idUser = req.query.id
-    sql.connect(config).then(pool => {
+
+    await sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
             .input('nombre', sql.NVarChar, nombre)
             .input('apellido', sql.NVarChar, apellido)
             .input('correo', sql.NVarChar, usuario_login)
-            .query(queries.updateAdministrador)
+            .query('UPDATE Administrador SET nombre = @nombre, apellido = @apellido, correo = @correo WHERE id_usuario = @id_usuario')
     }).then(result => {
-        console.log("Admin have been update: ", result.rowsAffected);
+        console.log("Administrador has been modified: ", result.rowsAffected)
+    }).catch(error => {
+        return error
+    })
+
+    await bcrypt.hash(password_login, saltRounds, function (err, hash) {
         sql.connect(config).then(pool => {
             return pool.request()
-                .input('passw', sql.NVarChar, password_login)
                 .input('id_usuario', sql.Int, parseInt(idUser))
-                .input('correo', sql.NVarChar, usuario_login)
-                .query(queries.updateAdministradorClave)
+                .input('usuario_login', sql.NVarChar, usuario_login)
+                .input('password_login', sql.NVarChar, hash)
+                .query('UPDATE Usuario SET password_login = @password_login, usuario_login = @usuario_login WHERE id_usuario = @id_usuario')
         }).then(result => {
-            console.log("Usuario have been updated: ", result.rowsAffected);
+            console.log("Usuario has been modified: ", result.rowsAffected)
+        }).catch(error => {
+            return error
         })
     })
+
     req.flash('success', 'Successful!')
-    res.redirect('/editarAdmin')
+    res.redirect('/dashboardAdminAd')
 })
 
-//GET edit page
+//GET edit User page
 //editarUser?id=9
-app.get('/editarUser', forwardAuthenticated, (req, res) => {
-    console.log(req.query.id)
-    let pass = '12345678'
-    let email_ = 'a@a.com'
-    let idUser = req.query.id
-    sql.connect(config).then(pool => {
+app.get('/editarUser', forwardAuthenticated, async (req, res) => {
+
+    const _usuarios = []
+    const _visitantes = []
+
+    idUsuario = req.query.id
+    let nombre
+    let apellido
+    let correo
+
+    await sql.connect(config).then(pool => {
         return pool.request()
-            .input('id_usuario', sql.Int, parseInt(idUser))
+            .input('id_usuario', sql.Int, parseInt(idUsuario))
             .query('SELECT * FROM Usuario WHERE id_usuario = @id_usuario')
     }).then(result => {
-        console.log('result',result.recordset[0])
-        pass = result.recordset[0].password_login
-        email_ = result.recordset[0].usuario_login
-        console.log(email_)
-        sql.connect(config).then(pool => {
-            return pool.request()
-                .input('id_usuario', sql.Int, parseInt(idUser))
-                .query('SELECT * FROM Visitante WHERE id_usuario = @id_usuario')
-        }).then(result => {
-            res.render('editarUser.ejs', {
-                name: result.recordset[0].nombre,
-                lastname: result.recordset[0].apellido,
-                email__: email_,
-                passw: pass
-            })
-        })
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _usuarios.push(output[i])
+        }
+    }).catch(error => {
+        return 'ID USUARIO error: ' + error
+    })
+
+    await sql.connect(config).then(pool => {
+        return pool.request()
+            .input('id_usuario', sql.Int, parseInt(idUsuario))
+            .query('SELECT * FROM Visitante WHERE id_usuario = @id_usuario')
+    }).then(result => {
+        let output = result.recordset
+        for (let i = 0; i < output.length; i++) {
+            _visitantes.push(output[i])
+        }
+    }).catch(error => {
+        return 'ID USUARIO error: ' + error
+    })
+
+    for (let i = 0; i < _visitantes.length; i++) {
+        nombre = _visitantes[i]['nombre']
+        apellido = _visitantes[i]['apellido']
+        correo = _visitantes[i]['correo']
+        console.log(_visitantes[i]['apellido'])
+    }
+
+    res.render('editarUser.ejs', {
+        nombre: nombre,
+        apellido: apellido,
+        correo: correo,
     })
 })
+// GET eliminar user
+app.get('/eliminarUser', async (req, res) => {
+    idUsuario = req.query.id
+    console.log(idUsuario)
+    res.redirect('/dashboardAdminUs')
+})
 
-//POST delete
+//POST eliminar user
 app.post('/eliminarUser', async (req, res) => {
-    let idUser = 6
+    let idUser = idUsuario
     sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
             .query("DELETE FROM Visitante WHERE id_usuario = @id_usuario")
+        console.log('yeeeeeeee' + id_usuario)
     }).then(result => {
         console.log("Admin have been deleted: ", result.rowsAffected);
         sql.connect(config).then(pool => {
             return pool.request()
                 .input('id_usuario', sql.Int, parseInt(idUser))
-                .query("UPDATE Usuario SET estado = 2 WHERE id_usuario = @id_usuario\"")
+                .query("DELETE FROM Usuario WHERE id_usuario = @id_usuario")
         }).then(result => {
-            console.log("User have been deactivated: ", result.rowsAffected);
+            console.log("User have been deleted: ", result.rowsAffected);
         })
     })
-    req.flash('success', 'Administrator was deleted!')
-    res.redirect('/editarUser')
+    req.flash('success', 'El usuario fue eliminado exitosamente!')
+    res.redirect('/dashboardAdminUs')
 })
 
-//POST edit
+//POST edit User
 app.post('/editarUser', async (req, res) => {
-    console.log('tonces',req.body)
-    let id_usuario = ''
-    const idUser = req.body.id_usuario
+
+    const idUser = idUsuario
     const nombre = req.body.nombre
     const apellido = req.body.apellido
     const usuario_login = req.body.usuario_login
     const password_login = req.body.password_login
-    sql.connect(config).then(pool => {
+
+    await sql.connect(config).then(pool => {
         return pool.request()
             .input('id_usuario', sql.Int, parseInt(idUser))
             .input('nombre', sql.NVarChar, nombre)
@@ -1159,19 +1183,27 @@ app.post('/editarUser', async (req, res) => {
             .input('correo', sql.NVarChar, usuario_login)
             .query(queries.updateVisitante)
     }).then(result => {
-        console.log("User has been update: ", result.rowsAffected);
+        console.log("Visitante have been modified: ", result.rowsAffected)
+    }).catch(error => {
+        return error
+    })
+
+    await bcrypt.hash(password_login, saltRounds, function (err, hash) {
         sql.connect(config).then(pool => {
             return pool.request()
-                .input('passw', sql.NVarChar, password_login)
                 .input('id_usuario', sql.Int, parseInt(idUser))
-                .input('correo', sql.NVarChar, usuario_login)
-                .query("UPDATE Usuario SET password_login = @passw, usuario_login = @correo WHERE id_usuario = @id_usuario")
+                .input('usuario_login', sql.NVarChar, usuario_login)
+                .input('password_login', sql.NVarChar, hash)
+                .query('UPDATE Usuario SET password_login = @password_login, usuario_login = @usuario_login WHERE id_usuario = @id_usuario')
         }).then(result => {
-            console.log("Usuario has been updated: ", result.rowsAffected);
+            console.log("Usuario have been modified: ", result.rowsAffected)
+        }).catch(error => {
+            return error
         })
     })
+
     req.flash('success', 'Successful!')
-    res.redirect('/editarUser')
+    res.redirect('/dashboardAdminUs')
 })
 
 //POST register
@@ -1290,20 +1322,20 @@ app.get('/admin', forwardAuthenticated, (req, res) => {
 
 //GET dashboardAdmin page
 app.get('/dashboardAdminUs', forwardAuthenticated, async (req, res) => {
-   await getUsuarios()
+    await getUsuarios()
     console.log('length', users.length)
     res.render('dashboardAdminUs.ejs', {users})
 })
 //GET dashboardAdminAd page
 app.get('/dashboardAdminAd', forwardAuthenticated, async (req, res) => {
-    await getUsuarios()
-    console.log('length', users.length)
-    res.render('dashboardAdminAd.ejs', {admins: users.filter(user => user.id_tipoUsuario === 1)})
+    await getAdministradores()
+    console.log('length', admins.length)
+    res.render('dashboardAdminAd.ejs', {admins})
 })
 //GET dashboardAdminLug page
 app.get('/dashboardAdminLug', forwardAuthenticated, async (req, res) => {
     await getLugares()
-    console.log("dfgdhgfdsa",lugares)
+    console.log("dfgdhgfdsa", lugares)
     res.render('dashboardAdminLug.ejs', {lugares})
 })
 

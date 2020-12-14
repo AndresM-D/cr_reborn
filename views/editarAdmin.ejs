@@ -71,16 +71,16 @@
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupNOMBREInput"
-                                required name="nombre" value="<%= name %>">
+                               required name="nombre" value="" placeholder="<%= nombre %>">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" id="formGroupAPELLIDOInput"
-                               placeholder="APELLIDO" required name="apellido" value="<%= lastname %>">
+                               placeholder="<%= apellido %>" required name="apellido">
                     </div>
                     <div class="form-group">
                         <input type="email" class="email form-control form-control-lg" id="email"
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                               required name="usuario_login" value="<%= email__ %>">
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                               required name="usuario_login" placeholder="<%= correo %>">
                         <div class="valid-feedback feedback-pos">
                             Looks good!
                         </div>
@@ -91,11 +91,11 @@
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupPASSInput"
                                aria-describedby="passwordHelpBlock" required name="password_login" pattern=".{8,}"
-                               title="8 characters minimun" value="<%= passw %>">
+                               title="8 characters minimun" placeholder="Ingrese nueva contraseña">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-lg" id="formGroupREPASSInput"
-                               aria-describedby="passwordHelpBlock" required name="password_login2" value="<%= passw %>">
+                               aria-describedby="passwordHelpBlock" required name="password_login2" placeholder="Confirmar contraseña">
                         <small id="passwordHelpBlock" class="form-text text-muted">
                             Your password must be 8-20 characters long, contain letters and numbers, and must not
                             contain spaces,
@@ -103,13 +103,13 @@
                         </small>
                     </div>
                     <button type="submit" value="validate" class="btn btn-danger text-uppercase sbmt-btn col-3 col-md-2 col-lg-4 ml-1" id="btn_submit">
-                        Save
+                        Guardar
                     </button>
                     <hr>
 
 
                 </form>
-                <form id="eliminarAdmin"
+               <!-- <form id="eliminarAdmin"
                       action="/eliminarAdmin"
                       method="POST">
                     <div class="form-group">
@@ -117,7 +117,7 @@
                             Eliminar
                         </button>
                     </div>
-                </form>
+                </form>-->
             </div>
         </div>
     </div>
